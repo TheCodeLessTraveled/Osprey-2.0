@@ -1,0 +1,67 @@
+﻿2021-04-21
+<Save As> is fixed.
+<Rename> is fixed.
+Form1.AcceptButton this button is in the upper left corner of the parent form and not visible. It is needed for when the user clicks the enter button. 
+                   It is a safe way to register the <Enter> press and giving the action a path to do nothing. This is used on the child explorer windows 
+				   when the user enters a path and clicks <Enter>.
+<Save>
+<Reset OspreyData.Xml> fixed.
+
+Child MDI Labels. Users must manually update the XML [label] attribute. But, by doing so they can add a label to the top of each child window. Default is the uri. 
+
+
+
+
+2021-02-13 
+<Save> functionality is working.            
+A new menu ComboBox is loaded on Form_Load by the function util_PopulateComboFromXML(). 
+util_PopulateComboFromXML() reads the OspryData.xml. For each "Instance" Node 
+reads the attribute named "Label" and fills the comboBox. No functionality beyond that.
+
+Naming convention:
+  Menu event handlers start with "Menu_" and are group alphabetically.
+  Helper functions start with "util_" and are grouped at the bottom.
+
+util_ResetOspreyDataXml. will recreate an empty OsperyData.xml file.
+
+
+ISSUES:
+-----------------------------------------------------------------------------------------------
+Similar tasks for creating and parsing the XmlDocument occurs in several methods.
+This should be consolidated with the XmlDoc at the instance level. private scope.
+
+util_SaveInstancePaths:			When saving the Instance data, the attribute "Label" needs a value. Currently, System.DateTime.Now 
+								is fullfilling this, but, obviously that is not a useful Instance label.
+
+
+Child form resizing :			This has been implemented, but, it seems sluggish to refresh. This only seems to be the case with
+								the more complicated multi-Instance version. The simple version does not seem sluggish. 
+								System.DateTime.Now is fullfilling the Instance Label value. Combobox is populated upon loading
+
+Open empty Instance:			Anytime an Instance node is empty, the user should be notified otherwise this would cause 
+								confusion because the user might not understand why they selected an instance to load,
+								but, no explorer windows rendered.            
+
+-----------------------------------------------------------------------------------------------
+
+
+2021-01-30
+Saving current session urls:
+* Don't enable the Save menuitems on Form_Load() because there is nothing to "save" at this point.
+* The user must either     1. Initiate a new child file explorer (now there is something to save) 
+*                          2. Select an instance to load the child explorer windows. (now there is something to save)        
+     
+ 3 <Save> scenarios:
+				1.	Save. User's first-time save. No previous saves. 
+					Dev note:	First check the OspreyData.xml for Instance nodes. 
+			 					1a.	IF		count is 0, then build the node, insert the childnode, and save.
+             					1b.	ELSE	Overwrite. this could be a correction by the use to the child explorer list. 
+			 								remove the current nodes and replace with current session child explorer list.
+ 			 
+				2.	Save As:
+					Dev Note:	User to create a new node. This could be a copy of the current or it could be one that changed durring the session.
+               
+				3.  Rename:
+					Dev Notes:	User wants a differnt name for the current session instance. Keep the child explorer nodes untouched.
+             
+ 
