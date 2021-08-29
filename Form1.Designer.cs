@@ -56,13 +56,15 @@
             this.Menu_Edit_DeleteFolderGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_DeleteFolderGroup_DoDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View = new System.Windows.Forms.ToolStripMenuItem();
-            this.cascadeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileHorizonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tileVerticalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_View_CascadeAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_View_Horizontal = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_View_Vertical = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_View_ClearAll = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Help = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_Help_About = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_Help_OspreyHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_Help_LicenseInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.Timer01 = new System.Windows.Forms.Timer(this.components);
@@ -75,7 +77,6 @@
             this.ToolStrip_Button_AddFolder = new System.Windows.Forms.ToolStripButton();
             this.ToolStrip_Button_Save = new System.Windows.Forms.ToolStripButton();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
-            this.ospreyHelpChmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -335,9 +336,9 @@
             // Menu_View
             // 
             this.Menu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cascadeAllToolStripMenuItem,
-            this.tileHorizonalToolStripMenuItem,
-            this.tileVerticalToolStripMenuItem,
+            this.Menu_View_CascadeAll,
+            this.Menu_View_Horizontal,
+            this.Menu_View_Vertical,
             this.toolStripSeparator3,
             this.Menu_View_ClearAll});
             this.Menu_View.Name = "Menu_View";
@@ -345,26 +346,29 @@
             this.Menu_View.Text = "View";
             this.Menu_View.ToolTipText = "Reorganize to folder views.";
             // 
-            // cascadeAllToolStripMenuItem
+            // Menu_View_CascadeAll
             // 
-            this.cascadeAllToolStripMenuItem.Name = "cascadeAllToolStripMenuItem";
-            this.cascadeAllToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.cascadeAllToolStripMenuItem.Text = "Cascade All";
-            this.cascadeAllToolStripMenuItem.Click += new System.EventHandler(this.Menu_View_Cascade_Click);
+            this.Menu_View_CascadeAll.AutoSize = false;
+            this.Menu_View_CascadeAll.Name = "Menu_View_CascadeAll";
+            this.Menu_View_CascadeAll.Size = new System.Drawing.Size(152, 30);
+            this.Menu_View_CascadeAll.Text = "Cascade All";
+            this.Menu_View_CascadeAll.Click += new System.EventHandler(this.Menu_View_Cascade_Click);
             // 
-            // tileHorizonalToolStripMenuItem
+            // Menu_View_Horizontal
             // 
-            this.tileHorizonalToolStripMenuItem.Name = "tileHorizonalToolStripMenuItem";
-            this.tileHorizonalToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.tileHorizonalToolStripMenuItem.Text = "Tile Horizontal";
-            this.tileHorizonalToolStripMenuItem.Click += new System.EventHandler(this.Menu_View_Horizontal_Click);
+            this.Menu_View_Horizontal.AutoSize = false;
+            this.Menu_View_Horizontal.Name = "Menu_View_Horizontal";
+            this.Menu_View_Horizontal.Size = new System.Drawing.Size(152, 30);
+            this.Menu_View_Horizontal.Text = "Tile Horizontal";
+            this.Menu_View_Horizontal.Click += new System.EventHandler(this.Menu_View_Horizontal_Click);
             // 
-            // tileVerticalToolStripMenuItem
+            // Menu_View_Vertical
             // 
-            this.tileVerticalToolStripMenuItem.Name = "tileVerticalToolStripMenuItem";
-            this.tileVerticalToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
-            this.tileVerticalToolStripMenuItem.Text = "Tile Vertical";
-            this.tileVerticalToolStripMenuItem.Click += new System.EventHandler(this.Menu_View_Vertical_Click);
+            this.Menu_View_Vertical.AutoSize = false;
+            this.Menu_View_Vertical.Name = "Menu_View_Vertical";
+            this.Menu_View_Vertical.Size = new System.Drawing.Size(152, 30);
+            this.Menu_View_Vertical.Text = "Tile Vertical";
+            this.Menu_View_Vertical.Click += new System.EventHandler(this.Menu_View_Vertical_Click);
             // 
             // toolStripSeparator3
             // 
@@ -374,8 +378,9 @@
             // 
             // Menu_View_ClearAll
             // 
+            this.Menu_View_ClearAll.AutoSize = false;
             this.Menu_View_ClearAll.Name = "Menu_View_ClearAll";
-            this.Menu_View_ClearAll.Size = new System.Drawing.Size(150, 22);
+            this.Menu_View_ClearAll.Size = new System.Drawing.Size(152, 30);
             this.Menu_View_ClearAll.Text = "Clear All";
             this.Menu_View_ClearAll.ToolTipText = "Unload the currently viewed folder group from the parent application window.";
             this.Menu_View_ClearAll.Click += new System.EventHandler(this.Menu_View_ClearAll_Click);
@@ -383,20 +388,38 @@
             // Menu_Help
             // 
             this.Menu_Help.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem,
-            this.ospreyHelpChmToolStripMenuItem});
+            this.Menu_Help_About,
+            this.Menu_Help_OspreyHelp,
+            this.Menu_Help_LicenseInfo});
             this.Menu_Help.Name = "Menu_Help";
             this.Menu_Help.Size = new System.Drawing.Size(44, 26);
             this.Menu_Help.Text = "Help";
             this.Menu_Help.ToolTipText = "Help";
             // 
-            // aboutToolStripMenuItem
+            // Menu_Help_About
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.ToolTipText = "Product Information";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.Menu_Help_About_Click);
+            this.Menu_Help_About.AutoSize = false;
+            this.Menu_Help_About.Name = "Menu_Help_About";
+            this.Menu_Help_About.Size = new System.Drawing.Size(152, 30);
+            this.Menu_Help_About.Text = "About";
+            this.Menu_Help_About.ToolTipText = "Product Information";
+            this.Menu_Help_About.Click += new System.EventHandler(this.Menu_Help_About_Click);
+            // 
+            // Menu_Help_OspreyHelp
+            // 
+            this.Menu_Help_OspreyHelp.AutoSize = false;
+            this.Menu_Help_OspreyHelp.Name = "Menu_Help_OspreyHelp";
+            this.Menu_Help_OspreyHelp.Size = new System.Drawing.Size(152, 30);
+            this.Menu_Help_OspreyHelp.Text = "Osprey Help";
+            this.Menu_Help_OspreyHelp.Click += new System.EventHandler(this.ospreyHelpChmToolStripMenuItem_Click);
+            // 
+            // Menu_Help_LicenseInfo
+            // 
+            this.Menu_Help_LicenseInfo.AutoSize = false;
+            this.Menu_Help_LicenseInfo.Name = "Menu_Help_LicenseInfo";
+            this.Menu_Help_LicenseInfo.Size = new System.Drawing.Size(152, 30);
+            this.Menu_Help_LicenseInfo.Text = "License Info";
+            this.Menu_Help_LicenseInfo.Click += new System.EventHandler(this.Menu_Help_LicenseInfo_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -413,7 +436,7 @@
             // 
             // Timer01
             // 
-            this.Timer01.Interval = 300;
+            this.Timer01.Interval = 200;
             this.Timer01.Tick += new System.EventHandler(this.Timer01_Tick);
             // 
             // btn_AcceptButton
@@ -499,13 +522,6 @@
             this.ToolStrip_Button_Save.ToolTipText = "Save this group\'s folder settings";
             this.ToolStrip_Button_Save.Click += new System.EventHandler(this.Menu_File_Save_Click_1);
             // 
-            // ospreyHelpChmToolStripMenuItem
-            // 
-            this.ospreyHelpChmToolStripMenuItem.Name = "ospreyHelpChmToolStripMenuItem";
-            this.ospreyHelpChmToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.ospreyHelpChmToolStripMenuItem.Text = "Osprey Help";
-            this.ospreyHelpChmToolStripMenuItem.Click += new System.EventHandler(this.ospreyHelpChmToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AcceptButton = this.btn_AcceptButton;
@@ -541,12 +557,12 @@
         private System.Windows.Forms.ToolStripMenuItem Menu_File;
         private System.Windows.Forms.ToolStripMenuItem Menu_File_NewFileExplorer;
         private System.Windows.Forms.ToolStripMenuItem Menu_View;
-        private System.Windows.Forms.ToolStripMenuItem cascadeAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tileHorizonalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tileVerticalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Menu_View_CascadeAll;
+        private System.Windows.Forms.ToolStripMenuItem Menu_View_Horizontal;
+        private System.Windows.Forms.ToolStripMenuItem Menu_View_Vertical;
         private System.Windows.Forms.Timer Timer01;
         private System.Windows.Forms.ToolStripMenuItem Menu_Help;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Help_About;
         private System.Windows.Forms.ToolStripMenuItem Menu_File_Save;
         private System.Windows.Forms.ToolStripMenuItem Menu_File_Open;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -583,7 +599,8 @@
         private System.Windows.Forms.ToolStripButton ToolStrip_Button_Save;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.HelpProvider helpProvider1;
-        private System.Windows.Forms.ToolStripMenuItem ospreyHelpChmToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Help_OspreyHelp;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Help_LicenseInfo;
     }
 }
 

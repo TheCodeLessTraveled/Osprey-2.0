@@ -58,5 +58,17 @@ namespace CodeLessTraveled.Osprey.Properties {
                 this["LastFolderTeam"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AltOspreyDataXml {
+            get {
+                return ((string)(this["AltOspreyDataXml"]));
+            }
+            set {
+                this["AltOspreyDataXml"] = value;
+            }
+        }
     }
 }

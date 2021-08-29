@@ -14,8 +14,7 @@ namespace CodeLessTraveled.Osprey
         string HelpPath = System.IO.Path.Combine(Application.StartupPath,"Osprey Help.chm");
         private List<ChildExplorer> ArrayChildExplorer = new List<ChildExplorer>();
         private List<string> listInstances = new List<string>();
-        //private string path_OspreyDataXml = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Code Less Traveled", "Osprey", "OspreyData.xml");
-        private string path_OspreyDataXml = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "The Code Less Traveled", "Osprey", "OspreyData.xml");
+        private string m_OspreyDataXml;
         
         private System.Drawing.Color    Status_DefaultBackColor ;
         private System.Drawing.Color    Status_DefaultForeColor;
@@ -96,12 +95,24 @@ namespace CodeLessTraveled.Osprey
             System.Drawing.Point SavedLocation = new System.Drawing.Point(SavedLeft, SavedTop);
              this.Location = SavedLocation;
 
+             if (!String.IsNullOrEmpty(Properties.Settings.Default.AltOspreyDataXml))
+             {
+                 m_OspreyDataXml = Properties.Settings.Default.AltOspreyDataXml;
+             }
+             else
+             {
+                 m_OspreyDataXml = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "The Code Less Traveled", "Osprey", "OspreyData.xml");
+             }
+
             // LastTeamFolder
             b_OnLoad = true;
 
-            if (!System.IO.File.Exists(path_OspreyDataXml))
+            
+
+
+            if (!System.IO.File.Exists(m_OspreyDataXml))
             {
-                string OspreyDataXmlDirectory = System.IO.Path.GetDirectoryName(path_OspreyDataXml);
+                string OspreyDataXmlDirectory = System.IO.Path.GetDirectoryName(m_OspreyDataXml);
                 System.IO.Directory.CreateDirectory(OspreyDataXmlDirectory);
                 util_ResetOspreyDataXml();
 
@@ -112,19 +123,12 @@ namespace CodeLessTraveled.Osprey
                                         // there is nothing to open. Instead, leave them with no option except to create new Folder Teams.
             
             string LastSavedFolderTeam = Properties.Settings.Default.LastFolderTeam.Trim();
-            ////////////////////////////////////if (!String.IsNullOrEmpty(LastSavedFolderTeam))
-            ////////////////////////////////////{
-            ////////////////////////////////////    util_LoadFromXML(LastSavedFolderTeam);
-            ////////////////////////////////////    this.m_LoadedFolderTeamName = LastSavedFolderTeam;
-            ////////////////////////////////////}
             b_OnLoad = false;
 
 
             this.Status_DefaultBackColor  = this.lblStausMessage.BackColor;
             this.Status_DefaultForeColor  = this.lblStausMessage.ForeColor;
             this.Status_DefaultFont       = this.lblStausMessage.Font;
-            //Status_DefaultFont = new System.Drawing.Font("Consolas", 10);
-            //string x = "";
             
         }
 
@@ -158,11 +162,10 @@ namespace CodeLessTraveled.Osprey
                     OspreyNode.RemoveChild(FolderTeam);
                 }
 
-                xDocOspreyDataXml.Save(path_OspreyDataXml);
+                xDocOspreyDataXml.Save(m_OspreyDataXml);
 
                 string DeleteTeamName = this.m_LoadedFolderTeamName[idx_FTeamNodeName];
                 
-                //this.m_LoadedFolderTeamName = null;
                 util_SetCurrentLoadedFolderTeamName(null);
                 
                 ShowStatusMessage(String.Format("Deleted {0}.", DeleteTeamName), System.Drawing.Color.DarkRed, Status_DefaultBackColor);
@@ -183,11 +186,11 @@ namespace CodeLessTraveled.Osprey
 
             psi.FileName = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe");
 
-            string args = "\"" + path_OspreyDataXml + "\"";
+            string args = "\"" + m_OspreyDataXml + "\"";
 
             psi.Arguments = String.Format(@"/select," + args);
 
-            psi.WorkingDirectory = path_OspreyDataXml;
+            psi.WorkingDirectory = m_OspreyDataXml;
 
             psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
 
@@ -247,8 +250,6 @@ namespace CodeLessTraveled.Osprey
             {
                 if (!String.IsNullOrEmpty(Menu_File_NewGroup_TextBox.Text))
                 {
-
-                    //bool b_SaveIsGood =  SaveMain(NodeChangeType.NewGroup, Menu_File_NewGroup_TextBox.Text.Trim());
                     SaveResults SaveValue = SaveMain(NodeChangeType.NewGroup, Menu_File_NewGroup_TextBox.Text.Trim());
                     
                     if (SaveValue == SaveResults.Saved)
@@ -319,28 +320,12 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-        //private void Menu_File_ResetOspreyDataXML_Click(object sender, EventArgs e)
-        //{
-        //    // force a doubleclick as a precaution (trigger safty) to deleting the data.
-           
-        //}
-
-        //private void Menu_File_ResetOspreyDataXML_DoubleClick(object sender, EventArgs e)
-        //{
-        //    util_ResetOspreyDataXml();
-        //    m_LoadedFolderTeamName = "";
-        //    util_SetControlsPerXml();
-        //}
-
-      
-      
+        
         private void Menu_File_Save_Click_1(object sender, EventArgs e)
         {
             // assume there is something already loaded from the XML configuration file, OspreyData.xml.
             SaveMain(NodeChangeType.Save, m_LoadedFolderTeamName[idx_FTeamNodeName]);
             util_SetControlsPerXml();
-           
-            //Timer01.Enabled = true;
         }
        
         private void Menu_File_SaveAs_Texbox1_KeyUp(object sender, KeyEventArgs e)
@@ -364,9 +349,7 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-        
-
-
+    
         private void Menu_Help_About_Click(object sender, EventArgs e)
         {
             frmHelpAbout frmAbout = new frmHelpAbout();
@@ -378,9 +361,9 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_View_Refresh()
         {
-            cascadeAllToolStripMenuItem.Checked = false;
-            tileHorizonalToolStripMenuItem.Checked = false;
-            tileVerticalToolStripMenuItem.Checked = false;
+            Menu_View_CascadeAll.Checked = false;
+            Menu_View_Horizontal.Checked = false;
+            Menu_View_Vertical.Checked = false;
 
 
         }
@@ -389,7 +372,7 @@ namespace CodeLessTraveled.Osprey
         {
             this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
             Menu_View_Refresh();
-            cascadeAllToolStripMenuItem.Checked = true;
+            Menu_View_CascadeAll.Checked = true;
             
         }
 
@@ -399,7 +382,7 @@ namespace CodeLessTraveled.Osprey
             this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
 
             Menu_View_Refresh();
-            tileHorizonalToolStripMenuItem.Checked = true;
+            Menu_View_Horizontal.Checked = true;
         }
 
 
@@ -408,7 +391,7 @@ namespace CodeLessTraveled.Osprey
             this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
 
             Menu_View_Refresh();
-            tileVerticalToolStripMenuItem.Checked = true;
+            Menu_View_Vertical.Checked = true;
         }
 
 
@@ -530,7 +513,7 @@ namespace CodeLessTraveled.Osprey
                                 XmlNode nChildFileExplorerUri = xDocOspreyDataXml.CreateNode(XmlNodeType.Element, "ChildExplorer", "");
 
                                 XmlAttribute atLabel = xDocOspreyDataXml.CreateAttribute("label");
-                                atLabel.Value = ""; //childForm.FolderPathText;
+                                atLabel.Value = ""; 
                                 nChildFileExplorerUri.Attributes.Append(atLabel);
 
                                 XmlAttribute atUri = xDocOspreyDataXml.CreateAttribute("uri");
@@ -555,7 +538,7 @@ namespace CodeLessTraveled.Osprey
                         OspreyNode.AppendChild(FolderTeamNode);
                     }
 
-                    xDocOspreyDataXml.Save(this.path_OspreyDataXml);
+                    xDocOspreyDataXml.Save(this.m_OspreyDataXml);
 
                     string SaveMessage = String.Format("Saved \"{0}\"",NewNodeName);
  
@@ -580,7 +563,7 @@ namespace CodeLessTraveled.Osprey
         {
             XmlDocument xDocOspreyDataXml = new XmlDocument();
 
-            xDocOspreyDataXml.Load(this.path_OspreyDataXml);
+            xDocOspreyDataXml.Load(this.m_OspreyDataXml);
 
             return xDocOspreyDataXml;
         }
@@ -701,7 +684,7 @@ namespace CodeLessTraveled.Osprey
                             ShowStatusMessage(ErrMsg02, System.Drawing.Color.Black, System.Drawing.Color.Orange, ErrMsg02, System.Drawing.Color.DarkOrange, DefaultBackColor);
                         }
                     }
-                    //listNames.("-- Select --");
+   
                     listNames.Sort();
 
                     this.Menu_File_Open_CboBox.Enabled  = true;
@@ -746,7 +729,7 @@ namespace CodeLessTraveled.Osprey
 
             sbXML.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             sbXML.Append("<Osprey></Osprey>");
-            System.IO.StreamWriter sw = new System.IO.StreamWriter(path_OspreyDataXml, false, System.Text.Encoding.UTF8);
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(m_OspreyDataXml, false, System.Text.Encoding.UTF8);
             sw.WriteLine(sbXML.ToString());
             sw.Flush();
             sw.Close();
@@ -761,7 +744,6 @@ namespace CodeLessTraveled.Osprey
 
         private void btn_AcceptButton_Click(object sender, EventArgs e)
         {
-            //string x = "";
         }
 
         private void btnClearClearAll_Click(object sender, EventArgs e)
@@ -871,6 +853,13 @@ namespace CodeLessTraveled.Osprey
         private void ospreyHelpChmToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Help.ShowHelp(this, helpProvider1.HelpNamespace, HelpNavigator.TableOfContents);
+        }
+
+        private void Menu_Help_LicenseInfo_Click(object sender, EventArgs e)
+        {
+            frmLicenseInfo frmLicInfo = new frmLicenseInfo();
+            frmLicInfo.MdiParent = this;
+            frmLicInfo.Show();
         }
 
      

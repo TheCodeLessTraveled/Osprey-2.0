@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHelpAbout));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label4 = new System.Windows.Forms.Label();
             this.txtBoxProductDetail = new System.Windows.Forms.TextBox();
@@ -61,7 +60,8 @@
             this.splitContainer1.Panel2.Controls.Add(this.label3);
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.btnOK);
-            this.splitContainer1.Size = new System.Drawing.Size(603, 354);
+            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
+            this.splitContainer1.Size = new System.Drawing.Size(562, 334);
             this.splitContainer1.SplitterDistance = 25;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -76,36 +76,39 @@
             // 
             // txtBoxProductDetail
             // 
+            this.txtBoxProductDetail.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxProductDetail.Location = new System.Drawing.Point(25, 120);
             this.txtBoxProductDetail.Multiline = true;
             this.txtBoxProductDetail.Name = "txtBoxProductDetail";
             this.txtBoxProductDetail.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtBoxProductDetail.Size = new System.Drawing.Size(478, 151);
+            this.txtBoxProductDetail.Size = new System.Drawing.Size(509, 120);
             this.txtBoxProductDetail.TabIndex = 5;
-            this.txtBoxProductDetail.Text = resources.GetString("txtBoxProductDetail.Text");
+            this.txtBoxProductDetail.Text = "Thank you for installing Osprey. I hope this tool will help you organize your fol" +
+    "der \r\nwindows and make your job easier.";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(22, 20);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(191, 52);
+            this.label3.Size = new System.Drawing.Size(213, 52);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Developer: Chuck Lavergne\r\nVersion : 2.0.0\r\n© 2021 Osprey by Code Less Traveled\r\n" +
-    "\r\n";
+            this.label3.Text = "Developer: Chuck Lavergne\r\nVersion : 2.0.0\r\n© 2021 Osprey by The Code Less Travel" +
+    "ed\r\n\r\n";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 101);
+            this.label2.Location = new System.Drawing.Point(22, 104);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 13);
+            this.label2.Size = new System.Drawing.Size(85, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "License Information";
+            this.label2.Text = "Customer Notice";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(522, 284);
+            this.btnOK.Location = new System.Drawing.Point(463, 273);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(71, 24);
             this.btnOK.TabIndex = 0;
@@ -117,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 354);
+            this.ClientSize = new System.Drawing.Size(562, 334);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

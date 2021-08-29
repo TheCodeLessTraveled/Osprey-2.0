@@ -42,22 +42,6 @@ namespace CodeLessTraveled.Osprey
             this.Left = (ParW - ChW)/2;
             this.Top = (ParH - ChH)/2;
             
-            //sb.AppendLine(Parent.Name + Environment.NewLine);
-            //sb.AppendLine("Parent Width" + Parent.Width.ToString() + Environment.NewLine);
-            //sb.AppendLine("Parent Height" + Parent.Height.ToString() + Environment.NewLine);
-
-            //sb.AppendLine("Child Width" + this.Width.ToString() + Environment.NewLine);
-            //sb.AppendLine("Child  Height" + this.Height.ToString() + Environment.NewLine);
-            
-            //sb.AppendLine("x = " + this.Location.X + Environment.NewLine);
-            //sb.AppendLine("y = " + this.Location.Y + Environment.NewLine);
-
-           // MessageBox.Show(sb.ToString());
-
-            
-
-
-            
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -71,6 +55,16 @@ namespace CodeLessTraveled.Osprey
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }
