@@ -189,10 +189,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>call signtool.exe sign /t http://timestamp.sectigo.com  /f "C:\Users\TheFam\Documents\Family.Chuck\Technical\CodeSigning\SectigoCodeSigningCert\Certificate.pfx" /p "1970ChevyChevelle454LS6" "$(ProjectDir)obj\$(PlatformName)\$(ConfigurationName)\$(TargetFileName)"
-
-call signtool.exe sign /a /as /tr http://timestamp.sectigo.com  /td sha256 /fd sha256  /f "C:\Users\TheFam\Documents\Family.Chuck\Technical\CodeSigning\SectigoCodeSigningCert\Certificate.pfx" /p "1970ChevyChevelle454LS6" /v "$(ProjectDir)obj\$(PlatformName)\$(ConfigurationName)\$(TargetFileName)"
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
