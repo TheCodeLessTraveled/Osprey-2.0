@@ -79,7 +79,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -129,7 +128,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
-    <None Include="Documents\Dev Notes.docx" />
     <Content Include="Osprey Help.chm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -174,9 +172,10 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Documents\Dev Notes.txt" />
+    <Folder Include="Documents\" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\Orange_Save_20.png" />
     <None Include="Resources\Orange_Add_Folder_20.png" />
     <None Include="Resources\LightBlue_Save_20.png" />

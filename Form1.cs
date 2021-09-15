@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Configuration;
 using System.Xml.XPath;
 using System.Xml;
 
