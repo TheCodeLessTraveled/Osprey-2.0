@@ -1,4 +1,6 @@
 # Osprey
+![GitHub all releases](https://img.shields.io/github/downloads/TheCodeLessTraveled/Osprey-2.0/total?color=green)
+
 <p>Osprey is a Windows application tool intended for IT professionals to monitor groups of folders and the activity within them by collecting and organizing the File Explorer windows into one parent window. These settings are easily saved and reloaded as needed.
  </p>
  <p><b>PROBLEM EXPLAINED</b>
