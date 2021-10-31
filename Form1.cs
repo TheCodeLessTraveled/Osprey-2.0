@@ -118,8 +118,8 @@ namespace CodeLessTraveled.Osprey
              /* Populate [Menu_File_SelectDataFile_CboBox].
               *  1.  Get the list of files. First check for a saved alternate location from the Property.Settings. 
               *  2.  Populate [Menu_File_SelectDataFile_CboBox]
-              *  3.  If the a filename is saved as a Property.Setting, load the [Menu_File_Open_CboBox] with the file data.
-              *      Else  wait for use to select from the Menu_File_Open_CboBox
+              *  3.  If the a filename is saved as a Property.Setting, load the [Menu_File_SelectGroup_CboBox] with the file data.
+              *      Else  wait for use to select from the Menu_File_SelectGroup_CboBox
               */
       
             string Saved_FolderPath = Properties.Settings.Default.AltOspreyDataFolder;
@@ -312,7 +312,7 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-        private void Menu_File_Open_CboBox_KeyUp(object sender, KeyEventArgs e)
+        private void Menu_File_SelectGroup_CboBox_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -320,12 +320,12 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-        private void Menu_File_Open_CboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void Menu_File_SelectGroup_CboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             ClearAllChildWindows();
 
-            util_SetCurrentLoadedFolderTeamName(Menu_File_Open_CboBox.Text); //m_LoadedFolderTeamName = Menu_File_Open_CboBox.Text;
+            util_SetCurrentLoadedFolderTeamName(Menu_File_SelectGroup_CboBox.Text); //m_LoadedFolderTeamName = Menu_File_SelectGroup_CboBox.Text;
 
             Menu_File.HideDropDown();
 
@@ -392,7 +392,7 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-        private void Menu_File_SelectDataFile_CboBox_KeyUp(object sender, KeyEventArgs e)
+        private void Menu_File_OpenDataFile_CboBox_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -400,26 +400,25 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-        private void Menu_File_SelectDataFile_CboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void Menu_File_OpenDataFile_CboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ClearAllChildWindows();
 
-            Menu_File.HideDropDown();
+            //Menu_File.HideDropDown();
 
             m_OspreyDataXmlFileName = Menu_File_SelectDataFile_CboBox.Text;
 
-            //Populate the Open combobox
+            //Populate the SelectGoup combobox
             this.m_OspreyDataXmlFullPath = System.IO.Path.Combine(m_OspreyDataXmlFolderPath, m_OspreyDataXmlFileName);
+
+            string Msg01 = String.Format("File selected: {0}", m_OspreyDataXmlFileName);
+
+            ShowStatusMessage(Msg01, Status_DefaultForeColor,Status_DefaultBackColor);
+                 
 
             util_SetControlsPerXml();
 
-            //if (Menu_File_SelectDataFile_CboBox.Items.Contains(m_OspreyDataXmlFileName))
-            //{                                                                               //  Among other UI settings, this will enable the[Menu] -> [File] -> [Open] control if the user's OspreyData.xml has entries.
-            //    Menu_File_SelectDataFile_CboBox.Text = m_OspreyDataXmlFileName;             //  Initially, OspreyData.xml is empty. You don't want the first experience of the user to try to use the [Open] control when 
-            //                                                                                //  there is nothing to open. Instead, leave them with no option except to create new Folder Teams.
-            //    util_SetControlsPerXml();
-            //}           
-        }
+           }
 
 
         
@@ -650,27 +649,7 @@ namespace CodeLessTraveled.Osprey
             return xDocOspreyDataXml;
         }
 
-        private void util_SetDataXmlFileList(string DataFolderPath)
-        {
-            //m_ArrayDataXmlFiles 
-            
-            List<string> ListFiles = new List<string>();
-
-            System.IO.DirectoryInfo di_DataFolder = new System.IO.DirectoryInfo(DataFolderPath);
-
-            System.IO.FileInfo[] fi_files = di_DataFolder.GetFiles("*.xml");
-
-            var names = from f in fi_files
-                        select f.Name;
-                        //select f.Name.Replace(f.Extension,"");
-
-            ListFiles.AddRange(names);
-
-            this.Menu_File_SelectDataFile_CboBox.Items.AddRange(names.ToArray());
-
-            
-        
-        }
+     
         private void util_LoadFromXML(string FolderTeamName)
         {
             // Load a group of folders (an Instance) for the passed value, "FolderTeamName".
@@ -691,7 +670,7 @@ namespace CodeLessTraveled.Osprey
 
             if (SelectedFolderTeam != null)
             {
-                this.Text = String.Format("Osprey [{0}]", FolderTeamName);
+                //this.Text = String.Format("Osprey [{0}]", FolderTeamName);
                 
                 XmlNodeList ExplorerChildren = SelectedFolderTeam.ChildNodes;
 
@@ -755,7 +734,7 @@ namespace CodeLessTraveled.Osprey
 
             System.Collections.Generic.List<string> listNames = new System.Collections.Generic.List<string>();
 
-            this.Menu_File_Open_CboBox.Items.Clear();
+            this.Menu_File_SelectGroup_CboBox.Items.Clear();
             this.Menu_File_NewFileExplorer.Enabled     = true;
             this.Menu_File_NewGroup_TextBox.Text       = "";
             this.Menu_File_Rename_TextBox.Text         = "";
@@ -766,14 +745,14 @@ namespace CodeLessTraveled.Osprey
                 // If "No", disable the relevant controls which will be enables once data is saved to the XML data file.
                 if (xmlFolderTeamNodes.Count == 0)
                 {   // There are no entries in the xml configuration file. So, there is nothing to load and these controls should be disabled.
-                    this.Menu_File_Open.Enabled             = false;
-                    this.Menu_File_Open_CboBox.Enabled      = false;
-                    this.Menu_File_Save.Enabled             = false;
-                    this.ToolStrip_Button_Save.Enabled      = false;
-                    this.Menu_File_SaveAs.Enabled           = false;
-                    this.Menu_File_Rename.Enabled           = false;
-                    this.Menu_View_ClearAll.Enabled         = false;
-                    this.Menu_Edit_DeleteFolderGroup.Enabled = false;
+                    this.Menu_File_SelectGroup.Enabled             = false;
+                    this.Menu_File_SelectGroup_CboBox.Enabled      = false;
+                    this.Menu_File_Save.Enabled                    = false;
+                    this.ToolStrip_Button_Save.Enabled             = false;
+                    this.Menu_File_SaveAs.Enabled                  = false;
+                    this.Menu_File_Rename.Enabled                  = false;
+                    this.Menu_View_ClearAll.Enabled                = false;
+                    this.Menu_Edit_DeleteFolderGroup.Enabled       = false;
                
                 }
                 // If "Yes", enable controls. A TeamFolder node was selected through the UI.
@@ -798,20 +777,35 @@ namespace CodeLessTraveled.Osprey
    
                     listNames.Sort();
 
-                    this.Menu_File_Open_CboBox.Enabled  = true;
-                    this.Menu_File_Open_CboBox.Text     = "-- Select --";
-                    this.Menu_File_Open_CboBox.Items.AddRange(listNames.ToArray());
-                
-                    this.Menu_File_Open.Enabled              = true;
-                    this.Menu_File_Open_CboBox.Enabled       = true;
-                    this.Menu_File_Save.Enabled              = true;
-                    this.Menu_File_SaveAs.Enabled            = true;
-                    this.Menu_File_Rename.Enabled            = true;
+                    this.Menu_File_SelectGroup_CboBox.Enabled  = true;
+                    this.Menu_File_SelectGroup_CboBox.Text     = "-- Select --";
+                    this.Menu_File_SelectGroup_CboBox.Items.AddRange(listNames.ToArray());
+
+                    this.Menu_File_SelectGroup.Enabled           = true;
+                    this.Menu_File_SelectGroup_CboBox.Enabled    = true;
+                    this.Menu_File_Save.Enabled                  = true;
+                    this.Menu_File_SaveAs.Enabled                = true;
+                    this.Menu_File_Rename.Enabled                = true;
                 }
 
-                if (m_LoadedFolderTeamName[idx_FTeamNodeName] == null)
+                string FormTextTemplate = "Osprey {0} {1}";
+                string SelectedFileName = null;
+                string SelectedFolderTeam = null;
+
+                //if (!String.IsNullOrEmpty(Menu_File_SelectDataFile_CboBox.Text))
+                if (!String.IsNullOrEmpty(m_OspreyDataXmlFileName))
                 {
-                    this.Text = "Osprey";
+                    SelectedFileName = String.Format("[{0}]", m_OspreyDataXmlFileName.Trim());
+                }
+
+                if (!String.IsNullOrEmpty(m_LoadedFolderTeamName[idx_FTeamDisplayName]))
+                {
+                    SelectedFolderTeam = String.Format("[{0}]", m_LoadedFolderTeamName[idx_FTeamDisplayName]);
+                }
+                
+            if (m_LoadedFolderTeamName[idx_FTeamNodeName] == null)
+                {
+                    //this.Text = "Osprey";
                     this.ToolStrip_Button_Save.Enabled       = false;
                     this.ToolStrip_Button_AddFolder.Enabled  = false;
                     this.Menu_File_NewFileExplorer.Enabled   = false;
@@ -823,14 +817,39 @@ namespace CodeLessTraveled.Osprey
                }
                 else
                 {
-                    this.Text = String.Format("Osprey [{0}]", m_LoadedFolderTeamName[idx_FTeamDisplayName]);
+                    //this.Text = String.Format("Osprey [{0}]", m_LoadedFolderTeamName[idx_FTeamDisplayName]);
                     this.ToolStrip_Button_Save.Enabled       = true;
                     this.ToolStrip_Button_AddFolder.Enabled  = true;
                     this.Menu_View_ClearAll.Enabled          = true;
                     this.Menu_Edit_DeleteFolderGroup.Enabled = true;
 
                 }
+
+            this.Text = String.Format(FormTextTemplate, SelectedFileName, SelectedFolderTeam);
         }
+
+
+        private void util_SetDataXmlFileList(string DataFolderPath)
+        {
+            //m_ArrayDataXmlFiles 
+
+            List<string> ListFiles = new List<string>();
+
+            System.IO.DirectoryInfo di_DataFolder = new System.IO.DirectoryInfo(DataFolderPath);
+
+            System.IO.FileInfo[] fi_files = di_DataFolder.GetFiles("*.xml");
+
+            var names = from f in fi_files
+                        select f.Name;
+       
+            ListFiles.AddRange(names);
+
+            this.Menu_File_SelectDataFile_CboBox.Items.AddRange(names.ToArray());
+
+
+
+        }
+
 
         private void util_ResetOspreyDataXml()
         {
