@@ -62,12 +62,24 @@ namespace CodeLessTraveled.Osprey.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AltOspreyDataXml {
+        public string AltOspreyDataFolder {
             get {
-                return ((string)(this["AltOspreyDataXml"]));
+                return ((string)(this["AltOspreyDataFolder"]));
             }
             set {
-                this["AltOspreyDataXml"] = value;
+                this["AltOspreyDataFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("beer")]
+        public string LastXmlFileName {
+            get {
+                return ((string)(this["LastXmlFileName"]));
+            }
+            set {
+                this["LastXmlFileName"] = value;
             }
         }
     }

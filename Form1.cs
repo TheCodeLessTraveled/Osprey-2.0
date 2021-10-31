@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Xml.XPath;
 using System.Xml;
+using System.Linq;
 
 
 namespace CodeLessTraveled.Osprey
@@ -12,22 +13,30 @@ namespace CodeLessTraveled.Osprey
     {
         string HelpPath = System.IO.Path.Combine(Application.StartupPath,"Osprey Help.chm");
         private List<ChildExplorer> ArrayChildExplorer = new List<ChildExplorer>();
-        private List<string> listInstances = new List<string>();
-        private string m_OspreyDataXml;
-        
+
+        // Variables used for data files and their XML contents.
+        private List<string> m_ArrayDataXmlFiles = new List<string>();
+        private string m_OspreyDataXmlFolderPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "The Code Less Traveled", "Osprey");
+        private string m_OspreyDataXmlFileName = "OspreyData.xml";
+        private string m_OspreyDataXmlFullPath; 
+
+
+        // Variables used for displaying messages in the lblStausMessage control.
         private System.Drawing.Color    Status_DefaultBackColor ;
         private System.Drawing.Color    Status_DefaultForeColor;
         private System.Drawing.Font     Status_DefaultFont;
+        
         private string                  Status_Message;
         private System.Drawing.Color    Status_BackColor;
         private System.Drawing.Color    Status_ForeColor;
+        
         private string                  Status_Message2;
         private System.Drawing.Color    Status_BackColor2;
         private System.Drawing.Color    Status_ForeColor2;
 
         private int                     Status_TimerCount= 0;
-
-        private bool b_ShowMessages   = true; // add this to settings upon exit.
+        private bool                    b_ShowMessages   = true; // add this to settings upon exit.
+        
         private bool b_OnLoad         = false;
        
         private string[]    m_LoadedFolderTeamName ;      // This array holds to two elements [0]= folder team name, [1]=folder team display name.
@@ -52,6 +61,13 @@ namespace CodeLessTraveled.Osprey
             Properties.Settings.Default.Form1Location   = this.Location;
             Properties.Settings.Default.Form1Size       = this.Size;
             Properties.Settings.Default.LastFolderTeam  = m_LoadedFolderTeamName[idx_FTeamNodeName];
+            if (!m_OspreyDataXmlFileName.EndsWith(".xml"))
+            {
+                m_OspreyDataXmlFileName += ".xml";
+            }
+
+            Properties.Settings.Default.LastXmlFileName = m_OspreyDataXmlFileName;
+
             Properties.Settings.Default.Save();
 
         }
@@ -68,6 +84,7 @@ namespace CodeLessTraveled.Osprey
              *                          2. Select an instance to load the child explorer windows. (now there is something to save)        
              * 
              */
+   
             helpProvider1.HelpNamespace = this.HelpPath;
 
             m_LoadedFolderTeamName = new string[2] {null, null};
@@ -92,29 +109,59 @@ namespace CodeLessTraveled.Osprey
             int SavedLeft = Properties.Settings.Default.Form1Location.X;
             int SavedTop  = Properties.Settings.Default.Form1Location.Y;
             System.Drawing.Point SavedLocation = new System.Drawing.Point(SavedLeft, SavedTop);
-             this.Location = SavedLocation;
+            this.Location = SavedLocation;
 
-             if (!String.IsNullOrEmpty(Properties.Settings.Default.AltOspreyDataXml))
-             {
-                 m_OspreyDataXml = Properties.Settings.Default.AltOspreyDataXml;
-             }
-             else
-             {
-                 m_OspreyDataXml = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "The Code Less Traveled", "Osprey", "OspreyData.xml");
-             }
+            this.Status_DefaultBackColor = this.lblStausMessage.BackColor;
+            this.Status_DefaultForeColor = this.lblStausMessage.ForeColor;
+            this.Status_DefaultFont = this.lblStausMessage.Font;
 
-            // LastTeamFolder
-            b_OnLoad = true;
+             /* Populate [Menu_File_SelectDataFile_CboBox].
+              *  1.  Get the list of files. First check for a saved alternate location from the Property.Settings. 
+              *  2.  Populate [Menu_File_SelectDataFile_CboBox]
+              *  3.  If the a filename is saved as a Property.Setting, load the [Menu_File_Open_CboBox] with the file data.
+              *      Else  wait for use to select from the Menu_File_Open_CboBox
+              */
+      
+            string Saved_FolderPath = Properties.Settings.Default.AltOspreyDataFolder;
+            string Saved_FileName   = Properties.Settings.Default.LastXmlFileName;
+
+            if (!String.IsNullOrEmpty(Saved_FolderPath) && System.IO.Directory.Exists(Saved_FolderPath))    // #1 Get the list of files. First check for a saved alternate location in the Property.Settings.
+            {
+                m_OspreyDataXmlFolderPath = Properties.Settings.Default.AltOspreyDataFolder;
+            }
+         
+            util_SetDataXmlFileList(m_OspreyDataXmlFolderPath);                                             // #2, Populate [Menu_File_SelectDataFile_CboBox.]
+
+
+
+            if (!String.IsNullOrEmpty(Saved_FileName))
+            {
+                if (!Saved_FileName.EndsWith(".xml"))
+                {
+                    Saved_FileName += ".xml";
+                }
+                m_OspreyDataXmlFileName = Saved_FileName;
+           
+                this.m_OspreyDataXmlFullPath = System.IO.Path.Combine(m_OspreyDataXmlFolderPath, m_OspreyDataXmlFileName);
+                
+                if (Menu_File_SelectDataFile_CboBox.Items.Contains(Saved_FileName))
+                {                                                                   //  Among other UI settings, this will enable the[Menu] -> [File] -> [Open] control if the user's OspreyData.xml has entries.
+                    Menu_File_SelectDataFile_CboBox.Text = Saved_FileName;          //  Initially, OspreyData.xml is empty. You don't want the first experience of the user to try to use the [Open] control when 
+                                                                                    //  there is nothing to open. Instead, leave them with no option except to create new Folder Teams.
+                    util_SetControlsPerXml();                                       
+                }           
+            }
 
             
 
-
-            if (!System.IO.File.Exists(m_OspreyDataXml))
+            
+            b_OnLoad = true;
+            /*
+            if (!System.IO.File.Exists(m_OspreyDataXmlFullPath))
             {
-                string OspreyDataXmlDirectory = System.IO.Path.GetDirectoryName(m_OspreyDataXml);
-                System.IO.Directory.CreateDirectory(OspreyDataXmlDirectory);
-                util_ResetOspreyDataXml();
 
+                System.IO.Directory.CreateDirectory(m_OspreyDataXmlFolderPath);
+                util_ResetOspreyDataXml();
             }
 
             util_SetControlsPerXml();   // Among other UI settings, this will enable the[Menu] -> [File] -> [Open] control if the user's OspreyData.xml has entries.
@@ -123,11 +170,9 @@ namespace CodeLessTraveled.Osprey
             
             string LastSavedFolderTeam = Properties.Settings.Default.LastFolderTeam.Trim();
             b_OnLoad = false;
+            */
 
-
-            this.Status_DefaultBackColor  = this.lblStausMessage.BackColor;
-            this.Status_DefaultForeColor  = this.lblStausMessage.ForeColor;
-            this.Status_DefaultFont       = this.lblStausMessage.Font;
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             
         }
 
@@ -144,8 +189,8 @@ namespace CodeLessTraveled.Osprey
 
 
         private void Menu_Edit_DeleteFolderGroup_DoDelete_Click(object sender, EventArgs e)
-        {                                                                                   
-            XmlDocument xDocOspreyDataXml = GetOspreyDataXml();
+        {
+            XmlDocument xDocOspreyDataXml = GetOspreyDataXml(this.m_OspreyDataXmlFullPath);
             string xPathFolderTeamName = String.Format("//Osprey/FolderTeam[@Name='{0}']", m_LoadedFolderTeamName[idx_FTeamNodeName]);
     
             XmlNodeList FolderTeamNodeList = xDocOspreyDataXml.SelectNodes(xPathFolderTeamName);
@@ -161,7 +206,7 @@ namespace CodeLessTraveled.Osprey
                     OspreyNode.RemoveChild(FolderTeam);
                 }
 
-                xDocOspreyDataXml.Save(m_OspreyDataXml);
+                xDocOspreyDataXml.Save(m_OspreyDataXmlFullPath);
 
                 string DeleteTeamName = this.m_LoadedFolderTeamName[idx_FTeamNodeName];
                 
@@ -185,11 +230,11 @@ namespace CodeLessTraveled.Osprey
 
             psi.FileName = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe");
 
-            string args = "\"" + m_OspreyDataXml + "\"";
+            string args = "\"" + m_OspreyDataXmlFullPath + "\"";
 
             psi.Arguments = String.Format(@"/select," + args);
 
-            psi.WorkingDirectory = m_OspreyDataXml;
+            psi.WorkingDirectory = m_OspreyDataXmlFullPath;
 
             psi.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal;
 
@@ -201,7 +246,7 @@ namespace CodeLessTraveled.Osprey
             util_ResetOspreyDataXml();
             util_SetCurrentLoadedFolderTeamName("");// m_LoadedFolderTeamName = "";
             util_SetControlsPerXml();
-            string Msg = "OspreyData.XML initialized.";
+            string Msg = "OspreyData.xml initialized.";
             ShowStatusMessage(Msg, System.Drawing.Color.Black, System.Drawing.Color.Orange, Msg, System.Drawing.Color.Black, DefaultBackColor);
 
         }
@@ -209,7 +254,7 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_File_NewFileExplorer_Click(object sender, EventArgs e)
         {
-            // are there any entries in the OspreyData.Xml
+            // are there any entries in the OspreyData.xml
             //  node count is 0, then nothing has been saved before. initial save requires a name and requires a name.
 
             ChildExplorer newFileExplorer = new ChildExplorer();
@@ -347,8 +392,37 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
+        private void Menu_File_SelectDataFile_CboBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
 
-    
+            }
+        }
+
+        private void Menu_File_SelectDataFile_CboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ClearAllChildWindows();
+
+            Menu_File.HideDropDown();
+
+            m_OspreyDataXmlFileName = Menu_File_SelectDataFile_CboBox.Text;
+
+            //Populate the Open combobox
+            this.m_OspreyDataXmlFullPath = System.IO.Path.Combine(m_OspreyDataXmlFolderPath, m_OspreyDataXmlFileName);
+
+            util_SetControlsPerXml();
+
+            //if (Menu_File_SelectDataFile_CboBox.Items.Contains(m_OspreyDataXmlFileName))
+            //{                                                                               //  Among other UI settings, this will enable the[Menu] -> [File] -> [Open] control if the user's OspreyData.xml has entries.
+            //    Menu_File_SelectDataFile_CboBox.Text = m_OspreyDataXmlFileName;             //  Initially, OspreyData.xml is empty. You don't want the first experience of the user to try to use the [Open] control when 
+            //                                                                                //  there is nothing to open. Instead, leave them with no option except to create new Folder Teams.
+            //    util_SetControlsPerXml();
+            //}           
+        }
+
+
+        
         private void Menu_Help_About_Click(object sender, EventArgs e)
         {
             frmHelpAbout frmAbout = new frmHelpAbout();
@@ -356,6 +430,14 @@ namespace CodeLessTraveled.Osprey
             frmAbout.Show();
 
         }
+
+        private void Menu_Help_LicenseInfo_Click(object sender, EventArgs e)
+        {
+            frmLicenseInfo frmLicInfo = new frmLicenseInfo();
+            frmLicInfo.MdiParent = this;
+            frmLicInfo.Show();
+        }
+
 
 
         private void Menu_View_Refresh()
@@ -376,6 +458,7 @@ namespace CodeLessTraveled.Osprey
         }
 
 
+        
         private void Menu_View_Horizontal_Click(object sender, EventArgs e)
         {
             this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
@@ -407,7 +490,7 @@ namespace CodeLessTraveled.Osprey
             NewNodeName = NewNodeName.Trim();
             SaveResults ReturnValue = SaveResults.Initialize;
 
-            XmlDocument  xDocOspreyDataXml     = GetOspreyDataXml();
+            XmlDocument  xDocOspreyDataXml     = GetOspreyDataXml(this.m_OspreyDataXmlFullPath);
             string       xPathNewTeamName      = String.Format("//Osprey/FolderTeam[@Name='{0}']", NewNodeName.ToLower().Trim());
             string       xPathCurrentTeamName  = String.Format("//Osprey/FolderTeam[@Name='{0}']", m_LoadedFolderTeamName[idx_FTeamNodeName]);
 
@@ -537,7 +620,7 @@ namespace CodeLessTraveled.Osprey
                         OspreyNode.AppendChild(FolderTeamNode);
                     }
 
-                    xDocOspreyDataXml.Save(this.m_OspreyDataXml);
+                    xDocOspreyDataXml.Save(this.m_OspreyDataXmlFullPath);
 
                     string SaveMessage = String.Format("Saved \"{0}\"",NewNodeName);
  
@@ -558,15 +641,36 @@ namespace CodeLessTraveled.Osprey
             
         }
 
-        private XmlDocument GetOspreyDataXml()
+        private XmlDocument GetOspreyDataXml(string OspreyDataXmlPath)
         {
             XmlDocument xDocOspreyDataXml = new XmlDocument();
 
-            xDocOspreyDataXml.Load(this.m_OspreyDataXml);
+            xDocOspreyDataXml.Load(OspreyDataXmlPath);
 
             return xDocOspreyDataXml;
         }
-       
+
+        private void util_SetDataXmlFileList(string DataFolderPath)
+        {
+            //m_ArrayDataXmlFiles 
+            
+            List<string> ListFiles = new List<string>();
+
+            System.IO.DirectoryInfo di_DataFolder = new System.IO.DirectoryInfo(DataFolderPath);
+
+            System.IO.FileInfo[] fi_files = di_DataFolder.GetFiles("*.xml");
+
+            var names = from f in fi_files
+                        select f.Name;
+                        //select f.Name.Replace(f.Extension,"");
+
+            ListFiles.AddRange(names);
+
+            this.Menu_File_SelectDataFile_CboBox.Items.AddRange(names.ToArray());
+
+            
+        
+        }
         private void util_LoadFromXML(string FolderTeamName)
         {
             // Load a group of folders (an Instance) for the passed value, "FolderTeamName".
@@ -578,8 +682,8 @@ namespace CodeLessTraveled.Osprey
             // Every time a node is loaded, UI controls need to show what the user selected.
             // Change the form text to show this.
             // Default the window organization to "cascade"
-            
-            System.Xml.XmlDocument xDoc = GetOspreyDataXml();
+
+            System.Xml.XmlDocument xDoc = GetOspreyDataXml(this.m_OspreyDataXmlFullPath);
 
             string xPath                = String.Format("//Osprey/FolderTeam[@Name='{0}']", FolderTeamName);
 
@@ -631,13 +735,21 @@ namespace CodeLessTraveled.Osprey
 
         private void util_SetControlsPerXml()
         {
+            util_SetControlsPerXml(this.m_OspreyDataXmlFullPath);
+        }
 
-            // This routine will set the UI controls according to the current datastored in the XML file.
+        private void util_SetControlsPerXml(string XmlFullPath)
+        {
+
+            // This routine will set the UI controls according to the current data stored in the XML file.
             // It is necessary to re-read the xml file because this method is called after new entries are saved
             // to the xml file. Becuase there can be multiple threads (application instances), the XML file
             // must be read each time this is called. Now the UI controls correctly reflect the XML file entries.
-            
-            XmlDocument xDocOspreyData = GetOspreyDataXml();
+
+
+
+
+            XmlDocument xDocOspreyData = GetOspreyDataXml(XmlFullPath);
 
             XmlNodeList xmlFolderTeamNodes = xDocOspreyData.SelectNodes("//Osprey/FolderTeam");
 
@@ -728,7 +840,7 @@ namespace CodeLessTraveled.Osprey
 
             sbXML.Append("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
             sbXML.Append("<Osprey></Osprey>");
-            System.IO.StreamWriter sw = new System.IO.StreamWriter(m_OspreyDataXml, false, System.Text.Encoding.UTF8);
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(m_OspreyDataXmlFullPath, false, System.Text.Encoding.UTF8);
             sw.WriteLine(sbXML.ToString());
             sw.Flush();
             sw.Close();
@@ -854,13 +966,14 @@ namespace CodeLessTraveled.Osprey
             Help.ShowHelp(this, helpProvider1.HelpNamespace, HelpNavigator.TableOfContents);
         }
 
-        private void Menu_Help_LicenseInfo_Click(object sender, EventArgs e)
+      
+
+        private void toolStripTextBox2_Click(object sender, EventArgs e)
         {
-            frmLicenseInfo frmLicInfo = new frmLicenseInfo();
-            frmLicInfo.MdiParent = this;
-            frmLicInfo.Show();
+        
         }
 
+      
      
 
       

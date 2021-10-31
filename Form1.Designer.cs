@@ -33,6 +33,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.Menu_File = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.Menu_File_NewDataFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_File_NewDataFile_TextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.Menu_File_SelectDataFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_File_SelectDataFile_CboBox = new System.Windows.Forms.ToolStripComboBox();
             this.Menu_File_NewGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_File_NewGroup_TextBox = new System.Windows.Forms.ToolStripTextBox();
             this.Menu_File_NewFileExplorer = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +53,8 @@
             this.Menu_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_OspreyDataXml_OpenLocation = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_OspreyData_OpenLocation = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNewDataFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_Edit_ResetXml = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_ResetXml_DoReset = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +82,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.ToolStrip_Button_AddFolder = new System.Windows.Forms.ToolStripButton();
             this.ToolStrip_Button_Save = new System.Windows.Forms.ToolStripButton();
+            this.ToolStrip_Cbo_SelectFolderGroup = new System.Windows.Forms.ToolStripComboBox();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -94,7 +101,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(866, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(784, 30);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "File";
             // 
@@ -102,6 +109,8 @@
             // 
             this.Menu_File.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator4,
+            this.Menu_File_NewDataFile,
+            this.Menu_File_SelectDataFile,
             this.Menu_File_NewGroup,
             this.Menu_File_NewFileExplorer,
             this.Menu_File_Open,
@@ -122,28 +131,59 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(171, 20);
             // 
+            // Menu_File_NewDataFile
+            // 
+            this.Menu_File_NewDataFile.AutoSize = false;
+            this.Menu_File_NewDataFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Menu_File_NewDataFile_TextBox});
+            this.Menu_File_NewDataFile.Name = "Menu_File_NewDataFile";
+            this.Menu_File_NewDataFile.Size = new System.Drawing.Size(174, 30);
+            this.Menu_File_NewDataFile.Text = "New Data File";
+            // 
+            // Menu_File_NewDataFile_TextBox
+            // 
+            this.Menu_File_NewDataFile_TextBox.Name = "Menu_File_NewDataFile_TextBox";
+            this.Menu_File_NewDataFile_TextBox.Size = new System.Drawing.Size(200, 23);
+            // 
+            // Menu_File_SelectDataFile
+            // 
+            this.Menu_File_SelectDataFile.AutoSize = false;
+            this.Menu_File_SelectDataFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Menu_File_SelectDataFile_CboBox});
+            this.Menu_File_SelectDataFile.Name = "Menu_File_SelectDataFile";
+            this.Menu_File_SelectDataFile.Size = new System.Drawing.Size(174, 30);
+            this.Menu_File_SelectDataFile.Text = "Select Data File";
+            // 
+            // Menu_File_SelectDataFile_CboBox
+            // 
+            this.Menu_File_SelectDataFile_CboBox.AutoSize = false;
+            this.Menu_File_SelectDataFile_CboBox.Name = "Menu_File_SelectDataFile_CboBox";
+            this.Menu_File_SelectDataFile_CboBox.Size = new System.Drawing.Size(200, 23);
+            this.Menu_File_SelectDataFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_SelectDataFile_CboBox_SelectedIndexChanged);
+            this.Menu_File_SelectDataFile_CboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_SelectDataFile_CboBox_KeyUp);
+            // 
             // Menu_File_NewGroup
             // 
-            this.Menu_File_NewGroup.AutoSize = false;
             this.Menu_File_NewGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_File_NewGroup_TextBox});
+            this.Menu_File_NewGroup.Enabled = false;
             this.Menu_File_NewGroup.Name = "Menu_File_NewGroup";
-            this.Menu_File_NewGroup.Size = new System.Drawing.Size(174, 30);
+            this.Menu_File_NewGroup.Size = new System.Drawing.Size(174, 26);
             this.Menu_File_NewGroup.Text = "New Folder Group";
-            this.Menu_File_NewGroup.ToolTipText = "Create a container for a collection of URLs. Assign this folder group a name.";
             // 
             // Menu_File_NewGroup_TextBox
             // 
+            this.Menu_File_NewGroup_TextBox.AutoSize = false;
             this.Menu_File_NewGroup_TextBox.Name = "Menu_File_NewGroup_TextBox";
-            this.Menu_File_NewGroup_TextBox.Size = new System.Drawing.Size(140, 23);
-            this.Menu_File_NewGroup_TextBox.ToolTipText = "Type name. Press ENTER.";
+            this.Menu_File_NewGroup_TextBox.Size = new System.Drawing.Size(200, 23);
+            this.Menu_File_NewGroup_TextBox.ToolTipText = "Press ENTER";
             this.Menu_File_NewGroup_TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_NewGroup_TextBox_KeyDown);
             this.Menu_File_NewGroup_TextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_NewGroup_TextBox_KeyUp);
-            this.Menu_File_NewGroup_TextBox.Click += new System.EventHandler(this.Menu_File_NewGroup_TextBox_Click);
             // 
             // Menu_File_NewFileExplorer
             // 
             this.Menu_File_NewFileExplorer.AutoSize = false;
+            this.Menu_File_NewFileExplorer.Enabled = false;
             this.Menu_File_NewFileExplorer.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Blue_Add_Folder_20;
             this.Menu_File_NewFileExplorer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.Menu_File_NewFileExplorer.Name = "Menu_File_NewFileExplorer";
@@ -165,9 +205,10 @@
             // 
             // Menu_File_Open_CboBox
             // 
+            this.Menu_File_Open_CboBox.AutoSize = false;
             this.Menu_File_Open_CboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_File_Open_CboBox.Name = "Menu_File_Open_CboBox";
-            this.Menu_File_Open_CboBox.Size = new System.Drawing.Size(140, 23);
+            this.Menu_File_Open_CboBox.Size = new System.Drawing.Size(200, 23);
             this.Menu_File_Open_CboBox.ToolTipText = "Click to select a folder group from the list.";
             this.Menu_File_Open_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_Open_CboBox_SelectedIndexChanged);
             this.Menu_File_Open_CboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_Open_CboBox_KeyUp);
@@ -199,18 +240,17 @@
             this.Menu_File_SaveAs.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.Menu_File_SaveAs.Size = new System.Drawing.Size(174, 30);
             this.Menu_File_SaveAs.Text = "Save As";
-            this.Menu_File_SaveAs.ToolTipText = "Create a new folder group with currently viewed collection of URls";
             // 
             // Menu_File_SaveAs_Texbox1
             // 
             this.Menu_File_SaveAs_Texbox1.AcceptsReturn = true;
             this.Menu_File_SaveAs_Texbox1.AcceptsTab = true;
+            this.Menu_File_SaveAs_Texbox1.AutoSize = false;
             this.Menu_File_SaveAs_Texbox1.CausesValidation = false;
             this.Menu_File_SaveAs_Texbox1.HideSelection = false;
             this.Menu_File_SaveAs_Texbox1.MaxLength = 50;
             this.Menu_File_SaveAs_Texbox1.Name = "Menu_File_SaveAs_Texbox1";
-            this.Menu_File_SaveAs_Texbox1.Size = new System.Drawing.Size(140, 23);
-            this.Menu_File_SaveAs_Texbox1.ToolTipText = "Type new name. Press ENTER.";
+            this.Menu_File_SaveAs_Texbox1.Size = new System.Drawing.Size(200, 23);
             this.Menu_File_SaveAs_Texbox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_SaveAs_Texbox1_KeyDown);
             this.Menu_File_SaveAs_Texbox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_SaveAs_Texbox1_KeyUp);
             // 
@@ -228,7 +268,7 @@
             // Menu_File_Rename_TextBox
             // 
             this.Menu_File_Rename_TextBox.Name = "Menu_File_Rename_TextBox";
-            this.Menu_File_Rename_TextBox.Size = new System.Drawing.Size(140, 23);
+            this.Menu_File_Rename_TextBox.Size = new System.Drawing.Size(200, 23);
             this.Menu_File_Rename_TextBox.ToolTipText = "Type new name. Press ENTER.";
             this.Menu_File_Rename_TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_Rename_TextBox_KeyDown);
             this.Menu_File_Rename_TextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_Rename_TextBox__KeyUp);
@@ -265,11 +305,12 @@
             // 
             this.Menu_Edit_OspreyDataXml_OpenLocation.AutoSize = false;
             this.Menu_Edit_OspreyDataXml_OpenLocation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu_Edit_OspreyData_OpenLocation});
+            this.Menu_Edit_OspreyData_OpenLocation,
+            this.addNewDataFileToolStripMenuItem});
             this.Menu_Edit_OspreyDataXml_OpenLocation.Image = global::CodeLessTraveled.Osprey.Properties.Resources.EditXML_20;
             this.Menu_Edit_OspreyDataXml_OpenLocation.Name = "Menu_Edit_OspreyDataXml_OpenLocation";
             this.Menu_Edit_OspreyDataXml_OpenLocation.Size = new System.Drawing.Size(190, 30);
-            this.Menu_Edit_OspreyDataXml_OpenLocation.Text = "OspreyData.xml";
+            this.Menu_Edit_OspreyDataXml_OpenLocation.Text = "Osprey Data XML File";
             this.Menu_Edit_OspreyDataXml_OpenLocation.ToolTipText = "Navigate to the data file folder.";
             // 
             // Menu_Edit_OspreyData_OpenLocation
@@ -280,6 +321,19 @@
             this.Menu_Edit_OspreyData_OpenLocation.Text = "Open Location";
             this.Menu_Edit_OspreyData_OpenLocation.ToolTipText = "Navigate to the data file folder.";
             this.Menu_Edit_OspreyData_OpenLocation.Click += new System.EventHandler(this.Menu_Edit_OspreyDataXml_OpenLocation_Click);
+            // 
+            // addNewDataFileToolStripMenuItem
+            // 
+            this.addNewDataFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTextBox1});
+            this.addNewDataFileToolStripMenuItem.Name = "addNewDataFileToolStripMenuItem";
+            this.addNewDataFileToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.addNewDataFileToolStripMenuItem.Text = "Add New Data File";
+            // 
+            // toolStripTextBox1
+            // 
+            this.toolStripTextBox1.Name = "toolStripTextBox1";
+            this.toolStripTextBox1.Size = new System.Drawing.Size(200, 23);
             // 
             // toolStripSeparator6
             // 
@@ -452,14 +506,14 @@
             // 
             this.lblStausMessage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblStausMessage.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStausMessage.Location = new System.Drawing.Point(353, 3);
+            this.lblStausMessage.Location = new System.Drawing.Point(531, 3);
             this.lblStausMessage.Name = "lblStausMessage";
-            this.lblStausMessage.Size = new System.Drawing.Size(313, 18);
+            this.lblStausMessage.Size = new System.Drawing.Size(231, 18);
             this.lblStausMessage.TabIndex = 8;
             // 
             // lblStatus
             // 
-            this.lblStatus.Location = new System.Drawing.Point(309, 1);
+            this.lblStatus.Location = new System.Drawing.Point(481, 1);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(40, 18);
             this.lblStatus.TabIndex = 10;
@@ -487,12 +541,13 @@
             this.toolStrip1.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ToolStrip_Button_AddFolder,
-            this.ToolStrip_Button_Save});
+            this.ToolStrip_Button_Save,
+            this.ToolStrip_Cbo_SelectFolderGroup});
             this.toolStrip1.Location = new System.Drawing.Point(204, 1);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(68, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(270, 25);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 12;
             // 
@@ -522,13 +577,19 @@
             this.ToolStrip_Button_Save.ToolTipText = "Save this group\'s folder settings";
             this.ToolStrip_Button_Save.Click += new System.EventHandler(this.Menu_File_Save_Click_1);
             // 
+            // ToolStrip_Cbo_SelectFolderGroup
+            // 
+            this.ToolStrip_Cbo_SelectFolderGroup.Name = "ToolStrip_Cbo_SelectFolderGroup";
+            this.ToolStrip_Cbo_SelectFolderGroup.Size = new System.Drawing.Size(200, 25);
+            this.ToolStrip_Cbo_SelectFolderGroup.Text = "Select File";
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_AcceptButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(866, 564);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblStausMessage);
@@ -601,6 +662,13 @@
         private System.Windows.Forms.HelpProvider helpProvider1;
         private System.Windows.Forms.ToolStripMenuItem Menu_Help_OspreyHelp;
         private System.Windows.Forms.ToolStripMenuItem Menu_Help_LicenseInfo;
+        private System.Windows.Forms.ToolStripComboBox ToolStrip_Cbo_SelectFolderGroup;
+        private System.Windows.Forms.ToolStripMenuItem Menu_File_NewDataFile;
+        private System.Windows.Forms.ToolStripMenuItem addNewDataFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
+        private System.Windows.Forms.ToolStripMenuItem Menu_File_SelectDataFile;
+        private System.Windows.Forms.ToolStripComboBox Menu_File_SelectDataFile_CboBox;
+        private System.Windows.Forms.ToolStripTextBox Menu_File_NewDataFile_TextBox;
     }
 }
 

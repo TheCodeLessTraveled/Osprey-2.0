@@ -11,8 +11,11 @@
     <Setting Name="LastFolderTeam" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="AltOspreyDataXml" Type="System.String" Scope="User">
+    <Setting Name="AltOspreyDataFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LastXmlFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">beer</Value>
     </Setting>
   </Settings>
 </SettingsFile>
