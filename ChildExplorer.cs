@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.IO;
 
 namespace CodeLessTraveled.Osprey
 {
@@ -7,16 +8,31 @@ namespace CodeLessTraveled.Osprey
     {
         private string m_TxtboxFolderPath;
         private string m_ChildLabel;
-        private int m_panel1Height ;
-
-        public string FolderPathText
+    
+        public ChildExplorer()
         {
-            get { return this.m_TxtboxFolderPath; }
-            set { 
-                    this.m_TxtboxFolderPath = value;
-                    this.txbFolderPath1.Text = this.m_TxtboxFolderPath;
-                   
-                }
+            InitializeComponent();
+        }
+
+        private void ChildExplorer_Load(object sender, EventArgs e)
+        {
+            TS_ButtonBack.Text = "\u2190";
+            TS_ButtonUp.Text = "\u00AB";
+        }
+
+
+
+        private void ChildExplorer_Resize(object sender, EventArgs e)
+        {
+            int status_width = this.Width;
+            int status_height = this.Height;
+
+            Status_SizeLabel.Text = String.Format("w {0} x h {1}", status_width, status_height);
+
+            if (this.Width > 300 && this.Width < 600) 
+            {
+                TS_TextboxUri.Width = this.Width - 200;
+            }
         }
 
 
@@ -33,28 +49,20 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-
-        public ChildExplorer()
-        {
-            InitializeComponent();
-            m_panel1Height = this.splitContainer1.Panel1.Height; 
-        }
-
-   
-
+        
         private void btnOpen_Click(object sender, EventArgs e)
         {
 
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                if (!String.IsNullOrEmpty(txbFolderPath1.Text))
+                if (!String.IsNullOrEmpty(TS_TextboxUri.Text))
                 {
                     //test to see if the entry is a folder.
-                    this.m_TxtboxFolderPath = txbFolderPath1.Text;
+                    this.m_TxtboxFolderPath = TS_TextboxUri.Text;
 
                     if (System.IO.Directory.Exists(this.m_TxtboxFolderPath))
                     {
-                        fbd.SelectedPath = this.m_TxtboxFolderPath;
+                        fbd.SelectedPath = TS_TextboxUri.Text;// this.m_TxtboxFolderPath;
                     }
                 }
 
@@ -64,7 +72,7 @@ namespace CodeLessTraveled.Osprey
                 {
                     this.m_TxtboxFolderPath = fbd.SelectedPath;
                     webBrowser1.Url = new Uri(this.m_TxtboxFolderPath);
-                    txbFolderPath1.Text = this.m_TxtboxFolderPath;
+                    TS_TextboxUri.Text = this.m_TxtboxFolderPath;
 
                     string FormTitle = this.m_TxtboxFolderPath;
                     if (FormTitle.Length > 50)
@@ -78,6 +86,19 @@ namespace CodeLessTraveled.Osprey
                 }
             }
         }
+        
+
+
+        public string FolderPathText
+        {
+            get { return this.m_TxtboxFolderPath; }
+            set
+            {
+                this.m_TxtboxFolderPath = value;
+                this.TS_TextboxUri.Text = this.m_TxtboxFolderPath;
+
+            }
+        }
 
 
 
@@ -86,7 +107,7 @@ namespace CodeLessTraveled.Osprey
             try
             {
                 this.webBrowser1.Url = new Uri(BrowserUrl);
-                this.txbFolderPath1.Text = BrowserUrl;
+                this.TS_TextboxUri.Text = BrowserUrl;
             }
             catch (System.UriFormatException eUri)
             {
@@ -95,7 +116,32 @@ namespace CodeLessTraveled.Osprey
 
         }
 
-        private void txbFolderPath1_KeyUp(object sender, KeyEventArgs e)
+
+
+        private void TS_ButtonUp_Click(object sender, EventArgs e)
+        {
+            string startUri = webBrowser1.Url.AbsolutePath;
+
+            DirectoryInfo di_Parent = System.IO.Directory.GetParent(startUri);
+
+            webBrowser1.Url = new Uri(di_Parent.FullName);
+
+            TS_TextboxUri.Text = di_Parent.FullName;
+
+            string x = "";
+        }
+
+
+
+        private void TS_ButtonBack_Click(object sender, EventArgs e)
+        {
+            webBrowser1.GoBack();
+            TS_TextboxUri.Text = webBrowser1.Url.AbsolutePath;
+        }
+
+     
+
+        private void TS_TextboxUri_KeyUp_1(object sender, KeyEventArgs e)
         {
             if (lblError.Visible == true)
             {
@@ -104,7 +150,31 @@ namespace CodeLessTraveled.Osprey
 
             if (e.KeyCode == Keys.Enter)
             {
-                if (!System.IO.Directory.Exists(this.txbFolderPath1.Text))
+                if (!System.IO.Directory.Exists(this.TS_TextboxUri.Text))
+                {
+                    lblError.Visible = true;
+                    lblError.Text = "Folder path is not valid.";
+                }
+                else
+                {
+                    SetBrowserUrl(this.TS_TextboxUri.Text);
+                    this.m_TxtboxFolderPath = this.TS_TextboxUri.Text;
+                }
+            }
+        }
+
+
+        
+        private void TS_TextboxUri_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (lblError.Visible == true)
+            {
+                lblError.Visible = false;
+            }
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!System.IO.Directory.Exists(this.TS_TextboxUri.Text))
                 {
                     lblError.Visible = true;
                     lblError.Text = "Folder path is not valid.";
@@ -112,56 +182,24 @@ namespace CodeLessTraveled.Osprey
                 }
                 else
                 {
-                    SetBrowserUrl(txbFolderPath1.Text);
-                    this.m_TxtboxFolderPath = txbFolderPath1.Text;
+                    SetBrowserUrl(TS_TextboxUri.Text);
+                    this.m_TxtboxFolderPath = TS_TextboxUri.Text;
                 }
             }
         }
 
-        private void txbFolderPath1_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-
-        }
-
-        private void ChildExplorer_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ChildExplorer_Resize(object sender, EventArgs e)
-        {
-            this.splitContainer1.Width = this.Width - 20;
-            this.splitContainer1.Height = this.Height - m_panel1Height + 15;
-
-            
-
-
-        }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            txbFolderPath1.Text = webBrowser1.Url.LocalPath;
-            this.FolderPathText = txbFolderPath1.Text;
+            TS_TextboxUri.Text = webBrowser1.Url.LocalPath;
+            this.FolderPathText = TS_TextboxUri.Text;
             if (String.IsNullOrEmpty(this.ChildLabel))
             {
-                this.ChildLabel = txbFolderPath1.Text;
+                this.ChildLabel = TS_TextboxUri.Text;
             }
         }
 
-    
-     
-       
 
-       
     }
 }

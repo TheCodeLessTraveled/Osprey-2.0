@@ -512,14 +512,14 @@
             // 
             this.lblStausMessage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblStausMessage.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStausMessage.Location = new System.Drawing.Point(349, 3);
+            this.lblStausMessage.Location = new System.Drawing.Point(314, 3);
             this.lblStausMessage.Name = "lblStausMessage";
             this.lblStausMessage.Size = new System.Drawing.Size(231, 18);
             this.lblStausMessage.TabIndex = 8;
             // 
             // lblStatus
             // 
-            this.lblStatus.Location = new System.Drawing.Point(307, 1);
+            this.lblStatus.Location = new System.Drawing.Point(271, 1);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(40, 18);
             this.lblStatus.TabIndex = 10;
@@ -552,34 +552,28 @@
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(68, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(50, 27);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 12;
             // 
             // ToolStrip_Button_AddFolder
             // 
-            this.ToolStrip_Button_AddFolder.AutoSize = false;
             this.ToolStrip_Button_AddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ToolStrip_Button_AddFolder.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Blue_Add_Folder_20;
-            this.ToolStrip_Button_AddFolder.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ToolStrip_Button_AddFolder.Image = ((System.Drawing.Image)(resources.GetObject("ToolStrip_Button_AddFolder.Image")));
             this.ToolStrip_Button_AddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ToolStrip_Button_AddFolder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ToolStrip_Button_AddFolder.Name = "ToolStrip_Button_AddFolder";
-            this.ToolStrip_Button_AddFolder.Size = new System.Drawing.Size(25, 25);
-            this.ToolStrip_Button_AddFolder.ToolTipText = "Navigate and add folder to this group";
+            this.ToolStrip_Button_AddFolder.Size = new System.Drawing.Size(24, 24);
+            this.ToolStrip_Button_AddFolder.Text = "&Open";
             this.ToolStrip_Button_AddFolder.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
             // 
             // ToolStrip_Button_Save
             // 
-            this.ToolStrip_Button_Save.AutoSize = false;
             this.ToolStrip_Button_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ToolStrip_Button_Save.Image = global::CodeLessTraveled.Osprey.Properties.Resources.LightBlue_Save_20;
-            this.ToolStrip_Button_Save.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.ToolStrip_Button_Save.Image = ((System.Drawing.Image)(resources.GetObject("ToolStrip_Button_Save.Image")));
             this.ToolStrip_Button_Save.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ToolStrip_Button_Save.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ToolStrip_Button_Save.Name = "ToolStrip_Button_Save";
-            this.ToolStrip_Button_Save.Size = new System.Drawing.Size(25, 25);
-            this.ToolStrip_Button_Save.ToolTipText = "Save this group\'s folder settings";
+            this.ToolStrip_Button_Save.Size = new System.Drawing.Size(24, 24);
+            this.ToolStrip_Button_Save.Text = "&Save";
             this.ToolStrip_Button_Save.Click += new System.EventHandler(this.Menu_File_Save_Click_1);
             // 
             // Form1
@@ -603,6 +597,7 @@
             this.Text = "Osprey";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -655,8 +650,6 @@
         private System.Windows.Forms.ToolStripMenuItem openNewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton ToolStrip_Button_AddFolder;
-        private System.Windows.Forms.ToolStripButton ToolStrip_Button_Save;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.HelpProvider helpProvider1;
         private System.Windows.Forms.ToolStripMenuItem Menu_Help_OspreyHelp;
@@ -668,6 +661,8 @@
         private System.Windows.Forms.ToolStripComboBox Menu_File_SelectDataFile_CboBox;
         private System.Windows.Forms.ToolStripTextBox Menu_File_NewDataFile_TextBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripButton ToolStrip_Button_AddFolder;
+        private System.Windows.Forms.ToolStripButton ToolStrip_Button_Save;
     }
 }
 

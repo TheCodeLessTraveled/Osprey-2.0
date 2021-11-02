@@ -30,38 +30,22 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChildExplorer));
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnOpen = new System.Windows.Forms.Button();
-            this.txbFolderPath1 = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblError = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.TS_ButtonBack = new System.Windows.Forms.ToolStripButton();
+            this.TS_ButtonUp = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.TS_TextboxUri = new System.Windows.Forms.ToolStripTextBox();
+            this.TS_ButtonOpen = new System.Windows.Forms.ToolStripButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.Status_SizeLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnOpen
-            // 
-            this.btnOpen.Location = new System.Drawing.Point(361, 11);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(49, 23);
-            this.btnOpen.TabIndex = 1;
-            this.btnOpen.Text = "Open";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
-            // txbFolderPath1
-            // 
-            this.txbFolderPath1.AcceptsReturn = true;
-            this.txbFolderPath1.AcceptsTab = true;
-            this.txbFolderPath1.Location = new System.Drawing.Point(23, 14);
-            this.txbFolderPath1.Name = "txbFolderPath1";
-            this.txbFolderPath1.Size = new System.Drawing.Size(323, 20);
-            this.txbFolderPath1.TabIndex = 0;
-            this.txbFolderPath1.TextChanged += new System.EventHandler(this.txbFolderPath1_TextChanged);
-            this.txbFolderPath1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txbFolderPath1_KeyUp);
             // 
             // openFileDialog1
             // 
@@ -73,49 +57,119 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(454, 407);
+            this.webBrowser1.Size = new System.Drawing.Size(555, 418);
             this.webBrowser1.TabIndex = 4;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.IsSplitterFixed = true;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.lblError);
-            this.splitContainer1.Panel1.Controls.Add(this.txbFolderPath1);
-            this.splitContainer1.Panel1.Controls.Add(this.btnOpen);
-            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer1.Size = new System.Drawing.Size(454, 459);
-            this.splitContainer1.SplitterDistance = 48;
-            this.splitContainer1.TabIndex = 5;
             // 
             // lblError
             // 
             this.lblError.AutoSize = true;
             this.lblError.BackColor = System.Drawing.Color.DarkOrange;
-            this.lblError.Location = new System.Drawing.Point(23, 46);
+            this.lblError.Location = new System.Drawing.Point(378, 68);
             this.lblError.Name = "lblError";
             this.lblError.Size = new System.Drawing.Size(0, 13);
             this.lblError.TabIndex = 2;
             this.lblError.Visible = false;
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TS_ButtonBack,
+            this.TS_ButtonUp,
+            this.toolStripSeparator2,
+            this.TS_TextboxUri,
+            this.TS_ButtonOpen});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(555, 26);
+            this.toolStrip1.TabIndex = 6;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // TS_ButtonBack
+            // 
+            this.TS_ButtonBack.BackColor = System.Drawing.SystemColors.Control;
+            this.TS_ButtonBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TS_ButtonBack.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TS_ButtonBack.Image = ((System.Drawing.Image)(resources.GetObject("TS_ButtonBack.Image")));
+            this.TS_ButtonBack.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TS_ButtonBack.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.TS_ButtonBack.Name = "TS_ButtonBack";
+            this.TS_ButtonBack.Size = new System.Drawing.Size(23, 26);
+            this.TS_ButtonBack.Text = "b";
+            this.TS_ButtonBack.ToolTipText = "Back";
+            this.TS_ButtonBack.Click += new System.EventHandler(this.TS_ButtonBack_Click);
+            // 
+            // TS_ButtonUp
+            // 
+            this.TS_ButtonUp.BackColor = System.Drawing.SystemColors.Control;
+            this.TS_ButtonUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TS_ButtonUp.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold);
+            this.TS_ButtonUp.Image = ((System.Drawing.Image)(resources.GetObject("TS_ButtonUp.Image")));
+            this.TS_ButtonUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TS_ButtonUp.Name = "TS_ButtonUp";
+            this.TS_ButtonUp.Size = new System.Drawing.Size(23, 23);
+            this.TS_ButtonUp.Text = "u";
+            this.TS_ButtonUp.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical90;
+            this.TS_ButtonUp.ToolTipText = "Up";
+            this.TS_ButtonUp.Click += new System.EventHandler(this.TS_ButtonUp_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+            // 
+            // TS_TextboxUri
+            // 
+            this.TS_TextboxUri.AutoSize = false;
+            this.TS_TextboxUri.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TS_TextboxUri.Name = "TS_TextboxUri";
+            this.TS_TextboxUri.Size = new System.Drawing.Size(400, 26);
+            this.TS_TextboxUri.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TS_TextboxUri_KeyUp_1);
+            // 
+            // TS_ButtonOpen
+            // 
+            this.TS_ButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TS_ButtonOpen.Image = ((System.Drawing.Image)(resources.GetObject("TS_ButtonOpen.Image")));
+            this.TS_ButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TS_ButtonOpen.Name = "TS_ButtonOpen";
+            this.TS_ButtonOpen.Size = new System.Drawing.Size(23, 23);
+            this.TS_ButtonOpen.Text = "&Open";
+            this.TS_ButtonOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Status_SizeLabel});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 444);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(555, 22);
+            this.statusStrip1.TabIndex = 7;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // Status_SizeLabel
+            // 
+            this.Status_SizeLabel.Name = "Status_SizeLabel";
+            this.Status_SizeLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.webBrowser1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 26);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(555, 418);
+            this.panel1.TabIndex = 8;
+            // 
             // ChildExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 459);
-            this.Controls.Add(this.splitContainer1);
+            this.ClientSize = new System.Drawing.Size(555, 466);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.lblError);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChildExplorer";
             this.ShowIcon = false;
@@ -123,23 +177,30 @@
             this.Text = "Select a path";
             this.Load += new System.EventHandler(this.ChildExplorer_Load);
             this.Resize += new System.EventHandler(this.ChildExplorer_Resize);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.TextBox txbFolderPath1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton TS_ButtonBack;
+        private System.Windows.Forms.ToolStripButton TS_ButtonUp;
+        private System.Windows.Forms.ToolStripTextBox TS_TextboxUri;
+        private System.Windows.Forms.ToolStripButton TS_ButtonOpen;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel Status_SizeLabel;
+        private System.Windows.Forms.Panel panel1;
     }
 }

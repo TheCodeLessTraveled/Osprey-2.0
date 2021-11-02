@@ -39,11 +39,11 @@ namespace CodeLessTraveled.Osprey
         
         private bool b_OnLoad         = false;
        
-        private string[]    m_LoadedFolderTeamName ;      // This array holds to two elements [0]= folder team name, [1]=folder team display name.
-        private const int   idx_FTeamNodeName        = 0; // <- as seen here.     You want the user to create a display name in whatever convenient upper/lower case combination he/she wants. But, XML is case-sensative.
-        private const int   idx_FTeamDisplayName     = 1; // <- and here          So, to prevent duplication of nodes, Force lowercase node name while allowing a display name of their choice. For nodes with the same name spelling and different cases,
-                                                          //                      these are conceptually same, but, technically they are different XML nodes. Force lowercase XML node names 
-                                                          //                      to prevent duplicate folder teams.
+        private string[]  m_LoadedFolderTeamName    = new string[2] { null, null };      // This array holds to two elements [0]= folder team name, [1]=folder team display name.
+        private const int idx_FTeamNodeName         = 0;            // <- as seen here.     You want the user to create a display name in whatever convenient upper/lower case combination he/she wants. But, XML is case-sensative.
+        private const int idx_FTeamDisplayName      = 1;            // <- and here          So, to prevent duplication of nodes, Force lowercase node name while allowing a display name of their choice. For nodes with the same name spelling and different cases,
+                                                                    //                      these are conceptually same, but, technically they are different XML nodes. Force lowercase XML node names 
+                                                                    //                      to prevent duplicate folder teams.
         
        
         enum NodeChangeType{Rename, Save, SaveAs, Default, NewGroup}
@@ -60,7 +60,10 @@ namespace CodeLessTraveled.Osprey
         {
             Properties.Settings.Default.Form1Location   = this.Location;
             Properties.Settings.Default.Form1Size       = this.Size;
-            Properties.Settings.Default.LastFolderTeam  = m_LoadedFolderTeamName[idx_FTeamNodeName];
+
+            Properties.Settings.Default.LastFolderTeamName   = m_LoadedFolderTeamName[idx_FTeamNodeName];
+            Properties.Settings.Default.LastFolderTeamDisplayName = m_LoadedFolderTeamName[idx_FTeamDisplayName];
+
             if (!m_OspreyDataXmlFileName.EndsWith(".xml"))
             {
                 m_OspreyDataXmlFileName += ".xml";
@@ -84,76 +87,89 @@ namespace CodeLessTraveled.Osprey
              *                          2. Select an instance to load the child explorer windows. (now there is something to save)        
              * 
              */
-   
+  
             helpProvider1.HelpNamespace = this.HelpPath;
 
-            m_LoadedFolderTeamName = new string[2] {null, null};
-           
             
- 
-
-            // Set Form size to what is recorded in the settings.
-            if (Properties.Settings.Default.Form1Size.Width == 0 || Properties.Settings.Default.Form1Size.Height == 0)
-            {
-                System.Drawing.Size initSize = new System.Drawing.Size(500, 500);
-                this.Size = initSize;
-            }
-            else
-            {
-                int SavedWidth  = Properties.Settings.Default.Form1Size.Width;
-                int SavedHeight = Properties.Settings.Default.Form1Size.Height ;
-                System.Drawing.Size SavedSize = new System.Drawing.Size(SavedWidth, SavedHeight);
-                this.Size = SavedSize;
-            }
-            
-            int SavedLeft = Properties.Settings.Default.Form1Location.X;
-            int SavedTop  = Properties.Settings.Default.Form1Location.Y;
-            System.Drawing.Point SavedLocation = new System.Drawing.Point(SavedLeft, SavedTop);
-            this.Location = SavedLocation;
 
             this.Status_DefaultBackColor = this.lblStausMessage.BackColor;
             this.Status_DefaultForeColor = this.lblStausMessage.ForeColor;
             this.Status_DefaultFont = this.lblStausMessage.Font;
 
-             /* Populate [Menu_File_SelectDataFile_CboBox].
-              *  1.  Get the list of files. First check for a saved alternate location from the Property.Settings. 
-              *  2.  Populate [Menu_File_SelectDataFile_CboBox]
-              *  3.  If the a filename is saved as a Property.Setting, load the [Menu_File_SelectGroup_CboBox] with the file data.
-              *      Else  wait for use to select from the Menu_File_SelectGroup_CboBox
-              */
-      
-            string Saved_FolderPath = Properties.Settings.Default.AltOspreyDataFolder;
-            string Saved_FileName   = Properties.Settings.Default.LastXmlFileName;
+ 
 
-            if (!String.IsNullOrEmpty(Saved_FolderPath) && System.IO.Directory.Exists(Saved_FolderPath))    // #1 Get the list of files. First check for a saved alternate location in the Property.Settings.
-            {
-                m_OspreyDataXmlFolderPath = Properties.Settings.Default.AltOspreyDataFolder;
-            }
-         
-            util_SetDataXmlFileList(m_OspreyDataXmlFolderPath);                                             // #2, Populate [Menu_File_SelectDataFile_CboBox.]
-
-
-
-            if (!String.IsNullOrEmpty(Saved_FileName))
-            {
-                if (!Saved_FileName.EndsWith(".xml"))
+            // Set Form size to what is recorded in the settings.
+                if (Properties.Settings.Default.Form1Size.Width == 0 || Properties.Settings.Default.Form1Size.Height == 0)
                 {
-                    Saved_FileName += ".xml";
+                    System.Drawing.Size initSize = new System.Drawing.Size(500, 500);
+                    this.Size = initSize;
                 }
-                m_OspreyDataXmlFileName = Saved_FileName;
-           
-                this.m_OspreyDataXmlFullPath = System.IO.Path.Combine(m_OspreyDataXmlFolderPath, m_OspreyDataXmlFileName);
-                
-                if (Menu_File_SelectDataFile_CboBox.Items.Contains(Saved_FileName))
-                {                                                                   //  Among other UI settings, this will enable the[Menu] -> [File] -> [Open] control if the user's OspreyData.xml has entries.
-                    Menu_File_SelectDataFile_CboBox.Text = Saved_FileName;          //  Initially, OspreyData.xml is empty. You don't want the first experience of the user to try to use the [Open] control when 
-                                                                                    //  there is nothing to open. Instead, leave them with no option except to create new Folder Teams.
-                    util_SetControlsPerXml();                                       
-                }           
-            }
-
+                else
+                {
+                    int SavedWidth  = Properties.Settings.Default.Form1Size.Width;
+                    int SavedHeight = Properties.Settings.Default.Form1Size.Height ;
+                    System.Drawing.Size SavedSize = new System.Drawing.Size(SavedWidth, SavedHeight);
+                    this.Size = SavedSize;
+                }
             
+                int SavedLeft = Properties.Settings.Default.Form1Location.X;
+                int SavedTop  = Properties.Settings.Default.Form1Location.Y;
+                System.Drawing.Point SavedLocation = new System.Drawing.Point(SavedLeft, SavedTop);
 
+
+                /* Populate [Menu_File_SelectDataFile_CboBox].
+                   *  1.  Get the list of files. First check for a saved alternate location from the Property.Settings. 
+                   *  2.  Populate [Menu_File_SelectDataFile_CboBox]
+                   *  3.  Populate the main window. If the a last folder group name that was viewed is saved as a Property.Setting, use it to populate the main window.
+                   *      Else  wait for use to select from the UI's Menu_File_SelectGroup_CboBox.
+                */
+
+                // Set file and folder path variables
+                this.Location = SavedLocation;
+
+                string Saved_FolderPath = Properties.Settings.Default.AltOspreyDataFolder;
+            
+                string Saved_FileName   = Properties.Settings.Default.LastXmlFileName;
+
+                if (!String.IsNullOrEmpty(Saved_FolderPath) && System.IO.Directory.Exists(Saved_FolderPath))    // #1.  Get the list of files. First check for a saved alternate location in the Property.Settings.
+                {
+                    m_OspreyDataXmlFolderPath = Properties.Settings.Default.AltOspreyDataFolder;
+                }
+         
+                util_SetDataXmlFileList(m_OspreyDataXmlFolderPath);                                             // #2.  Populate [Menu_File_SelectDataFile_CboBox]. This will always have the default value from above. 
+                                                                                                                //      This uses a Directory.GetFiles type of routine to build an array of data file names to
+                if (!String.IsNullOrEmpty(Saved_FileName))                                                      
+                {
+                    if (!Saved_FileName.EndsWith(".xml"))
+                    {
+                        Saved_FileName += ".xml";
+                    }
+                    m_OspreyDataXmlFileName = Saved_FileName;
+
+
+                    if (Menu_File_SelectDataFile_CboBox.Items.Contains(Saved_FileName))                         
+                    {                                                                                           //      Among other UI settings, this will enable the[Menu] -> [File] -> [Open] control if the user's OspreyData.xml has entries.
+                        Menu_File_SelectDataFile_CboBox.Text = Saved_FileName;                                  //      Initially, OspreyData.xml is empty. You don't want the first experience of the user to try to use the [Open] control when 
+                                                                                                                //      there is nothing to open. Instead, leave them with no option except to create new Folder Teams.
+                        util_SetControlsPerXml();                                                               
+                    }           
+                }
+
+                this.m_OspreyDataXmlFullPath = System.IO.Path.Combine(m_OspreyDataXmlFolderPath, m_OspreyDataXmlFileName);
+
+                string Saved_LastFolderTeamName         = Properties.Settings.Default.LastFolderTeamName;                       // #3.  Populate the [Menu_File_SelectGroup_CboBox] control with folder group names.  
+                string Saved_LastFolderTeamDisplayName  = Properties.Settings.Default.LastFolderTeamDisplayName;                       // #3.  Populate the [Menu_File_SelectGroup_CboBox] control with folder group names.  
+
+                if (!String.IsNullOrEmpty(Saved_LastFolderTeamName) && !String.IsNullOrEmpty(Saved_LastFolderTeamDisplayName))
+                {
+                    m_LoadedFolderTeamName[idx_FTeamDisplayName] = Saved_LastFolderTeamDisplayName;
+                    m_LoadedFolderTeamName[idx_FTeamNodeName]    = Saved_LastFolderTeamName;
+
+                    Menu_File_SelectGroup_CboBox.Text = Saved_LastFolderTeamDisplayName;
+
+                    Menu_File_SelectGroup_CboBox_SelectedIndexChanged(new object(), new EventArgs());
+                    // m_OspreyDataXmlFullPath is blank at util_SetControlsPerXml()
+                }
             
             b_OnLoad = true;
             /*
