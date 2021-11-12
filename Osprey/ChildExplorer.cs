@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 namespace CodeLessTraveled.Osprey
 {
@@ -16,8 +17,8 @@ namespace CodeLessTraveled.Osprey
 
         private void ChildExplorer_Load(object sender, EventArgs e)
         {
-            TS_ButtonBack.Text = "\u2190";
-            TS_ButtonUp.Text = "\u00AB";
+            //TS_ButtonBack.Text = "\u2190";
+            //TS_ButtonUp.Text = "\u00AB";
         }
 
 
@@ -118,10 +119,28 @@ namespace CodeLessTraveled.Osprey
 
 
 
+
+        private void TS_ButtonBack_Click(object sender, EventArgs e)
+        {
+            webBrowser1.GoBack();
+            TS_TextboxUri.Text = webBrowser1.Url.AbsolutePath;
+        }
+
+
+
+        private void TS_ButtonForward_Click(object sender, EventArgs e)
+        {
+            webBrowser1.GoForward();
+            TS_TextboxUri.Text = webBrowser1.Url.AbsolutePath;
+        }
+        
+
+
         private void TS_ButtonUp_Click(object sender, EventArgs e)
         {
             string startUri = webBrowser1.Url.AbsolutePath;
-
+          
+          
             DirectoryInfo di_Parent = System.IO.Directory.GetParent(startUri);
 
             webBrowser1.Url = new Uri(di_Parent.FullName);
@@ -132,12 +151,6 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-
-        private void TS_ButtonBack_Click(object sender, EventArgs e)
-        {
-            webBrowser1.GoBack();
-            TS_TextboxUri.Text = webBrowser1.Url.AbsolutePath;
-        }
 
      
 
@@ -199,6 +212,10 @@ namespace CodeLessTraveled.Osprey
                 this.ChildLabel = TS_TextboxUri.Text;
             }
         }
+
+        
+
+      
 
 
     }

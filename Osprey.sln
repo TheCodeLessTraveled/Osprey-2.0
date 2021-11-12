@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osprey", "Osprey.csproj", "{4888C8AF-6E0E-4AF7-83D7-76CFD69E0F36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Osprey", "Osprey\Osprey.csproj", "{4888C8AF-6E0E-4AF7-83D7-76CFD69E0F36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

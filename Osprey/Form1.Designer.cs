@@ -36,7 +36,7 @@
             this.Menu_File_NewDataFile = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_File_NewDataFile_TextBox = new System.Windows.Forms.ToolStripTextBox();
             this.Menu_File_SelectDataFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_File_SelectDataFile_CboBox = new System.Windows.Forms.ToolStripComboBox();
+            this.Menu_File_LoadFile_CboBox = new System.Windows.Forms.ToolStripComboBox();
             this.Menu_File_SelectGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_File_SelectGroup_CboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -130,13 +130,14 @@
             // 
             this.toolStripSeparator4.AutoSize = false;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(171, 20);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(175, 20);
             // 
             // Menu_File_NewDataFile
             // 
             this.Menu_File_NewDataFile.AutoSize = false;
             this.Menu_File_NewDataFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_File_NewDataFile_TextBox});
+            this.Menu_File_NewDataFile.Image = global::CodeLessTraveled.Osprey.Properties.Resources.NewDocument_32x32;
             this.Menu_File_NewDataFile.Name = "Menu_File_NewDataFile";
             this.Menu_File_NewDataFile.Size = new System.Drawing.Size(174, 30);
             this.Menu_File_NewDataFile.Text = "New Data File";
@@ -145,33 +146,34 @@
             // 
             this.Menu_File_NewDataFile_TextBox.Name = "Menu_File_NewDataFile_TextBox";
             this.Menu_File_NewDataFile_TextBox.Size = new System.Drawing.Size(200, 23);
+            this.Menu_File_NewDataFile_TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_NewDataFile_TextBox_KeyDown);
+            this.Menu_File_NewDataFile_TextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_NewDataFile_TextBox_KeyUp);
             // 
             // Menu_File_SelectDataFile
             // 
             this.Menu_File_SelectDataFile.AutoSize = false;
             this.Menu_File_SelectDataFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu_File_SelectDataFile_CboBox});
+            this.Menu_File_LoadFile_CboBox});
             this.Menu_File_SelectDataFile.Name = "Menu_File_SelectDataFile";
             this.Menu_File_SelectDataFile.Size = new System.Drawing.Size(174, 30);
             this.Menu_File_SelectDataFile.Text = "Open Data File";
             // 
-            // Menu_File_SelectDataFile_CboBox
+            // Menu_File_LoadFile_CboBox
             // 
-            this.Menu_File_SelectDataFile_CboBox.AutoSize = false;
-            this.Menu_File_SelectDataFile_CboBox.Name = "Menu_File_SelectDataFile_CboBox";
-            this.Menu_File_SelectDataFile_CboBox.Size = new System.Drawing.Size(200, 23);
-            this.Menu_File_SelectDataFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_SelectedIndexChanged);
-            this.Menu_File_SelectDataFile_CboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_OpenDataFile_CboBox_KeyUp);
+            this.Menu_File_LoadFile_CboBox.AutoSize = false;
+            this.Menu_File_LoadFile_CboBox.Name = "Menu_File_LoadFile_CboBox";
+            this.Menu_File_LoadFile_CboBox.Size = new System.Drawing.Size(200, 23);
+            this.Menu_File_LoadFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_SelectedIndexChanged);
+            this.Menu_File_LoadFile_CboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_OpenDataFile_CboBox_KeyUp);
             // 
             // Menu_File_SelectGroup
             // 
             this.Menu_File_SelectGroup.AutoSize = false;
             this.Menu_File_SelectGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_File_SelectGroup_CboBox});
-            this.Menu_File_SelectGroup.Enabled = false;
             this.Menu_File_SelectGroup.Name = "Menu_File_SelectGroup";
             this.Menu_File_SelectGroup.Size = new System.Drawing.Size(174, 30);
-            this.Menu_File_SelectGroup.Text = "Select Group";
+            this.Menu_File_SelectGroup.Text = "Folder Group";
             this.Menu_File_SelectGroup.ToolTipText = "Select a folder group from the OspreyData.xml";
             // 
             // Menu_File_SelectGroup_CboBox
@@ -187,15 +189,16 @@
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(171, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(175, 6);
             // 
             // Menu_File_NewGroup
             // 
+            this.Menu_File_NewGroup.AutoSize = false;
             this.Menu_File_NewGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_File_NewGroup_TextBox});
             this.Menu_File_NewGroup.Enabled = false;
             this.Menu_File_NewGroup.Name = "Menu_File_NewGroup";
-            this.Menu_File_NewGroup.Size = new System.Drawing.Size(174, 26);
+            this.Menu_File_NewGroup.Size = new System.Drawing.Size(174, 30);
             this.Menu_File_NewGroup.Text = "New Folder Group";
             // 
             // Menu_File_NewGroup_TextBox
@@ -211,7 +214,7 @@
             // 
             this.Menu_File_NewFileExplorer.AutoSize = false;
             this.Menu_File_NewFileExplorer.Enabled = false;
-            this.Menu_File_NewFileExplorer.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Blue_Add_Folder_20;
+            this.Menu_File_NewFileExplorer.Image = global::CodeLessTraveled.Osprey.Properties.Resources._042b_AddCategory_24x24_72;
             this.Menu_File_NewFileExplorer.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.Menu_File_NewFileExplorer.Name = "Menu_File_NewFileExplorer";
             this.Menu_File_NewFileExplorer.Size = new System.Drawing.Size(174, 30);
@@ -222,13 +225,13 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(171, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
             // 
             // Menu_File_Save
             // 
             this.Menu_File_Save.AutoSize = false;
             this.Menu_File_Save.Enabled = false;
-            this.Menu_File_Save.Image = global::CodeLessTraveled.Osprey.Properties.Resources.LightBlue_Save_20;
+            this.Menu_File_Save.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Save;
             this.Menu_File_Save.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.Menu_File_Save.Name = "Menu_File_Save";
             this.Menu_File_Save.Size = new System.Drawing.Size(174, 30);
@@ -268,7 +271,7 @@
             this.Menu_File_Rename.Enabled = false;
             this.Menu_File_Rename.Name = "Menu_File_Rename";
             this.Menu_File_Rename.Size = new System.Drawing.Size(174, 30);
-            this.Menu_File_Rename.Text = "Rename";
+            this.Menu_File_Rename.Text = "Rename Group";
             this.Menu_File_Rename.ToolTipText = "Give the currently viewed folder group a new name";
             // 
             // Menu_File_Rename_TextBox
@@ -283,7 +286,7 @@
             // 
             this.toolStripSeparator2.AutoSize = false;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(171, 20);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(175, 20);
             // 
             // Menu_File_Exit
             // 
@@ -313,7 +316,6 @@
             this.Menu_Edit_OspreyDataXml_OpenLocation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_Edit_OspreyData_OpenLocation,
             this.addNewDataFileToolStripMenuItem});
-            this.Menu_Edit_OspreyDataXml_OpenLocation.Image = global::CodeLessTraveled.Osprey.Properties.Resources.EditXML_20;
             this.Menu_Edit_OspreyDataXml_OpenLocation.Name = "Menu_Edit_OspreyDataXml_OpenLocation";
             this.Menu_Edit_OspreyDataXml_OpenLocation.Size = new System.Drawing.Size(190, 30);
             this.Menu_Edit_OspreyDataXml_OpenLocation.Text = "Osprey Data XML File";
@@ -322,6 +324,7 @@
             // Menu_Edit_OspreyData_OpenLocation
             // 
             this.Menu_Edit_OspreyData_OpenLocation.AutoSize = false;
+            this.Menu_Edit_OspreyData_OpenLocation.Image = global::CodeLessTraveled.Osprey.Properties.Resources.openHS;
             this.Menu_Edit_OspreyData_OpenLocation.Name = "Menu_Edit_OspreyData_OpenLocation";
             this.Menu_Edit_OspreyData_OpenLocation.Size = new System.Drawing.Size(152, 30);
             this.Menu_Edit_OspreyData_OpenLocation.Text = "Open Location";
@@ -332,6 +335,7 @@
             // 
             this.addNewDataFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripTextBox1});
+            this.addNewDataFileToolStripMenuItem.Image = global::CodeLessTraveled.Osprey.Properties.Resources.NewDocument_32x32;
             this.addNewDataFileToolStripMenuItem.Name = "addNewDataFileToolStripMenuItem";
             this.addNewDataFileToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.addNewDataFileToolStripMenuItem.Text = "Add New Data File";
@@ -345,14 +349,15 @@
             // 
             this.toolStripSeparator6.AutoSize = false;
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(190, 2);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(186, 2);
             // 
             // Menu_Edit_ResetXml
             // 
             this.Menu_Edit_ResetXml.AutoSize = false;
             this.Menu_Edit_ResetXml.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_Edit_ResetXml_DoReset});
-            this.Menu_Edit_ResetXml.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Reset_20;
+            this.Menu_Edit_ResetXml.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Strikeout);
+            this.Menu_Edit_ResetXml.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Refresh_16x;
             this.Menu_Edit_ResetXml.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.Menu_Edit_ResetXml.Name = "Menu_Edit_ResetXml";
             this.Menu_Edit_ResetXml.Size = new System.Drawing.Size(190, 30);
@@ -361,9 +366,9 @@
             // 
             // Menu_Edit_ResetXml_DoReset
             // 
-            this.Menu_Edit_ResetXml_DoReset.AutoSize = false;
+            this.Menu_Edit_ResetXml_DoReset.Image = global::CodeLessTraveled.Osprey.Properties.Resources.base_exclamationmark_16;
             this.Menu_Edit_ResetXml_DoReset.Name = "Menu_Edit_ResetXml_DoReset";
-            this.Menu_Edit_ResetXml_DoReset.Size = new System.Drawing.Size(152, 30);
+            this.Menu_Edit_ResetXml_DoReset.Size = new System.Drawing.Size(120, 22);
             this.Menu_Edit_ResetXml_DoReset.Text = "Do Reset";
             this.Menu_Edit_ResetXml_DoReset.ToolTipText = "Caution! Delete all folder groups. Reset to blank slate.";
             this.Menu_Edit_ResetXml_DoReset.Click += new System.EventHandler(this.Menu_Edit_ResetXml_DoReset_Click);
@@ -372,14 +377,14 @@
             // 
             this.toolStripSeparator5.AutoSize = false;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(190, 2);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(186, 2);
             // 
             // Menu_Edit_DeleteFolderGroup
             // 
             this.Menu_Edit_DeleteFolderGroup.AutoSize = false;
             this.Menu_Edit_DeleteFolderGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_Edit_DeleteFolderGroup_DoDelete});
-            this.Menu_Edit_DeleteFolderGroup.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Delete_20A;
+            this.Menu_Edit_DeleteFolderGroup.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Erase_24x24;
             this.Menu_Edit_DeleteFolderGroup.Name = "Menu_Edit_DeleteFolderGroup";
             this.Menu_Edit_DeleteFolderGroup.Size = new System.Drawing.Size(190, 30);
             this.Menu_Edit_DeleteFolderGroup.Text = "Delete Folder Group";
@@ -388,6 +393,7 @@
             // Menu_Edit_DeleteFolderGroup_DoDelete
             // 
             this.Menu_Edit_DeleteFolderGroup_DoDelete.AutoSize = false;
+            this.Menu_Edit_DeleteFolderGroup_DoDelete.Image = global::CodeLessTraveled.Osprey.Properties.Resources.base_exclamationmark_32;
             this.Menu_Edit_DeleteFolderGroup_DoDelete.Name = "Menu_Edit_DeleteFolderGroup_DoDelete";
             this.Menu_Edit_DeleteFolderGroup_DoDelete.Size = new System.Drawing.Size(152, 30);
             this.Menu_Edit_DeleteFolderGroup_DoDelete.Text = "Do Delete";
@@ -559,7 +565,7 @@
             // ToolStrip_Button_AddFolder
             // 
             this.ToolStrip_Button_AddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ToolStrip_Button_AddFolder.Image = ((System.Drawing.Image)(resources.GetObject("ToolStrip_Button_AddFolder.Image")));
+            this.ToolStrip_Button_AddFolder.Image = global::CodeLessTraveled.Osprey.Properties.Resources._042b_AddCategory_24x24_72;
             this.ToolStrip_Button_AddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStrip_Button_AddFolder.Name = "ToolStrip_Button_AddFolder";
             this.ToolStrip_Button_AddFolder.Size = new System.Drawing.Size(24, 24);
@@ -594,7 +600,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "Osprey";
+            this.Text = "kuraba";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
@@ -658,7 +664,7 @@
         private System.Windows.Forms.ToolStripMenuItem addNewDataFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
         private System.Windows.Forms.ToolStripMenuItem Menu_File_SelectDataFile;
-        private System.Windows.Forms.ToolStripComboBox Menu_File_SelectDataFile_CboBox;
+        private System.Windows.Forms.ToolStripComboBox Menu_File_LoadFile_CboBox;
         private System.Windows.Forms.ToolStripTextBox Menu_File_NewDataFile_TextBox;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripButton ToolStrip_Button_AddFolder;

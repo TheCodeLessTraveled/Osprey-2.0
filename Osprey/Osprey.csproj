@@ -111,6 +111,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\openHS.png" />
+    <None Include="Resources\OpenHL.bmp" />
+    <None Include="Resources\NewDocument_32x32.png" />
+    <None Include="Resources\NewDocument.bmp" />
+    <None Include="Resources\base_exclamationmark_16.png" />
+    <None Include="Resources\base_exclamationmark_32.png" />
+    <None Include="Resources\Erase_24x24.png" />
+    <None Include="Resources\XMLFileHS.png" />
+    <None Include="Resources\112_RefreshArrow_Blue_24x24_72.png" />
+    <None Include="Resources\042b_AddCategory_24x24_72.png" />
+    <None Include="Resources\112_UpArrowLong_Blue_24x24_72.png" />
+    <None Include="Resources\112_RightArrowLong_Blue_24x24_72.png" />
+    <None Include="Resources\112_LeftArrowLong_Blue_24x24_72.png" />
+    <None Include="Resources\112_DownArrowLong_Blue_24x24_72.png" />
+    <None Include="Resources\Save.bmp" />
+    <None Include="Resources\Refresh_Cancel.bmp" />
+    <None Include="Resources\Erase.png" />
     <EmbeddedResource Include="ChildExplorer.resx">
       <DependentUpon>ChildExplorer.cs</DependentUpon>
     </EmbeddedResource>
