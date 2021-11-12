@@ -151,11 +151,10 @@
             // 
             // Menu_File_SelectDataFile
             // 
-            this.Menu_File_SelectDataFile.AutoSize = false;
             this.Menu_File_SelectDataFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_File_LoadFile_CboBox});
             this.Menu_File_SelectDataFile.Name = "Menu_File_SelectDataFile";
-            this.Menu_File_SelectDataFile.Size = new System.Drawing.Size(174, 30);
+            this.Menu_File_SelectDataFile.Size = new System.Drawing.Size(178, 30);
             this.Menu_File_SelectDataFile.Text = "Open Data File";
             // 
             // Menu_File_LoadFile_CboBox
@@ -178,13 +177,13 @@
             // 
             // Menu_File_SelectGroup_CboBox
             // 
-            this.Menu_File_SelectGroup_CboBox.AutoSize = false;
             this.Menu_File_SelectGroup_CboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_File_SelectGroup_CboBox.Name = "Menu_File_SelectGroup_CboBox";
             this.Menu_File_SelectGroup_CboBox.Size = new System.Drawing.Size(200, 23);
             this.Menu_File_SelectGroup_CboBox.ToolTipText = "Click to select a folder group from the list.";
             this.Menu_File_SelectGroup_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_SelectGroup_CboBox_SelectedIndexChanged);
             this.Menu_File_SelectGroup_CboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_SelectGroup_CboBox_KeyUp);
+            this.Menu_File_SelectGroup_CboBox.MouseLeave += new System.EventHandler(this.Menu_File_SelectGroup_CboBox_MouseLeave);
             // 
             // toolStripSeparator7
             // 
