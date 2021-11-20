@@ -111,6 +111,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\save.gif" />
+    <None Include="Resources\saveHS.png" />
+    <None Include="Resources\Folder_Open.png" />
     <None Include="Resources\openHS.png" />
     <None Include="Resources\OpenHL.bmp" />
     <None Include="Resources\NewDocument_32x32.png" />
