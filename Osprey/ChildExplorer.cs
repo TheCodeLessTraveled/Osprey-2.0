@@ -17,8 +17,10 @@ namespace CodeLessTraveled.Osprey
 
         private void ChildExplorer_Load(object sender, EventArgs e)
         {
-            //TS_ButtonBack.Text = "\u2190";
-            //TS_ButtonUp.Text = "\u00AB";
+            TS_ButtonBack.Text = "\u2190";
+            TS_ButtonForward.Text = "\u2192";
+            TS_ButtonUp.Text = "\u2191";
+            
         }
 
 
@@ -71,8 +73,11 @@ namespace CodeLessTraveled.Osprey
                 
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
+                    
                     this.m_TxtboxFolderPath = fbd.SelectedPath;
+
                     webBrowser1.Url = new Uri(this.m_TxtboxFolderPath);
+            
                     TS_TextboxUri.Text = this.m_TxtboxFolderPath;
 
                     string FormTitle = this.m_TxtboxFolderPath;
@@ -90,6 +95,7 @@ namespace CodeLessTraveled.Osprey
         
 
 
+
         public string FolderPathText
         {
             get { return this.m_TxtboxFolderPath; }
@@ -97,7 +103,6 @@ namespace CodeLessTraveled.Osprey
             {
                 this.m_TxtboxFolderPath = value;
                 this.TS_TextboxUri.Text = this.m_TxtboxFolderPath;
-
             }
         }
 
@@ -211,6 +216,16 @@ namespace CodeLessTraveled.Osprey
             {
                 this.ChildLabel = TS_TextboxUri.Text;
             }
+        }
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
 
         

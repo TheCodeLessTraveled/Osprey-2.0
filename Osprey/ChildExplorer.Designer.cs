@@ -60,6 +60,7 @@
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(778, 419);
             this.webBrowser1.TabIndex = 4;
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
             // 
             // lblError
@@ -83,45 +84,46 @@
             this.TS_ButtonOpen});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStrip1.Size = new System.Drawing.Size(778, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // TS_ButtonBack
             // 
             this.TS_ButtonBack.BackColor = System.Drawing.SystemColors.Control;
-            this.TS_ButtonBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TS_ButtonBack.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TS_ButtonBack.Image = global::CodeLessTraveled.Osprey.Properties.Resources._112_LeftArrowLong_Blue_24x24_72;
+            this.TS_ButtonBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TS_ButtonBack.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TS_ButtonBack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TS_ButtonBack.Margin = new System.Windows.Forms.Padding(0);
             this.TS_ButtonBack.Name = "TS_ButtonBack";
-            this.TS_ButtonBack.Size = new System.Drawing.Size(23, 25);
+            this.TS_ButtonBack.Size = new System.Drawing.Size(49, 25);
+            this.TS_ButtonBack.Text = "ArrBk";
             this.TS_ButtonBack.ToolTipText = "Back";
             this.TS_ButtonBack.Click += new System.EventHandler(this.TS_ButtonBack_Click);
             // 
             // TS_ButtonForward
             // 
-            this.TS_ButtonForward.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TS_ButtonForward.Image = global::CodeLessTraveled.Osprey.Properties.Resources._112_RightArrowLong_Blue_24x24_72;
+            this.TS_ButtonForward.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TS_ButtonForward.Font = new System.Drawing.Font("Segoe UI", 11F);
             this.TS_ButtonForward.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TS_ButtonForward.Margin = new System.Windows.Forms.Padding(0);
             this.TS_ButtonForward.Name = "TS_ButtonForward";
-            this.TS_ButtonForward.Size = new System.Drawing.Size(23, 25);
-            this.TS_ButtonForward.Text = "toolStripButton1";
+            this.TS_ButtonForward.Size = new System.Drawing.Size(60, 25);
+            this.TS_ButtonForward.Text = "ArrFwd";
             this.TS_ButtonForward.Click += new System.EventHandler(this.TS_ButtonForward_Click);
             // 
             // TS_ButtonUp
             // 
             this.TS_ButtonUp.BackColor = System.Drawing.SystemColors.Control;
-            this.TS_ButtonUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TS_ButtonUp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TS_ButtonUp.Image = global::CodeLessTraveled.Osprey.Properties.Resources._112_UpArrowLong_Blue_24x24_72;
+            this.TS_ButtonUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TS_ButtonUp.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TS_ButtonUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TS_ButtonUp.Margin = new System.Windows.Forms.Padding(0);
             this.TS_ButtonUp.Name = "TS_ButtonUp";
-            this.TS_ButtonUp.Size = new System.Drawing.Size(23, 25);
-            this.TS_ButtonUp.TextDirection = System.Windows.Forms.ToolStripTextDirection.Vertical90;
+            this.TS_ButtonUp.Size = new System.Drawing.Size(52, 25);
+            this.TS_ButtonUp.Text = "ArrUp";
             this.TS_ButtonUp.ToolTipText = "Up";
             this.TS_ButtonUp.Click += new System.EventHandler(this.TS_ButtonUp_Click);
             // 
@@ -135,7 +137,6 @@
             // 
             this.TS_TextboxUri.AutoSize = false;
             this.TS_TextboxUri.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TS_TextboxUri.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.TS_TextboxUri.Name = "TS_TextboxUri";
             this.TS_TextboxUri.Size = new System.Drawing.Size(400, 23);
             this.TS_TextboxUri.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TS_TextboxUri_KeyUp_1);
