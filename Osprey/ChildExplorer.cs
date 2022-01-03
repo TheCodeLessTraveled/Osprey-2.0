@@ -7,19 +7,60 @@ namespace CodeLessTraveled.Osprey
 {
     public partial class ChildExplorer : Form
     {
-        private string m_TxtboxFolderPath;
-        private string m_ChildLabel;
+        //private string m_TxtboxFolderPath;
+        //private string m_ChildLabel;
+        //private int    m_ColorAgrb;
+        //private string m_ColorString;
+        private ChildExplorerConfig m_ChildConfig;
+
+
     
         public ChildExplorer()
         {
             InitializeComponent();
+            m_ChildConfig = new ChildExplorerConfig();
+
+        }
+
+        public ChildExplorer(ChildExplorerConfig config)
+        {
+            
+            InitializeComponent();
+            this.Show();
+
+            
+            m_ChildConfig = config;
+
+            
+            m_ChildConfig.Label = config.Label;
+            this.Text = m_ChildConfig.Label;
+
+            m_ChildConfig.Uri = config.Uri;
+            this.SetBrowserUrl(this.m_ChildConfig.Uri);
+            TS_TextboxUri.Text = this.m_ChildConfig.Uri;
+
+            m_ChildConfig.ColorArgbInt = config.ColorArgbInt;
+            if (config.ColorArgbInt != 0)
+            {
+                TS_ButtonEditColor.BackColor = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+            }
+            
+
+        }
+
+        public ChildExplorerConfig ChildConfig
+        {   get 
+            {
+                return m_ChildConfig;
+            }    
         }
 
         private void ChildExplorer_Load(object sender, EventArgs e)
         {
-            TS_ButtonBack.Text = "\u2190";
-            TS_ButtonForward.Text = "\u2192";
-            TS_ButtonUp.Text = "\u2191";
+            TS_ButtonBack.Text      = "\u2190";
+            TS_ButtonForward.Text   = "\u2192";
+            TS_ButtonUp.Text        = "\u2191";
+           
             
         }
 
@@ -40,16 +81,16 @@ namespace CodeLessTraveled.Osprey
 
 
 
-        public string ChildLabel
-        {
-            get { return this.m_ChildLabel; }
-            set
-            {
-                this.m_ChildLabel = value;
-                this.Text = m_ChildLabel;
-                string x = "";
-            }
-        }
+        //public string ChildLabel
+        //{
+        //    get { return this.m_ChildLabel; }
+        //    set
+        //    {
+        //        this.m_ChildLabel = value;
+        //        this.Text = m_ChildLabel;
+        //        string x = "";
+        //    }
+        //}
 
 
         
@@ -60,10 +101,10 @@ namespace CodeLessTraveled.Osprey
             {
                 if (!String.IsNullOrEmpty(TS_TextboxUri.Text))
                 {
-                    //test to see if the entry is a folder.
-                    this.m_TxtboxFolderPath = TS_TextboxUri.Text;
+                    // test to see if the entry is a folder.
+                    // this.m_TxtboxFolderPath = TS_TextboxUri.Text;
 
-                    if (System.IO.Directory.Exists(this.m_TxtboxFolderPath))
+                    if (System.IO.Directory.Exists(TS_TextboxUri.Text))
                     {
                         fbd.SelectedPath = TS_TextboxUri.Text;// this.m_TxtboxFolderPath;
                     }
@@ -74,18 +115,19 @@ namespace CodeLessTraveled.Osprey
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
                     
-                    this.m_TxtboxFolderPath = fbd.SelectedPath;
+                    //this.m_TxtboxFolderPath = fbd.SelectedPath;
+                    this.m_ChildConfig.Uri = fbd.SelectedPath;
 
-                    webBrowser1.Url = new Uri(this.m_TxtboxFolderPath);
+                    webBrowser1.Url = new Uri(this.m_ChildConfig.Uri);
             
-                    TS_TextboxUri.Text = this.m_TxtboxFolderPath;
+                    TS_TextboxUri.Text = this.m_ChildConfig.Uri;
 
-                    string FormTitle = this.m_TxtboxFolderPath;
+                    string FormTitle = this.m_ChildConfig.Uri;
                     if (FormTitle.Length > 50)
                     {
-                        string startChars = this.m_TxtboxFolderPath.Substring(0, 20);
-                        int pos1 = this.m_TxtboxFolderPath.Length - 20;
-                        string EndChars = this.m_TxtboxFolderPath.Substring(pos1);
+                        string startChars = this.m_ChildConfig.Uri.Substring(0, 20);
+                        int pos1 = this.m_ChildConfig.Uri.Length - 20;
+                        string EndChars = this.m_ChildConfig.Uri.Substring(pos1);
                         FormTitle = startChars + "..." + EndChars;
                     }
                     this.Text = FormTitle;
@@ -96,15 +138,15 @@ namespace CodeLessTraveled.Osprey
 
 
 
-        public string FolderPathText
-        {
-            get { return this.m_TxtboxFolderPath; }
-            set
-            {
-                this.m_TxtboxFolderPath = value;
-                this.TS_TextboxUri.Text = this.m_TxtboxFolderPath;
-            }
-        }
+        //public string FolderPathText
+        //{
+        //    get { return this.m_TxtboxFolderPath; }
+        //    set
+        //    {
+        //        this.m_TxtboxFolderPath = value;
+        //        this.TS_TextboxUri.Text = this.m_TxtboxFolderPath;
+        //    }
+        //}
 
 
 
@@ -176,7 +218,7 @@ namespace CodeLessTraveled.Osprey
                 else
                 {
                     SetBrowserUrl(this.TS_TextboxUri.Text);
-                    this.m_TxtboxFolderPath = this.TS_TextboxUri.Text;
+                    this.m_ChildConfig.Uri = this.TS_TextboxUri.Text;
                 }
             }
         }
@@ -201,7 +243,7 @@ namespace CodeLessTraveled.Osprey
                 else
                 {
                     SetBrowserUrl(TS_TextboxUri.Text);
-                    this.m_TxtboxFolderPath = TS_TextboxUri.Text;
+                    this.m_ChildConfig.Uri = TS_TextboxUri.Text;
                 }
             }
         }
@@ -211,10 +253,10 @@ namespace CodeLessTraveled.Osprey
         private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             TS_TextboxUri.Text = webBrowser1.Url.LocalPath;
-            this.FolderPathText = TS_TextboxUri.Text;
-            if (String.IsNullOrEmpty(this.ChildLabel))
+            this.m_ChildConfig.Uri = TS_TextboxUri.Text;
+            if (String.IsNullOrEmpty(this.m_ChildConfig.Label))
             {
-                this.ChildLabel = TS_TextboxUri.Text;
+                this.m_ChildConfig.Label = TS_TextboxUri.Text;
             }
         }
 
@@ -226,6 +268,27 @@ namespace CodeLessTraveled.Osprey
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
+        }
+
+        private void TS_ButtonEditColor_Click(object sender, EventArgs e)
+        {
+            using (colorDialog1)
+            {
+                if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+
+                    System.Drawing.Color newColor = colorDialog1.Color;
+                    
+                    m_ChildConfig.ColorArgbInt = newColor.ToArgb();
+                    
+                    TS_ButtonEditColor.BackColor = newColor;
+
+   
+                    string x = "";
+                }
+            
+            }
+            
         }
 
         

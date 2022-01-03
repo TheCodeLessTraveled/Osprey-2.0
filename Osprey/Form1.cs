@@ -166,11 +166,7 @@ namespace CodeLessTraveled.Osprey
                     Menu_File_OpenDataFile_CboBox.Text = m_XmlFilename;
                 }
 
-                util_SetControlsPerSelectedXml();
-
-              //  this.m_OspreyDataXmlFullPath = System.IO.Path.Combine(m_XmlFileCollectionPath, m_XmlFilename);
-              
-               
+             //   util_SetControlsPerSelectedXml();
 
 
 
@@ -602,7 +598,7 @@ namespace CodeLessTraveled.Osprey
         private void Menu_File_FolderGroup_CboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            util_FolderGroupCboBoxSelected(Menu_File_FolderGroup_CboBox.Text);
+           // util_FolderGroupCboBoxSelected(Menu_File_FolderGroup_CboBox.Text);
             
             //m_UI_STATE_FolderGroupIsOpen = false;
 
@@ -798,16 +794,23 @@ namespace CodeLessTraveled.Osprey
                     {
                         foreach (ChildExplorer childForm in this.MdiChildren)
                         {
-                            if (!String.IsNullOrEmpty(childForm.FolderPathText) && !String.IsNullOrWhiteSpace(childForm.FolderPathText))
-                            {
+                            string FolderPathText = childForm.ChildConfig.Uri;
+                          
+                          //if (!String.IsNullOrEmpty(childForm.FolderPathText) && !String.IsNullOrWhiteSpace(childForm.FolderPathText))
+                            if (!String.IsNullOrEmpty(FolderPathText) && !String.IsNullOrWhiteSpace(FolderPathText))
+                                {
                                 XmlNode nChildFileExplorerUri = m_OspreyDataXml.CreateNode(XmlNodeType.Element, "ChildExplorer", "");
 
+                                XmlAttribute atColorArgb = m_OspreyDataXml.CreateAttribute("colorargb");
+                                atColorArgb.Value = childForm.ChildConfig.ColorArgbInt.ToString();
+                                nChildFileExplorerUri.Attributes.Append(atColorArgb);
+
                                 XmlAttribute atLabel = m_OspreyDataXml.CreateAttribute("label");
-                                atLabel.Value = ""; 
+                                atLabel.Value = childForm.ChildConfig.Label; 
                                 nChildFileExplorerUri.Attributes.Append(atLabel);
 
                                 XmlAttribute atUri = m_OspreyDataXml.CreateAttribute("uri");
-                                atUri.Value = childForm.FolderPathText;
+                                atUri.Value = FolderPathText;
                                 nChildFileExplorerUri.Attributes.Append(atUri);
 
                                 FolderTeamNode.AppendChild(nChildFileExplorerUri);
@@ -862,14 +865,18 @@ namespace CodeLessTraveled.Osprey
         private void util_AddChildWindow(string FolderPath)
         {
 
+            ChildExplorerConfig newConfig = new ChildExplorerConfig();
+            newConfig.Uri = FolderPath;
+            newConfig.ColorArgbInt = 0;
+            newConfig.Label = "";
 
-            ChildExplorer newFileExplorer = new ChildExplorer();
+
+            ChildExplorer newFileExplorer = new ChildExplorer(newConfig);
+
             newFileExplorer.MdiParent = this;
-            newFileExplorer.Show();
             ArrayChildExplorer.Add(newFileExplorer);
-            newFileExplorer.FolderPathText = FolderPath;
-
-            newFileExplorer.SetBrowserUrl(FolderPath);
+           
+          //  newFileExplorer.SetBrowserUrl(FolderPath);
 
         }
 
@@ -939,17 +946,40 @@ namespace CodeLessTraveled.Osprey
                                 
                                 string label = nChildExplorer.Attributes["label"].Value;
 
-                                ChildExplorer newFileExplorer = new ChildExplorer();
+                                string ColorAttrib = nChildExplorer.Attributes["colorargb"].Value;
+
+                                bool b_ColorAttribNull = String.IsNullOrEmpty(ColorAttrib);
+
+                                bool b_ColorIsInt = false;
+                                int ColorArgbInt = 0;
+                                if(!b_ColorAttribNull)
+                                {
+                                    b_ColorIsInt = int.TryParse(ColorAttrib, out ColorArgbInt);
+                                }
+
+                                ChildExplorerConfig childConfig = new ChildExplorerConfig();
+
+                                if (b_ColorIsInt)
+                                {
+                                    childConfig.ColorArgbInt = ColorArgbInt;
+                                }
+                                
+                                childConfig.Label = label;
+                               
+                                childConfig.Uri= uri;
+                                
+                                ChildExplorer newFileExplorer = new ChildExplorer(childConfig);
 
                                 newFileExplorer.MdiParent = this;
                        
-                                newFileExplorer.Show();
+                                //newFileExplorer.Show();
                                 
-                                newFileExplorer.ChildLabel = label;
+                                //newFileExplorer.ChildLabel = label;
 
-                                newFileExplorer.FolderPathText = uri;
+                                //newFileExplorer.FolderPathText = uri;
                                 
-                                newFileExplorer.SetBrowserUrl(uri);
+                                //newFileExplorer.SetBrowserUrl(uri);
+   
                             }
                         }
                     }
@@ -1175,6 +1205,9 @@ namespace CodeLessTraveled.Osprey
 
         private void util_FolderGroupCboBoxSelected(string SelectedFolderGroupName)
         {
+
+            Menu_File.HideDropDown();
+            
             m_UI_STATE_FolderGroupIsOpen = false;
 
             //this.Text = String.Format("Osprey  \u00B7  {0}  \u00B7  {1}", m_XmlFilename, Menu_File_FolderGroup_CboBox.Text);
@@ -1186,8 +1219,7 @@ namespace CodeLessTraveled.Osprey
 
             ClearAllChildWindows();
 
-            Menu_File.HideDropDown();
-
+      
             util_LoadChildWindows(m_arrSelectedFolderTeamName[idx_FTeamNodeName]);
 
             m_UI_STATE_FolderGroupIsOpen = true;
@@ -1399,6 +1431,43 @@ namespace CodeLessTraveled.Osprey
     }
 
 
+
+    public struct ChildExplorerConfig
+    {
+     //   private string  m_ColorArgbName;
+        private int     m_ColorArgbInt;
+        private string  m_Label;
+        private string  m_Uri;
+        
+
+        //public string ColorArgbName
+        //{
+        //    get { return m_ColorArgbName; }
+        //    set { m_ColorArgbName = value; }
+        //}
+
+        public int ColorArgbInt
+        {
+            get { return m_ColorArgbInt; }
+            set { m_ColorArgbInt = value; }
+        }
+
+        public string Label
+        {
+            get { return m_Label; }
+            set { m_Label = value; }
+        }
+
+        public string Uri
+        {
+            get { return m_Uri; }
+            set { m_Uri = value; }
+        }
+
+
+
+        //System.Drawing.SystemColors.ControlDark.Name
+    }
 
 }
 

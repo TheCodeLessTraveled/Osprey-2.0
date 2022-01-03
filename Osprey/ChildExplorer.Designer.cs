@@ -34,6 +34,8 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.lblError = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.TS_ButtonEditColor = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.TS_ButtonBack = new System.Windows.Forms.ToolStripButton();
             this.TS_ButtonForward = new System.Windows.Forms.ToolStripButton();
             this.TS_ButtonUp = new System.Windows.Forms.ToolStripButton();
@@ -43,6 +45,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.Status_SizeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -76,6 +79,8 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TS_ButtonEditColor,
+            this.toolStripSeparator1,
             this.TS_ButtonBack,
             this.TS_ButtonForward,
             this.TS_ButtonUp,
@@ -89,6 +94,20 @@
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
+            // 
+            // TS_ButtonEditColor
+            // 
+            this.TS_ButtonEditColor.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.TS_ButtonEditColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.TS_ButtonEditColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TS_ButtonEditColor.Name = "TS_ButtonEditColor";
+            this.TS_ButtonEditColor.Size = new System.Drawing.Size(23, 22);
+            this.TS_ButtonEditColor.Click += new System.EventHandler(this.TS_ButtonEditColor_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // TS_ButtonBack
             // 
@@ -217,5 +236,8 @@
         private System.Windows.Forms.ToolStripStatusLabel Status_SizeLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripButton TS_ButtonForward;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton TS_ButtonEditColor;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }
