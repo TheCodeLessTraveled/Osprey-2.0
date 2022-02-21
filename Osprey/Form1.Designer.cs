@@ -153,6 +153,7 @@
             this.Menu_File_NewDataFile_TextBox.Text = "s";
             this.Menu_File_NewDataFile_TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_NewDataFile_TextBox_KeyDown);
             this.Menu_File_NewDataFile_TextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_NewDataFile_TextBox_KeyUp);
+            this.Menu_File_NewDataFile_TextBox.TextChanged += new System.EventHandler(this.Menu_File_NewDataFile_TextBox_TextChanged);
             // 
             // Menu_File_OpenDataFile
             // 
@@ -571,7 +572,7 @@
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(81, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(50, 27);
             this.toolStrip1.Stretch = true;
             this.toolStrip1.TabIndex = 12;
             // 
@@ -625,7 +626,7 @@
             this.Text = "Osprey";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.menuStrip1.ResumeLayout(false);

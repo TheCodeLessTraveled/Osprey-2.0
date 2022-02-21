@@ -26,7 +26,7 @@ namespace CodeLessTraveled.Osprey
         {
             
             InitializeComponent();
-            this.Show();
+            //this.Show();
 
             
             m_ChildConfig = config;
