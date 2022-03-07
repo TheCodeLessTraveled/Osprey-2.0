@@ -72,6 +72,8 @@
             this.Menu_Help_About = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Help_OspreyHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Help_LicenseInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_FolderTeam = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_FolderGroup_ComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.Menu_FolderGroup_CboBox = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,13 +101,14 @@
             this.Menu_Edit,
             this.Menu_View,
             this.Menu_Help,
+            this.Menu_FolderTeam,
             this.Menu_FolderGroup_CboBox});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(982, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(951, 30);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "File";
             // 
@@ -150,10 +153,8 @@
             // 
             this.Menu_File_NewDataFile_TextBox.Name = "Menu_File_NewDataFile_TextBox";
             this.Menu_File_NewDataFile_TextBox.Size = new System.Drawing.Size(200, 23);
-            this.Menu_File_NewDataFile_TextBox.Text = "s";
             this.Menu_File_NewDataFile_TextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_NewDataFile_TextBox_KeyDown);
             this.Menu_File_NewDataFile_TextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_NewDataFile_TextBox_KeyUp);
-            this.Menu_File_NewDataFile_TextBox.TextChanged += new System.EventHandler(this.Menu_File_NewDataFile_TextBox_TextChanged);
             // 
             // Menu_File_OpenDataFile
             // 
@@ -171,6 +172,7 @@
             this.Menu_File_OpenDataFile_CboBox.Size = new System.Drawing.Size(200, 23);
             this.Menu_File_OpenDataFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_SelectedIndexChanged);
             this.Menu_File_OpenDataFile_CboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_OpenDataFile_CboBox_KeyUp);
+            this.Menu_File_OpenDataFile_CboBox.TextChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_TextChanged);
             // 
             // toolStripSeparator7
             // 
@@ -493,11 +495,25 @@
             this.Menu_Help_LicenseInfo.Text = "License Info";
             this.Menu_Help_LicenseInfo.Click += new System.EventHandler(this.Menu_Help_LicenseInfo_Click);
             // 
+            // Menu_FolderTeam
+            // 
+            this.Menu_FolderTeam.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Menu_FolderGroup_ComboBox});
+            this.Menu_FolderTeam.Name = "Menu_FolderTeam";
+            this.Menu_FolderTeam.Size = new System.Drawing.Size(88, 26);
+            this.Menu_FolderTeam.Text = "Folder Group";
+            // 
+            // Menu_FolderGroup_ComboBox
+            // 
+            this.Menu_FolderGroup_ComboBox.Name = "Menu_FolderGroup_ComboBox";
+            this.Menu_FolderGroup_ComboBox.Size = new System.Drawing.Size(200, 23);
+            this.Menu_FolderGroup_ComboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_FolderGroup_ComboBox_SelectedIndexChanged);
+            // 
             // Menu_FolderGroup_CboBox
             // 
             this.Menu_FolderGroup_CboBox.AutoSize = false;
             this.Menu_FolderGroup_CboBox.Name = "Menu_FolderGroup_CboBox";
-            this.Menu_FolderGroup_CboBox.Size = new System.Drawing.Size(200, 23);
+            this.Menu_FolderGroup_CboBox.Size = new System.Drawing.Size(100, 23);
             this.Menu_FolderGroup_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_FolderGroup_CboBox_SelectedIndexChanged);
             this.Menu_FolderGroup_CboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_FolderGroup_CboBox_KeyDown);
             this.Menu_FolderGroup_CboBox.Click += new System.EventHandler(this.toolStripComboBox1_Click);
@@ -610,7 +626,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(982, 425);
+            this.ClientSize = new System.Drawing.Size(951, 388);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblStausMessage);
@@ -696,6 +712,8 @@
         private System.Windows.Forms.ToolStripButton ToolStrip_Button_Save;
         private System.Windows.Forms.Timer Timer_Message2;
         private System.Windows.Forms.ToolStripComboBox Menu_FolderGroup_CboBox;
+        private System.Windows.Forms.ToolStripMenuItem Menu_FolderTeam;
+        private System.Windows.Forms.ToolStripComboBox Menu_FolderGroup_ComboBox;
     }
 }
 
