@@ -550,7 +550,7 @@
             // 
             this.toolStripSeparator3.AutoSize = false;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 20);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 20);
             // 
             // Menu_View_ClearAll
             // 
@@ -602,8 +602,8 @@
             this.Menu_FolderGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_FolderGroup_ComboBox});
             this.Menu_FolderGroup.Name = "Menu_FolderGroup";
-            this.Menu_FolderGroup.Size = new System.Drawing.Size(88, 26);
-            this.Menu_FolderGroup.Text = "Folder Group";
+            this.Menu_FolderGroup.Size = new System.Drawing.Size(50, 26);
+            this.Menu_FolderGroup.Text = "Select";
             this.Menu_FolderGroup.Click += new System.EventHandler(this.Menu_FolderGroup_Click);
             // 
             // Menu_FolderGroup_ComboBox
