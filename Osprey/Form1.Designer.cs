@@ -250,6 +250,7 @@
             // Menu_File_OpenDataFile_CboBox
             // 
             this.Menu_File_OpenDataFile_CboBox.AutoSize = false;
+            this.Menu_File_OpenDataFile_CboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_File_OpenDataFile_CboBox.Name = "Menu_File_OpenDataFile_CboBox";
             this.Menu_File_OpenDataFile_CboBox.Size = new System.Drawing.Size(200, 23);
             this.Menu_File_OpenDataFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_SelectedIndexChanged);
@@ -550,7 +551,7 @@
             // 
             this.toolStripSeparator3.AutoSize = false;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 20);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 20);
             // 
             // Menu_View_ClearAll
             // 

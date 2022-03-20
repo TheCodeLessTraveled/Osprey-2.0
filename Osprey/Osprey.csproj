@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Osprey Notes.docx" />
     <None Include="Resources\save.gif" />
     <None Include="Resources\saveHS.png" />
     <None Include="Resources\Folder_Open.png" />
