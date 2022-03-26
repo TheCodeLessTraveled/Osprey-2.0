@@ -57,9 +57,8 @@
             this.Menu_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_AddFolderGroup = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_Edit_AddFolderGroup_Textbox = new System.Windows.Forms.ToolStripTextBox();
             this.Menu_Edit_RenameFolderGroup = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_Edit_RenameFG_Textbox = new System.Windows.Forms.ToolStripTextBox();
+            this.Menu_Edit_Rename_FG_Textbox = new System.Windows.Forms.ToolStripTextBox();
             this.Menu_Edit_DeleteFolderGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_DeleteFolderGroup_DoDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -77,6 +76,7 @@
             this.Menu_FolderGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_FolderGroup_ComboBox = new System.Windows.Forms.ToolStripComboBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.Menu_Edit_AddNewFG_Textbox = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -202,7 +202,7 @@
             // 
             this.toolStripSeparator4.AutoSize = false;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(180, 20);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(176, 20);
             // 
             // Menu_File_NewDataFile
             // 
@@ -243,7 +243,7 @@
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(180, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(176, 6);
             // 
             // Menu_File_Save
             // 
@@ -267,7 +267,7 @@
             this.Menu_File_SaveAs.Name = "Menu_File_SaveAs";
             this.Menu_File_SaveAs.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.Menu_File_SaveAs.Size = new System.Drawing.Size(180, 30);
-            this.Menu_File_SaveAs.Text = "Copy Group As";
+            this.Menu_File_SaveAs.Text = "Save Group As";
             this.Menu_File_SaveAs.ToolTipText = "This is like a Save As where you can duplicate the folder group with a differnent" +
     " name.";
             // 
@@ -289,7 +289,7 @@
             // 
             this.toolStripSeparator2.AutoSize = false;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(180, 20);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(176, 20);
             // 
             // Menu_File_Exit
             // 
@@ -317,38 +317,28 @@
             // 
             this.Menu_Edit_AddFolderGroup.AutoSize = false;
             this.Menu_Edit_AddFolderGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu_Edit_AddFolderGroup_Textbox});
+            this.Menu_Edit_AddNewFG_Textbox});
             this.Menu_Edit_AddFolderGroup.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.Menu_Edit_AddFolderGroup.Name = "Menu_Edit_AddFolderGroup";
-            this.Menu_Edit_AddFolderGroup.Size = new System.Drawing.Size(190, 30);
+            this.Menu_Edit_AddFolderGroup.Size = new System.Drawing.Size(230, 30);
             this.Menu_Edit_AddFolderGroup.Text = "New Folder Group";
-            // 
-            // Menu_Edit_AddFolderGroup_Textbox
-            // 
-            this.Menu_Edit_AddFolderGroup_Textbox.AutoSize = false;
-            this.Menu_Edit_AddFolderGroup_Textbox.Name = "Menu_Edit_AddFolderGroup_Textbox";
-            this.Menu_Edit_AddFolderGroup_Textbox.Size = new System.Drawing.Size(200, 23);
-            this.Menu_Edit_AddFolderGroup_Textbox.ToolTipText = "Enter a folder group to this file. Press ENTER.\r\n";
-            this.Menu_Edit_AddFolderGroup_Textbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_AddFolderGroup_Textbox_KeyDown);
-            this.Menu_Edit_AddFolderGroup_Textbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_AddFolderGroup_Textbox_KeyUp);
             // 
             // Menu_Edit_RenameFolderGroup
             // 
             this.Menu_Edit_RenameFolderGroup.AutoSize = false;
             this.Menu_Edit_RenameFolderGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.Menu_Edit_RenameFG_Textbox});
+            this.Menu_Edit_Rename_FG_Textbox});
             this.Menu_Edit_RenameFolderGroup.Name = "Menu_Edit_RenameFolderGroup";
-            this.Menu_Edit_RenameFolderGroup.Size = new System.Drawing.Size(190, 30);
+            this.Menu_Edit_RenameFolderGroup.Size = new System.Drawing.Size(230, 30);
             this.Menu_Edit_RenameFolderGroup.Text = "Rename This FolderGroup";
             // 
-            // Menu_Edit_RenameFG_Textbox
+            // Menu_Edit_Rename_FG_Textbox
             // 
-            this.Menu_Edit_RenameFG_Textbox.AutoSize = false;
-            this.Menu_Edit_RenameFG_Textbox.Name = "Menu_Edit_RenameFG_Textbox";
-            this.Menu_Edit_RenameFG_Textbox.Size = new System.Drawing.Size(200, 23);
-            this.Menu_Edit_RenameFG_Textbox.ToolTipText = "Type the new name for the currently displayed folder group. Press Enter.";
-            this.Menu_Edit_RenameFG_Textbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_RenameFolderGroup_Tbox_KeyDown);
-            this.Menu_Edit_RenameFG_Textbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_RenameFolderGroup_Tbox_KeyUp);
+            this.Menu_Edit_Rename_FG_Textbox.AutoSize = false;
+            this.Menu_Edit_Rename_FG_Textbox.Name = "Menu_Edit_Rename_FG_Textbox";
+            this.Menu_Edit_Rename_FG_Textbox.Size = new System.Drawing.Size(190, 23);
+            this.Menu_Edit_Rename_FG_Textbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_Rename_FG_Textbox_KeyDown);
+            this.Menu_Edit_Rename_FG_Textbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_Rename_FG_Textbox_KeyUp);
             // 
             // Menu_Edit_DeleteFolderGroup
             // 
@@ -357,7 +347,7 @@
             this.Menu_Edit_DeleteFolderGroup_DoDelete});
             this.Menu_Edit_DeleteFolderGroup.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Erase_24x24;
             this.Menu_Edit_DeleteFolderGroup.Name = "Menu_Edit_DeleteFolderGroup";
-            this.Menu_Edit_DeleteFolderGroup.Size = new System.Drawing.Size(190, 30);
+            this.Menu_Edit_DeleteFolderGroup.Size = new System.Drawing.Size(230, 30);
             this.Menu_Edit_DeleteFolderGroup.Text = "Delete This Folder Group";
             this.Menu_Edit_DeleteFolderGroup.ToolTipText = "Remove the currently viewed folder group from OspreyData.xml.";
             // 
@@ -383,7 +373,7 @@
             this.Menu_Edit_OspreyDataXml_OpenLocation.Image = global::CodeLessTraveled.Osprey.Properties.Resources.openHS;
             this.Menu_Edit_OspreyDataXml_OpenLocation.Name = "Menu_Edit_OspreyDataXml_OpenLocation";
             this.Menu_Edit_OspreyDataXml_OpenLocation.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.Menu_Edit_OspreyDataXml_OpenLocation.Size = new System.Drawing.Size(210, 30);
+            this.Menu_Edit_OspreyDataXml_OpenLocation.Size = new System.Drawing.Size(230, 30);
             this.Menu_Edit_OspreyDataXml_OpenLocation.Text = "Osprey Data XML File";
             this.Menu_Edit_OspreyDataXml_OpenLocation.ToolTipText = "Navigate to the data file folder.";
             this.Menu_Edit_OspreyDataXml_OpenLocation.Click += new System.EventHandler(this.Menu_Edit_OspreyDataXml_OpenLocation_Click_1);
@@ -511,6 +501,14 @@
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "File";
             // 
+            // Menu_Edit_AddNewFG_Textbox
+            // 
+            this.Menu_Edit_AddNewFG_Textbox.AutoSize = false;
+            this.Menu_Edit_AddNewFG_Textbox.Name = "Menu_Edit_AddNewFG_Textbox";
+            this.Menu_Edit_AddNewFG_Textbox.Size = new System.Drawing.Size(200, 23);
+            this.Menu_Edit_AddNewFG_Textbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_AddFolderGroup_Textbox_KeyDown);
+            this.Menu_Edit_AddNewFG_Textbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_AddFolderGroup_Textbox_KeyUp);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_AcceptButton;
@@ -592,9 +590,9 @@
         private System.Windows.Forms.ToolStripComboBox Menu_FolderGroup_ComboBox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem Menu_Edit_AddFolderGroup;
-        private System.Windows.Forms.ToolStripTextBox Menu_Edit_AddFolderGroup_Textbox;
         private System.Windows.Forms.ToolStripMenuItem Menu_Edit_RenameFolderGroup;
-        private System.Windows.Forms.ToolStripTextBox Menu_Edit_RenameFG_Textbox;
+        private System.Windows.Forms.ToolStripTextBox Menu_Edit_Rename_FG_Textbox;
+        private System.Windows.Forms.ToolStripTextBox Menu_Edit_AddNewFG_Textbox;
     }
 }
 

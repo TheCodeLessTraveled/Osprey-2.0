@@ -50,18 +50,6 @@ namespace CodeLessTraveled.Osprey.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastFolderTeamName {
-            get {
-                return ((string)(this["LastFolderTeamName"]));
-            }
-            set {
-                this["LastFolderTeamName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string AltOspreyDataFolder {
             get {
                 return ((string)(this["AltOspreyDataFolder"]));
@@ -80,18 +68,6 @@ namespace CodeLessTraveled.Osprey.Properties {
             }
             set {
                 this["LastXmlFileName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastFolderTeamDisplayName {
-            get {
-                return ((string)(this["LastFolderTeamDisplayName"]));
-            }
-            set {
-                this["LastFolderTeamDisplayName"] = value;
             }
         }
     }

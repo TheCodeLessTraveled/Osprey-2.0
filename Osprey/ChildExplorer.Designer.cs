@@ -46,6 +46,7 @@
             this.Status_SizeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.TS_Cfg = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -86,7 +87,8 @@
             this.TS_ButtonUp,
             this.toolStripSeparator2,
             this.TS_TextboxUri,
-            this.TS_ButtonOpen});
+            this.TS_ButtonOpen,
+            this.TS_Cfg});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -194,6 +196,16 @@
             this.panel1.Size = new System.Drawing.Size(778, 419);
             this.panel1.TabIndex = 8;
             // 
+            // TS_Cfg
+            // 
+            this.TS_Cfg.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TS_Cfg.Image = ((System.Drawing.Image)(resources.GetObject("TS_Cfg.Image")));
+            this.TS_Cfg.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TS_Cfg.Name = "TS_Cfg";
+            this.TS_Cfg.Size = new System.Drawing.Size(23, 22);
+            this.TS_Cfg.Text = "Config";
+            this.TS_Cfg.ToolTipText = "Configure child window options";
+            // 
             // ChildExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -239,5 +251,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton TS_ButtonEditColor;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.ToolStripButton TS_Cfg;
     }
 }
