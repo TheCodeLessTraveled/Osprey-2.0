@@ -32,12 +32,12 @@ namespace CodeLessTraveled.Osprey
             m_ChildConfig = config;
 
             
-            m_ChildConfig.Label = config.Label;
-            this.Text = m_ChildConfig.Label;
+            m_ChildConfig.label = config.label;
+            this.Text = m_ChildConfig.label;
 
-            m_ChildConfig.Uri = config.Uri;
-            this.SetBrowserUrl(this.m_ChildConfig.Uri);
-            TS_TextboxUri.Text = this.m_ChildConfig.Uri;
+            m_ChildConfig.uri = config.uri;
+            this.SetBrowserUrl(this.m_ChildConfig.uri);
+            TS_TextboxUri.Text = this.m_ChildConfig.uri;
 
             m_ChildConfig.ColorArgbInt = config.ColorArgbInt;
             if (config.ColorArgbInt != 0)
@@ -116,18 +116,18 @@ namespace CodeLessTraveled.Osprey
                 {
                     
                     //this.m_TxtboxFolderPath = fbd.SelectedPath;
-                    this.m_ChildConfig.Uri = fbd.SelectedPath;
+                    this.m_ChildConfig.uri = fbd.SelectedPath;
 
-                    webBrowser1.Url = new Uri(this.m_ChildConfig.Uri);
+                    webBrowser1.Url = new Uri(this.m_ChildConfig.uri);
             
-                    TS_TextboxUri.Text = this.m_ChildConfig.Uri;
+                    TS_TextboxUri.Text = this.m_ChildConfig.uri;
 
-                    string FormTitle = this.m_ChildConfig.Uri;
+                    string FormTitle = this.m_ChildConfig.uri;
                     if (FormTitle.Length > 50)
                     {
-                        string startChars = this.m_ChildConfig.Uri.Substring(0, 20);
-                        int pos1 = this.m_ChildConfig.Uri.Length - 20;
-                        string EndChars = this.m_ChildConfig.Uri.Substring(pos1);
+                        string startChars = this.m_ChildConfig.uri.Substring(0, 20);
+                        int pos1 = this.m_ChildConfig.uri.Length - 20;
+                        string EndChars = this.m_ChildConfig.uri.Substring(pos1);
                         FormTitle = startChars + "..." + EndChars;
                     }
                     this.Text = FormTitle;
@@ -158,7 +158,7 @@ namespace CodeLessTraveled.Osprey
                 this.TS_TextboxUri.Text = BrowserUrl;
             }
             catch (System.UriFormatException eUri)
-            {
+            {   
                 this.Text = "Invalid uri! ";
             }
 
@@ -218,7 +218,7 @@ namespace CodeLessTraveled.Osprey
                 else
                 {
                     SetBrowserUrl(this.TS_TextboxUri.Text);
-                    this.m_ChildConfig.Uri = this.TS_TextboxUri.Text;
+                    this.m_ChildConfig.uri = this.TS_TextboxUri.Text;
                 }
             }
         }
@@ -243,7 +243,7 @@ namespace CodeLessTraveled.Osprey
                 else
                 {
                     SetBrowserUrl(TS_TextboxUri.Text);
-                    this.m_ChildConfig.Uri = TS_TextboxUri.Text;
+                    this.m_ChildConfig.uri = TS_TextboxUri.Text;
                 }
             }
         }
@@ -253,10 +253,10 @@ namespace CodeLessTraveled.Osprey
         private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             TS_TextboxUri.Text = webBrowser1.Url.LocalPath;
-            this.m_ChildConfig.Uri = TS_TextboxUri.Text;
-            if (String.IsNullOrEmpty(this.m_ChildConfig.Label))
+            this.m_ChildConfig.uri = TS_TextboxUri.Text;
+            if (String.IsNullOrEmpty(this.m_ChildConfig.label))
             {
-                this.m_ChildConfig.Label = TS_TextboxUri.Text;
+                this.m_ChildConfig.label = TS_TextboxUri.Text;
             }
         }
 
