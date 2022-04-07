@@ -85,6 +85,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChildExplorer_split.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChildExplorer_split.Designer.cs">
+      <DependentUpon>ChildExplorer_split.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChildOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChildOptions.Designer.cs">
+      <DependentUpon>ChildOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="LicenseInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,12 +109,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChildExplorer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChildExplorer.Designer.cs">
-      <DependentUpon>ChildExplorer.cs</DependentUpon>
-    </Compile>
     <Compile Include="HelpAbout.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,29 +117,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\LightBlue_Save_20C.png" />
+    <None Include="Resources\gear_32xMD.png" />
     <None Include="Osprey Notes.docx" />
-    <None Include="Resources\save.gif" />
     <None Include="Resources\saveHS.png" />
     <None Include="Resources\Folder_Open.png" />
     <None Include="Resources\openHS.png" />
-    <None Include="Resources\OpenHL.bmp" />
     <None Include="Resources\NewDocument_32x32.png" />
-    <None Include="Resources\NewDocument.bmp" />
-    <None Include="Resources\base_exclamationmark_16.png" />
     <None Include="Resources\base_exclamationmark_32.png" />
     <None Include="Resources\Erase_24x24.png" />
     <None Include="Resources\XMLFileHS.png" />
-    <None Include="Resources\112_RefreshArrow_Blue_24x24_72.png" />
     <None Include="Resources\042b_AddCategory_24x24_72.png" />
-    <None Include="Resources\112_UpArrowLong_Blue_24x24_72.png" />
-    <None Include="Resources\112_RightArrowLong_Blue_24x24_72.png" />
-    <None Include="Resources\112_LeftArrowLong_Blue_24x24_72.png" />
-    <None Include="Resources\112_DownArrowLong_Blue_24x24_72.png" />
-    <None Include="Resources\Save.bmp" />
     <None Include="Resources\Refresh_Cancel.bmp" />
-    <None Include="Resources\Erase.png" />
-    <EmbeddedResource Include="ChildExplorer.resx">
-      <DependentUpon>ChildExplorer.cs</DependentUpon>
+    <EmbeddedResource Include="ChildExplorer_split.resx">
+      <DependentUpon>ChildExplorer_split.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChildOptions.resx">
+      <DependentUpon>ChildOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LicenseInfo.resx">
       <DependentUpon>LicenseInfo.cs</DependentUpon>
@@ -196,13 +196,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="Resources\Orange_Save_20.png" />
-    <None Include="Resources\Orange_Add_Folder_20.png" />
-    <None Include="Resources\LightBlue_Save_20.png" />
-    <None Include="Resources\Blue_Add_Folder_20.png" />
-    <None Include="Resources\EditXML_20.png" />
-    <None Include="Resources\Reset_20.png" />
-    <None Include="Resources\Delete_20A.png" />
     <None Include="Resources\Osprey-6b.ico" />
     <None Include="Resources\Refresh_16x.png" />
   </ItemGroup>

@@ -19,7 +19,7 @@ namespace CodeLessTraveled.Osprey.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -73,79 +73,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _112_DownArrowLong_Blue_24x24_72 {
-            get {
-                object obj = ResourceManager.GetObject("_112_DownArrowLong_Blue_24x24_72", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _112_LeftArrowLong_Blue_24x24_72 {
-            get {
-                object obj = ResourceManager.GetObject("_112_LeftArrowLong_Blue_24x24_72", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _112_RefreshArrow_Blue_24x24_72 {
-            get {
-                object obj = ResourceManager.GetObject("_112_RefreshArrow_Blue_24x24_72", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _112_RightArrowLong_Blue_24x24_72 {
-            get {
-                object obj = ResourceManager.GetObject("_112_RightArrowLong_Blue_24x24_72", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _112_UpArrowLong_Blue_24x24_72 {
-            get {
-                object obj = ResourceManager.GetObject("_112_UpArrowLong_Blue_24x24_72", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap base_exclamationmark_16 {
-            get {
-                object obj = ResourceManager.GetObject("base_exclamationmark_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap base_exclamationmark_32 {
             get {
                 object obj = ResourceManager.GetObject("base_exclamationmark_32", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Erase {
-            get {
-                object obj = ResourceManager.GetObject("Erase", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +103,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap NewDocument_32x32 {
+        internal static System.Drawing.Bitmap gear_32xMD {
             get {
-                object obj = ResourceManager.GetObject("NewDocument_32x32", resourceCulture);
+                object obj = ResourceManager.GetObject("gear_32xMD", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +113,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap OpenHL {
+        internal static System.Drawing.Bitmap NewDocument_32x32 {
             get {
-                object obj = ResourceManager.GetObject("OpenHL", resourceCulture);
+                object obj = ResourceManager.GetObject("NewDocument_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -207,36 +137,6 @@ namespace CodeLessTraveled.Osprey.Properties {
             get {
                 object obj = ResourceManager.GetObject("Osprey_6b", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Refresh_16x {
-            get {
-                object obj = ResourceManager.GetObject("Refresh_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Reset_20 {
-            get {
-                object obj = ResourceManager.GetObject("Reset_20", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap save {
-            get {
-                object obj = ResourceManager.GetObject("save", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

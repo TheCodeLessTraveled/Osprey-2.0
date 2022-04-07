@@ -87,24 +87,39 @@ namespace CodeLessTraveled.Osprey
 
         private void ChildExplorer_Load(object sender, EventArgs e)
         {
-            TS_ButtonBack.Text      = "\u2190";
-            TS_ButtonForward.Text   = "\u2192";
-            TS_ButtonUp.Text        = "\u2191";
+            TS_ButtonBack.Text = "\u2190";
+            TS_ButtonForward.Text = "\u2192";
+            TS_ButtonUp.Text = "\u2191";
            
-            
+            splitContainer1.Panel1Collapsed = true;
+         
         }
 
         private void ChildExplorer_Resize(object sender, EventArgs e)
         {
-            //int status_width = this.Width;
-            //int status_height = this.Height;
+            int status_width = this.Width;
+            int status_height = this.Height;
 
-            //Status_SizeLabel.Text = String.Format("w {0} x h {1}", status_width, status_height);
+            StatusMessage.Text = String.Format("w {0} x h {1}", status_width, status_height);
 
-            if (this.Width > 300 && this.Width < 600) 
-            {
-                TS_TextboxUri.Width = this.Width - 200;
-            }
+            //if (this.Width > 600)
+            //{
+
+            //    TS_TextboxUri.Width = 300 + (this.Width-600);
+            //}
+            //if (this.Width < 600)
+            //{
+            //    int shrinkage = 600 - this.Width;  //300 typical textbox lenth. but as the form is resized < 600, the textbox must reduce by the difference (600 - the resized width)
+
+            //    TS_TextboxUri.Width = 300 - shrinkage;
+
+            //}
+
+
+            //if (this.Width > 300 && this.Width < 600) 
+            //{
+            //    TS_TextboxUri.Width = this.Width - 200;
+            //}
         }
 
 
@@ -299,7 +314,6 @@ namespace CodeLessTraveled.Osprey
                 && "0123456789".IndexOf(TheKeyStroke.Substring(1, 1)) >= 0          // is the second/last character a match for a number (1-9)
                )
             {
-                
             }
 
 
@@ -346,8 +360,8 @@ namespace CodeLessTraveled.Osprey
 
         private void TS_Options_Button_Click(object sender, EventArgs e)
         {
-            ChildOptions frmOptions = new ChildOptions();
-
+            splitContainer1.SplitterDistance = 150;
+            splitContainer1.Panel1Collapsed = false;
         }
 
 
@@ -367,8 +381,70 @@ namespace CodeLessTraveled.Osprey
 
         }
 
-      
-     
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (colorDialog1)
+            {
+                if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+
+                    System.Drawing.Color newColor = colorDialog1.Color;
+
+                    m_ChildConfig.ColorArgbInt = newColor.ToArgb();
+
+                    TS_ButtonEditColor.BackColor = newColor;
+
+
+                    string x = "";
+                }
+
+            }
+        }
+
+        private void button_OK_Click(object sender, EventArgs e)
+        {
+            // perform save routine
+           // splitContainer1.SplitterDistance = 0;
+            splitContainer1.Panel1Collapsed = true;
+
+        }
+
+        private void button_Cancel_Click(object sender, EventArgs e)
+        {
+            // splitContainer1.SplitterDistance = 0;
+            splitContainer1.Panel1Collapsed = true;
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void TS_Button_Options_Click(object sender, EventArgs e)
+        {
+            splitContainer1.SplitterDistance = 150;
+            splitContainer1.Panel1Collapsed = false;
+        }
+
+        private void TS_ButtonEditColor_Click_1(object sender, EventArgs e)
+        {
+            using (colorDialog1)
+            {
+                if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+
+                    System.Drawing.Color newColor = colorDialog1.Color;
+
+                    m_ChildConfig.ColorArgbInt = newColor.ToArgb();
+
+                    TS_ButtonEditColor.BackColor = newColor;
+
+
+                    string x = "";
+                }
+
+            }
+        }
     }
 
     //m_Track_Window_Sequence

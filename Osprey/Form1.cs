@@ -204,6 +204,10 @@ namespace CodeLessTraveled.Osprey
             DirectoryInfo DragDirInfo = null;
             string DragDirPath;
 
+            // determine if the object being drag-dropped is a folder or a file.
+            // when it's a folder use the folders address to create the child explorer window.
+            // but, when it's a file, use the file's parent directory to create the child explorer window.
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] arrFileDropItems = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -367,7 +371,7 @@ namespace CodeLessTraveled.Osprey
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress= true;
+                //e.SuppressKeyPress= true;
 
             }
         }
@@ -407,7 +411,7 @@ namespace CodeLessTraveled.Osprey
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true;
+               // e.SuppressKeyPress = true;
             }
         }
         
@@ -503,7 +507,7 @@ namespace CodeLessTraveled.Osprey
                 util_LoadSelectedFolderGroup(Menu_FolderGroup_ComboBox_0.Text);
             }
 
-            Menu_FolderGroup.HideDropDown();
+            //Menu_FolderGroup.HideDropDown();
 
         }
   
@@ -629,7 +633,7 @@ namespace CodeLessTraveled.Osprey
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true;
+               // e.SuppressKeyPress = true;
             }
         }
 
@@ -724,7 +728,7 @@ namespace CodeLessTraveled.Osprey
                 
                 XmlNode NodeLastViewedFTeam = m_CurrentXml.SelectSingleNode(xPathLastViewedTeamName);
 
-                // for backwards compatibility, if the node deos not exist, create it.
+                // for backwards compatibility, if the node does not exist, create it.
                 if (null == NodeLastViewedFTeam)
                 {
                     // create the node.
@@ -853,7 +857,14 @@ namespace CodeLessTraveled.Osprey
                     foreach (ChildExplorer ChildForm in this.MdiChildren)
                     {
                         string FolderPathText = ChildForm.ChildConfig.uri;
-                          
+
+                        string WindowOrder = ChildForm.ChildConfig.WindowOrder.ToString();
+                        //Control[] arrControl = ChildForm.Controls.Find("TS_OrderTextbox", true);
+
+                        System.Windows.Forms.Control.ControlCollection colControls = ChildForm.Controls;
+                        //ControlCollection colControls = ChildForm.Controls;
+
+
                         if (!String.IsNullOrEmpty(FolderPathText) && !String.IsNullOrWhiteSpace(FolderPathText))
                             {
                             XmlNode nChildFileeEplorerUri = m_CurrentXml.CreateNode(XmlNodeType.Element, "ChildExplorer", "");
@@ -869,6 +880,13 @@ namespace CodeLessTraveled.Osprey
                             XmlAttribute atUri = m_CurrentXml.CreateAttribute("uri");
                             atUri.Value = FolderPathText;
                             nChildFileeEplorerUri.Attributes.Append(atUri);
+
+                            XmlAttribute atOrder = m_CurrentXml.CreateAttribute("WindowOrder");
+                            atOrder.Value = WindowOrder;
+                            nChildFileeEplorerUri.Attributes.Append(atOrder);
+
+
+
 
                             FolderTeamNode.AppendChild(nChildFileeEplorerUri);
                         }
@@ -916,7 +934,8 @@ namespace CodeLessTraveled.Osprey
             ChildExplorerConfig newconfig = new ChildExplorerConfig();
             newconfig.uri = folderpath;
             newconfig.ColorArgbInt = 0;
-            newconfig.label = "";
+            newconfig.label = folderpath;
+            
 
 
             ChildExplorer NewFileExplorer = new ChildExplorer(newconfig);
@@ -1020,9 +1039,25 @@ namespace CodeLessTraveled.Osprey
 
             if (selectedfolderteam != null)
             {
-                XmlNodeList explorerchildren = selectedfolderteam.ChildNodes;
+                //XmlNodeList explorerchildren = selectedfolderteam.ChildNodes;
 
-                    if (explorerchildren.Count == 0)
+                //var FolderGroupNames = XmlFolderTeamNodes.Cast<XmlNode>().Select(node => node.Attributes["DisplayName"].Value).ToList();
+
+
+
+                
+                var explorerchildren = selectedfolderteam.ChildNodes.Cast<XmlNode>().ToList();
+
+                string attributeCheck = explorerchildren[0].Attributes["WindowOrder"].Value;
+
+                if (attributeCheck != null)
+                {
+                    explorerchildren.OrderBy(node => node.Attributes["WindowOrder"].Value).ToList();
+                }
+
+
+
+                if (explorerchildren.Count == 0)
                     {
                         m_UI_STATE_HasChildren = false;
 
@@ -1049,9 +1084,13 @@ namespace CodeLessTraveled.Osprey
                                
                                 int colorargb       = 0;
                                 
-                                XmlAttribute colorattrib = nChildExplorer.Attributes["colorargb"];
+                                string windowOrderTest = null;
+
+                                int IntWindowOrder     = -1;
                                 
-                                if (colorattrib != null)
+                                XmlAttribute colorAttrib = nChildExplorer.Attributes["colorargb"];
+                                
+                                if (colorAttrib != null)
                                 {
                                     colortest = nChildExplorer.Attributes["colorargb"].Value;
 
@@ -1061,8 +1100,21 @@ namespace CodeLessTraveled.Osprey
                                     }
 
                                 }
+
+                                XmlAttribute orderAttrib = nChildExplorer.Attributes["WindowOrder"];
                                 
-                                ChildExplorerConfig childconfig = new ChildExplorerConfig();
+                                if (orderAttrib != null)
+                                {
+                                    windowOrderTest = nChildExplorer.Attributes["WindowOrder"].Value;
+
+                                    if (windowOrderTest != null)
+                                    {
+                                        int.TryParse(windowOrderTest, out IntWindowOrder);
+                                    }
+
+                                }
+
+                            ChildExplorerConfig childconfig = new ChildExplorerConfig();
 
                                 if (colorargb != 0)
                                 {
@@ -1072,6 +1124,8 @@ namespace CodeLessTraveled.Osprey
                                 childconfig.label   = label;
                                
                                 childconfig.uri     = uri;
+
+                                childconfig.WindowOrder = IntWindowOrder;
                                 
                                 ChildExplorer NewFileExplorer = new ChildExplorer(childconfig);
 
@@ -1239,7 +1293,7 @@ namespace CodeLessTraveled.Osprey
             
             this.Menu_File_New.Enabled                      = true;
             
-            this.Menu_FolderGroup.Enabled                   = false;
+          //  this.Menu_FolderGroup.Enabled                   = false;
             this.Menu_FolderGroup_ComboBox_0.Enabled          = false;
             this.Menu_File_OpenDataFile.Enabled             = false;
             this.Menu_File_Save.Enabled                     = false;
@@ -1275,7 +1329,7 @@ namespace CodeLessTraveled.Osprey
 
                 this.Menu_FolderGroup_ComboBox_0.Text         = m_CurrentFolderGroup[m_idxFTeamDisplayName];
 
-                this.Menu_FolderGroup.Enabled               = false;
+                //this.Menu_FolderGroup.Enabled               = false;
                 
                 this.Menu_FolderGroup_ComboBox_0.Enabled      = false;
             
@@ -1297,7 +1351,7 @@ namespace CodeLessTraveled.Osprey
                 this.Menu_Edit_RenameFolderGroup.Enabled    = true;
                 this.Menu_File_Save.Enabled                 = true;
                 this.Menu_File_SaveAs.Enabled               = true;
-                this.Menu_FolderGroup.Enabled               = true;
+                //this.Menu_FolderGroup.Enabled               = true;
                 this.Menu_FolderGroup_ComboBox_0.Enabled      = true;
                 this.ToolStrip_Button_Save.Enabled          = true;
             }
@@ -1524,8 +1578,9 @@ namespace CodeLessTraveled.Osprey
     {
         private int     m_ColorArgbInt;
         private string  m_label;
-        private string  m_uri;
-        
+        private string m_uri;
+        private int m_WindowOrder;
+
 
         public int ColorArgbInt
         {
@@ -1545,6 +1600,11 @@ namespace CodeLessTraveled.Osprey
             set { m_uri = value; }
         }
 
+        public int WindowOrder
+        {
+            get { return m_WindowOrder; }
+            set { m_WindowOrder = value; }
+        }
     }
 
 }
