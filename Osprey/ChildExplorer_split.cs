@@ -465,7 +465,7 @@ namespace CodeLessTraveled.Osprey
             }
 
             m_trans_label = Opt_Title_Textbox.Text;
-            //m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
+            m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
 
             if (String.IsNullOrEmpty(error_msg))
             {
