@@ -19,7 +19,7 @@ namespace CodeLessTraveled.Osprey.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -63,9 +63,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Blue_Add_Folder_20 {
+        internal static System.Drawing.Bitmap _042b_AddCategory_24x24_72 {
             get {
-                object obj = ResourceManager.GetObject("Blue_Add_Folder_20", resourceCulture);
+                object obj = ResourceManager.GetObject("_042b_AddCategory_24x24_72", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Delete_20A {
+        internal static System.Drawing.Bitmap base_exclamationmark_32 {
             get {
-                object obj = ResourceManager.GetObject("Delete_20A", resourceCulture);
+                object obj = ResourceManager.GetObject("base_exclamationmark_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap EditXML_20 {
+        internal static System.Drawing.Bitmap Erase_24x24 {
             get {
-                object obj = ResourceManager.GetObject("EditXML_20", resourceCulture);
+                object obj = ResourceManager.GetObject("Erase_24x24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LightBlue_Save_20 {
+        internal static System.Drawing.Bitmap Folder_Open {
             get {
-                object obj = ResourceManager.GetObject("LightBlue_Save_20", resourceCulture);
+                object obj = ResourceManager.GetObject("Folder_Open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Orange_Add_Folder_20 {
+        internal static System.Drawing.Bitmap gear_32xMD {
             get {
-                object obj = ResourceManager.GetObject("Orange_Add_Folder_20", resourceCulture);
+                object obj = ResourceManager.GetObject("gear_32xMD", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +113,19 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Orange_Save_20 {
+        internal static System.Drawing.Bitmap NewDocument_32x32 {
             get {
-                object obj = ResourceManager.GetObject("Orange_Save_20", resourceCulture);
+                object obj = ResourceManager.GetObject("NewDocument_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap openHS {
+            get {
+                object obj = ResourceManager.GetObject("openHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -133,9 +143,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Refresh_16x {
+        internal static System.Drawing.Bitmap saveHS {
             get {
-                object obj = ResourceManager.GetObject("Refresh_16x", resourceCulture);
+                object obj = ResourceManager.GetObject("saveHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +153,9 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Reset_20 {
+        internal static System.Drawing.Bitmap XMLFileHS {
             get {
-                object obj = ResourceManager.GetObject("Reset_20", resourceCulture);
+                object obj = ResourceManager.GetObject("XMLFileHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
