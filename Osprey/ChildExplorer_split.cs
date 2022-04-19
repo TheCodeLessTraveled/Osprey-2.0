@@ -8,7 +8,16 @@ namespace CodeLessTraveled.Osprey
     public partial class ChildExplorer : Form
     {
         private ChildExplorerConfig m_ChildConfig;
-    
+
+        private int m_TS_TexboxUriIntWidth = 330;
+        private int m_FormIntWidth= 600;
+
+
+        private string  m_trans_label           = null;
+        private string  m_trans_uri             = null;
+        private int     m_trans_ColorArgbInt    = -1;
+        private int     m_trans_WindowOrder     = -1;
+
         private string m_Track_Window_Sequence;
 
 
@@ -27,39 +36,14 @@ namespace CodeLessTraveled.Osprey
             InitializeComponent();
             //this.Show();
 
-
             m_ChildConfig = config;
 
-
-            m_ChildConfig.label = config.label;
-
-            this.Text = m_ChildConfig.label;
-
-            m_ChildConfig.uri = config.uri;
-
-            this.SetBrowserUrl(this.m_ChildConfig.uri);
-
-            TS_TextboxUri.Text = this.m_ChildConfig.uri;
-
-            if (this.m_ChildConfig.WindowOrder == 0)
-            { 
-                TS_OrderTextbox.Text = "";
-            }
-            else
-            {
-                TS_OrderTextbox.Text = m_ChildConfig.WindowOrder.ToString();
-            }
-
-
-            m_ChildConfig.ColorArgbInt = config.ColorArgbInt;
+            SetConfigOptions(m_ChildConfig);
             
-            if (config.ColorArgbInt != 0)
-            {
-                TS_ButtonEditColor.BackColor = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
-            }
             
-
         }
+
+
 
         public ChildExplorerConfig ChildConfig
         {   get 
@@ -75,6 +59,33 @@ namespace CodeLessTraveled.Osprey
 
             }    
         }
+
+
+        private void SetConfigOptions(ChildExplorerConfig configs)
+        {
+            m_ChildConfig.label         = configs.label;
+            m_ChildConfig.uri           = configs.uri;
+            m_ChildConfig.ColorArgbInt  = configs.ColorArgbInt;
+            m_ChildConfig.WindowOrder   = configs.WindowOrder;
+
+            Opt_Title_Textbox.Text = m_ChildConfig.label;
+            this.Text = m_ChildConfig.label;
+
+            this.SetBrowserUrl(this.m_ChildConfig.uri);
+            TS_TextboxUri.Text = m_ChildConfig.uri;
+
+            if (m_ChildConfig.ColorArgbInt != 0)
+            {
+                Opt_ColorDialog.Color        = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt); 
+                TS_ButtonEditColor.BackColor = Opt_ColorDialog.Color;
+            }
+            
+            Opt_SortOrder_Textbox.Text  = m_ChildConfig.WindowOrder.ToString();
+            TS_OrderTextbox.Text        = m_ChildConfig.WindowOrder.ToString();
+        }
+
+
+
 
         private void ChildExplorer_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -94,33 +105,72 @@ namespace CodeLessTraveled.Osprey
             splitContainer1.Panel1Collapsed = true;
          
         }
-
-        private void ChildExplorer_Resize(object sender, EventArgs e)
+        
+        private void ChildExplorer_ResizeEnd(object sender, EventArgs e)
         {
-            int status_width = this.Width;
-            int status_height = this.Height;
+            // the TextboxUri width is 200 to 400
 
-            StatusMessage.Text = String.Format("w {0} x h {1}", status_width, status_height);
+            // the init form is 600. The init textboxuri width is 330
+            //
+            // if frm width > 670 then textbox width = 400.
+            //      330 : 600
+            //      400-330 = 70 , 600 + 70 = 670
+            //      textbox width = (frmWidth )
+            //
+            // If Frm width < 470 then textboxUri width = 200.
+            //      330 : 600
+            //      330-200 = 130, 600-130 = 470
+            //
 
-            //if (this.Width > 600)
+
+            //// frmWidth - 600
+
+            //int MaxTbxWidth = 500;
+            //int MinTbxWidth = 200;
+
+            //if (this.Width > 800) 
             //{
-
-            //    TS_TextboxUri.Width = 300 + (this.Width-600);
+            //    TS_TextboxUri.Width = MaxTbxWidth;  // 400
             //}
-            //if (this.Width < 600)
+            //else if (this.Width < 400)
             //{
-            //    int shrinkage = 600 - this.Width;  //300 typical textbox lenth. but as the form is resized < 600, the textbox must reduce by the difference (600 - the resized width)
-
-            //    TS_TextboxUri.Width = 300 - shrinkage;
-
+            //    TS_TextboxUri.Width = MinTbxWidth;
             //}
-
-
-            //if (this.Width > 300 && this.Width < 600) 
+            //else 
             //{
-            //    TS_TextboxUri.Width = this.Width - 200;
+            //    TS_TextboxUri.Width = this.Width - 300;
             //}
+
+            //StatusMessage.Text = String.Format("textbox Width: {0} | form Width: {1}", TS_TextboxUri.Width, this.Width);
         }
+
+
+        //private void ChildExplorer_Resize(object sender, EventArgs e)
+        //{
+        //    int status_width = this.Width;
+        //    int status_height = this.Height;
+
+        //    StatusMessage.Text = String.Format("w {0} x h {1}", status_width, status_height);
+
+        //    //if (this.Width > 600)
+        //    //{
+
+        //    //    TS_TextboxUri.Width = 300 + (this.Width-600);
+        //    //}
+        //    //if (this.Width < 600)
+        //    //{
+        //    //    int shrinkage = 600 - this.Width;  //300 typical textbox lenth. but as the form is resized < 600, the textbox must reduce by the difference (600 - the resized width)
+
+        //    //    TS_TextboxUri.Width = 300 - shrinkage;
+
+        //    //}
+
+
+        //    //if (this.Width > 300 && this.Width < 600) 
+        //    //{
+        //    //    TS_TextboxUri.Width = this.Width - 200;
+        //    //}
+        //}
 
 
         //public string ChildLabel
@@ -163,15 +213,15 @@ namespace CodeLessTraveled.Osprey
             
                     TS_TextboxUri.Text = this.m_ChildConfig.uri;
 
-                    string FormTitle = this.m_ChildConfig.uri;
-                    if (FormTitle.Length > 50)
-                    {
-                        string startChars = this.m_ChildConfig.uri.Substring(0, 20);
-                        int pos1 = this.m_ChildConfig.uri.Length - 20;
-                        string EndChars = this.m_ChildConfig.uri.Substring(pos1);
-                        FormTitle = startChars + "..." + EndChars;
-                    }
-                    this.Text = FormTitle;
+                    //string FormTitle = this.m_ChildConfig.uri;
+                    //if (FormTitle.Length > 50)
+                    //{
+                    //    string startChars = this.m_ChildConfig.uri.Substring(0, 20);
+                    //    int pos1 = this.m_ChildConfig.uri.Length - 20;
+                    //    string EndChars = this.m_ChildConfig.uri.Substring(pos1);
+                    //    FormTitle = startChars + "..." + EndChars;
+                    //}
+                    //this.Text = FormTitle;
                 }
             }
         }
@@ -236,12 +286,12 @@ namespace CodeLessTraveled.Osprey
             //childConfig.Show();
 
 
-            using (colorDialog1)
+            using (Opt_ColorDialog)
             {
-                if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (Opt_ColorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
 
-                    System.Drawing.Color newColor = colorDialog1.Color;
+                    System.Drawing.Color newColor = Opt_ColorDialog.Color;
 
                     m_ChildConfig.ColorArgbInt = newColor.ToArgb();
 
@@ -280,7 +330,7 @@ namespace CodeLessTraveled.Osprey
         private void TS_TextboxUri_KeyUp(object sender, KeyEventArgs e)
         {
          
-            if (e.KeyCode == Keys.Enter)
+           if (e.KeyCode == Keys.Enter)
             {
                 if (!System.IO.Directory.Exists(this.TS_TextboxUri.Text))
                 {
@@ -289,6 +339,7 @@ namespace CodeLessTraveled.Osprey
                 }
                 else
                 {
+                    StatusMessage.Text = "";
                     SetBrowserUrl(TS_TextboxUri.Text);
                     this.m_ChildConfig.uri = TS_TextboxUri.Text;
                 }
@@ -296,6 +347,10 @@ namespace CodeLessTraveled.Osprey
         }
 
 
+        private void TS_TextboxUri_LocationChanged(object sender, EventArgs e)
+        {
+           // StatusMessage.Text = "Good Locations";
+        }
 
         private void TS_OrderTextbox_KeyUp(object sender, KeyEventArgs e)
         {
@@ -383,36 +438,85 @@ namespace CodeLessTraveled.Osprey
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (colorDialog1)
+           
+        }
+
+        private void Opt_OK_button_Click(object sender, EventArgs e)
+        {
+            string error_msg = "";
+
+
+            // Before the use clicked <OK>, the selections are transient.
+            // The use could <Cancel> so you cannot save options until <OK> is clicked.
+            // Now, take the transient selected values and save them to the config object that will be passed back to the MDI parent to save in the XML.
+
+
+            m_trans_WindowOrder = -1;
+
+            bool Test_Is_Number = int.TryParse( Opt_SortOrder_Textbox.Text, out m_trans_WindowOrder);
+
+            if (Test_Is_Number)
             {
-                if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
+                m_ChildConfig.WindowOrder = m_trans_WindowOrder;
+            }
+            else
+            {
+                error_msg += String.Format("'{0}' is not a number. Must be a number and maximum of 2 digits.{1}", Opt_SortOrder_Textbox.Text,Environment.NewLine);
+            }
 
-                    System.Drawing.Color newColor = colorDialog1.Color;
+            m_trans_label = Opt_Title_Textbox.Text;
+            //m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
 
-                    m_ChildConfig.ColorArgbInt = newColor.ToArgb();
+            if (String.IsNullOrEmpty(error_msg))
+            {
+                splitContainer1.Panel1Collapsed = true;
 
-                    TS_ButtonEditColor.BackColor = newColor;
+             ////    SET THE CURRENT VALUES (to be saved) TO THE TRANSIENT VALUES SELECTED BY THE USER (but not saved).
+              
+              //m_ChildConfig.WindowOrder  = This is set above in the "if" block.
+                m_ChildConfig.label         = m_trans_label;
+                m_ChildConfig.ColorArgbInt  = m_trans_ColorArgbInt;
 
 
-                    string x = "";
-                }
 
+                //// SET THE UI CONTROLS (for config options) PER USER'S SELECTION
+                // Window order
+                TS_OrderTextbox.Text            = m_ChildConfig.WindowOrder.ToString();
+                Opt_SortOrder_Textbox.Text      = m_ChildConfig.WindowOrder.ToString();
+                Opt_SortOrder_Textbox.BackColor = System.Drawing.Color.White;
+                
+                // Form label
+                this.Text                   = m_ChildConfig.label;
+                Opt_Title_Textbox.Text      = m_ChildConfig.label;
+
+                // Color
+                TS_ButtonEditColor.BackColor = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+                Opt_ColorDialog.Color = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+
+                // Other
+                Opt_Error_Textbox.Visible   = false;
+                Opt_Error_Textbox.Text      = "";
+            }
+            else
+            {
+                Opt_Error_Textbox.Text = error_msg;
+                Opt_Error_Textbox.Visible = true;
+                Opt_SortOrder_Textbox.BackColor = System.Drawing.Color.Yellow;
             }
         }
 
-        private void button_OK_Click(object sender, EventArgs e)
-        {
-            // perform save routine
-           // splitContainer1.SplitterDistance = 0;
-            splitContainer1.Panel1Collapsed = true;
-
-        }
-
-        private void button_Cancel_Click(object sender, EventArgs e)
+       
+        private void Opt_Cancel_button_Click(object sender, EventArgs e)
         {
             // splitContainer1.SplitterDistance = 0;
+
+            
+            Opt_SortOrder_Textbox.Text  = m_ChildConfig.WindowOrder.ToString();
+            Opt_Title_Textbox.Text      = m_ChildConfig.label;
+            Opt_ColorDialog.Color       = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+
             splitContainer1.Panel1Collapsed = true;
+
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -428,12 +532,12 @@ namespace CodeLessTraveled.Osprey
 
         private void TS_ButtonEditColor_Click_1(object sender, EventArgs e)
         {
-            using (colorDialog1)
+            using (Opt_ColorDialog)
             {
-                if (colorDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (Opt_ColorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
 
-                    System.Drawing.Color newColor = colorDialog1.Color;
+                    System.Drawing.Color newColor = Opt_ColorDialog.Color;
 
                     m_ChildConfig.ColorArgbInt = newColor.ToArgb();
 
@@ -445,7 +549,56 @@ namespace CodeLessTraveled.Osprey
 
             }
         }
+
+        private void TS_TextboxUri_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_Title_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                m_ChildConfig.label = Opt_Title_Textbox.Text;
+                this.Text = m_ChildConfig.label;
+            }
+        }
+
+        private void Opt_Color_Button_Click(object sender, EventArgs e)
+        {
+            //Opt_ColorDialog.Color = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+
+            using (Opt_ColorDialog)
+            {
+                if (Opt_ColorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
+
+                }
+
+            }
+        }
+
+
+        private void Opt_ColorDefault_Click(object sender, EventArgs e)
+        {
+            m_trans_ColorArgbInt = System.Drawing.Color.LightGray.ToArgb();
+            
+
+        }
+
+
+
+
+        private void Opt_Title_Textbox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Opt_SortOrder_Textbox.Focus();
+            }
+        }
+
     }
 
-    //m_Track_Window_Sequence
+    
 }
