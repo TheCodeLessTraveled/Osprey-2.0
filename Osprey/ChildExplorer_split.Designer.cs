@@ -39,6 +39,7 @@
             this.StatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Opt_ColorDialog = new System.Windows.Forms.ColorDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.Opt_Error_Textbox = new System.Windows.Forms.TextBox();
             this.Opt_Cancel_Button = new System.Windows.Forms.Button();
@@ -59,7 +60,6 @@
             this.TS_ButtonForward = new System.Windows.Forms.ToolStripButton();
             this.TS_ButtonUp = new System.Windows.Forms.ToolStripButton();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.button1 = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -83,7 +83,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(837, 170);
+            this.webBrowser1.Size = new System.Drawing.Size(837, 160);
             this.webBrowser1.TabIndex = 4;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
@@ -98,11 +98,11 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TS_ButtonOpen,
             this.TS_TextboxUri});
-            this.toolStrip1.Location = new System.Drawing.Point(176, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(3, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(469, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(147, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
@@ -128,7 +128,7 @@
             this.TS_TextboxUri.MaxLength = 500;
             this.TS_TextboxUri.Name = "TS_TextboxUri";
             this.TS_TextboxUri.ShortcutsEnabled = false;
-            this.TS_TextboxUri.Size = new System.Drawing.Size(400, 25);
+            this.TS_TextboxUri.Size = new System.Drawing.Size(400, 23);
             this.TS_TextboxUri.ToolTipText = "Type a folder path and press <Enter>";
             this.TS_TextboxUri.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TS_TextboxUri_KeyUp);
             this.TS_TextboxUri.Click += new System.EventHandler(this.TS_TextboxUri_Click);
@@ -174,9 +174,19 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer1.Size = new System.Drawing.Size(837, 433);
-            this.splitContainer1.SplitterDistance = 259;
+            this.splitContainer1.Size = new System.Drawing.Size(837, 408);
+            this.splitContainer1.SplitterDistance = 244;
             this.splitContainer1.TabIndex = 8;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(336, 57);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(52, 23);
+            this.button1.TabIndex = 101;
+            this.button1.Text = "Default";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Opt_ColorDefault_Click);
             // 
             // label1
             // 
@@ -289,7 +299,7 @@
             this.TS_ButtonBack,
             this.TS_ButtonForward,
             this.TS_ButtonUp});
-            this.toolStrip2.Location = new System.Drawing.Point(3, 0);
+            this.toolStrip2.Location = new System.Drawing.Point(3, 25);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -387,7 +397,7 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(837, 433);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(837, 408);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.LeftToolStripPanelVisible = false;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
@@ -403,16 +413,6 @@
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip2);
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(336, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(52, 23);
-            this.button1.TabIndex = 101;
-            this.button1.Text = "Default";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Opt_ColorDefault_Click);
             // 
             // ChildExplorer
             // 

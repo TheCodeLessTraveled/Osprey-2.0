@@ -191,13 +191,11 @@ namespace CodeLessTraveled.Osprey
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
                 if (!String.IsNullOrEmpty(TS_TextboxUri.Text))
-                {
-                    // test to see if the entry is a folder.
-                    // this.m_TxtboxFolderPath = TS_TextboxUri.Text;
+                {   // test to see if the entry is a folder.
 
                     if (System.IO.Directory.Exists(TS_TextboxUri.Text))
                     {
-                        fbd.SelectedPath = TS_TextboxUri.Text;// this.m_TxtboxFolderPath;
+                        fbd.SelectedPath = TS_TextboxUri.Text;
                     }
                 }
 
@@ -205,24 +203,13 @@ namespace CodeLessTraveled.Osprey
                 
                 if (fbd.ShowDialog() == DialogResult.OK)
                 {
-                    
-                    //this.m_TxtboxFolderPath = fbd.SelectedPath;
                     this.m_ChildConfig.uri = fbd.SelectedPath;
 
                     webBrowser1.Url = new Uri(this.m_ChildConfig.uri);
-            
+
                     TS_TextboxUri.Text = this.m_ChildConfig.uri;
 
-                    //string FormTitle = this.m_ChildConfig.uri;
-                    //if (FormTitle.Length > 50)
-                    //{
-                    //    string startChars = this.m_ChildConfig.uri.Substring(0, 20);
-                    //    int pos1 = this.m_ChildConfig.uri.Length - 20;
-                    //    string EndChars = this.m_ChildConfig.uri.Substring(pos1);
-                    //    FormTitle = startChars + "..." + EndChars;
-                    //}
-                    //this.Text = FormTitle;
-                }
+                 }
             }
         }
         

@@ -25,9 +25,8 @@ namespace CodeLessTraveled.Osprey
         private string[]                m_CurrentFolderGroup        = new string[2] { "", "" };   // this array holds to two elements [0]= folder team name, [1]=folder team display name.
         private int                     m_ChildExplorerCount        = 0;
         private const int               m_idxFTeamNodeName          = 0;                
-        private const int               m_idxFTeamDisplayName       = 1;                
-        
-        
+        private const int               m_idxFTeamDisplayName       = 1;
+
         private string                  m_CurrentXmlfullpath;
         private System.Drawing.Point    m_SavedLocation ;
         private string                  m_LogFilePath; 
@@ -116,7 +115,7 @@ namespace CodeLessTraveled.Osprey
             m_LogFilePath                  = System.IO.Path.Combine(m_XmlFileCollectionPath);
             helpProvider1.HelpNamespace    = this.HelpPath;
             
- 
+            
             #region _region: form size and location settings
             // set form size and location per coordinates saved from the last session .
                 if (Properties.Settings.Default.Form1Size.Width == 0 || Properties.Settings.Default.Form1Size.Height == 0)
@@ -139,16 +138,19 @@ namespace CodeLessTraveled.Osprey
 
 
                 string x = "";
-    
-                #region determine which xml file (by file name) to load.
-                /*  collect a list of existing xml files located in osprey's xml file repository. determine which one to load
-                        a) look to opsrey's cache for a saved filename setting, load it.
-                            - xor -
-                        b) if no file name is cached, load the default osprydata.xml
-                            - xor -
-                        c) if ospreydata.xml does not exist, create it and load it.
-                */
-                DirectoryInfo   di_DataFolder       = new System.IO.DirectoryInfo(m_XmlFileCollectionPath);
+
+            m_XmlFileCollectionPath = Properties.Settings.Default.AltOspreyDataFolder;
+           
+
+            #region determine which xml file (by file name) to load.
+               /*  collect a list of existing xml files located in osprey's xml file repository. determine which one to load
+                       a) look to opsrey's cache for a saved filename setting, load it.
+                           - xor -
+                       b) if no file name is cached, load the default osprydata.xml
+                           - xor -
+                       c) if ospreydata.xml does not exist, create it and load it.
+               */
+               DirectoryInfo   di_DataFolder       = new System.IO.DirectoryInfo(m_XmlFileCollectionPath);
                 FileInfo[]      arrFilesOnDisk      = di_DataFolder.GetFiles("*.xml");
                 bool            b_XmlFileToLoad     = false;
                 string          saved_xmlfilename   = Properties.Settings.Default.LastXmlFileName.Trim();
@@ -1569,45 +1571,87 @@ namespace CodeLessTraveled.Osprey
 
         }
 
-/*
-        private void Menu_Edit_addFolderGroup_textbox_keyup(object sender, KeyEventArgs e)
+        private void Form1_LocationChanged(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
+          
 
-            }
+           
+
+
         }
 
-        private void Menu_Edit_addFolderGroup_textbox_keydown(object sender, KeyEventArgs e)
+        private void Form1_Move(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                //  save
-                // *  clear the list
-                // *  clear child windows
-                // *  
-                // 
-                string FolderGroupName = Menu_Edit_addnewfg_textbox.text;
+            string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
 
-                if (!String.IsNullOrEmpty(FolderGroupName))
+            util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
+
+
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
+
+           // util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
+
+        }
+
+        private void Menu_Edit_Config_Click_1(object sender, EventArgs e)
+        {
+            string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
+
+            util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
+
+            FormConfig frmConfig = new FormConfig();
+            frmConfig.MdiParent = this;
+
+
+            frmConfig.Show();
+
+
+
+        }
+
+        /*
+                private void Menu_Edit_addFolderGroup_textbox_keyup(object sender, KeyEventArgs e)
                 {
-                    util_SetCurrentFolderGroupName(FolderGroupName);
+                    if (e.KeyCode == Keys.Enter)
+                    {
 
-                    m_UI_STATE_HasChildren = false;
-
-                    SaveResults savevalue = SaveMain(NodeChangeType.newgroup, FolderGroupName);
-
-                    Menu_File.HideDropDown();
-
-                    Menu_Edit.HideDropDown();
-                    util_PopulateFolderGroupList();
+                    }
                 }
-            }
-        }
 
-*/
-      
-        
+                private void Menu_Edit_addFolderGroup_textbox_keydown(object sender, KeyEventArgs e)
+                {
+                    if (e.KeyCode == Keys.Enter)
+                    {
+                        //  save
+                        // *  clear the list
+                        // *  clear child windows
+                        // *  
+                        // 
+                        string FolderGroupName = Menu_Edit_addnewfg_textbox.text;
+
+                        if (!String.IsNullOrEmpty(FolderGroupName))
+                        {
+                            util_SetCurrentFolderGroupName(FolderGroupName);
+
+                            m_UI_STATE_HasChildren = false;
+
+                            SaveResults savevalue = SaveMain(NodeChangeType.newgroup, FolderGroupName);
+
+                            Menu_File.HideDropDown();
+
+                            Menu_Edit.HideDropDown();
+                            util_PopulateFolderGroupList();
+                        }
+                    }
+                }
+
+        */
+
+
     }
 
 
