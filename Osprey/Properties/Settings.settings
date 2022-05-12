@@ -8,11 +8,14 @@
     <Setting Name="Form1Size" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
-    <Setting Name="AltOspreyDataFolder" Type="System.String" Scope="User">
+    <Setting Name="AltXmlRepository" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LastXmlFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">beer</Value>
+    </Setting>
+    <Setting Name="DefaultXmlRepository" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

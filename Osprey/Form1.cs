@@ -8,11 +8,12 @@ using System.Xml;
 
 namespace CodeLessTraveled.Osprey
 {
-
+    
     public partial class Form1 : Form
     {
+
         #region _class members initial settings
-        
+      
         string HelpPath = System.IO.Path.Combine(Application.StartupPath,"osprey help.chm");
         private List<ChildExplorer> arrayChildExplorer = new List<ChildExplorer>();
         // variables used for data files and their xml contents.
@@ -53,12 +54,21 @@ namespace CodeLessTraveled.Osprey
 
         private int                     status_TimerCount1= 0;
         private bool                    b_ShowMessages   = true; // add this to settings upon exit.
-        
-        enum NodeChangeType{Rename, Save, SaveAs, Default, NewGroup, LastViewedFTeam}
+
+        /*
+         
+         
+         */
+        enum NodeChangeType {Rename, Save, SaveAs, Default, NewGroup, LastViewedFTeam}
         //enum opentype {FromXml, new }
         enum SaveResults {Cancelled, Error, Initialize, Saved, Skip}
         #endregion
 
+        //public string ConfigXmlRepositoryPath
+        //{
+        //    get {return Properties.Settings.Default.AltXmlRepository;}
+        //    set {Properties.Settings.Default.AltXmlRepository = value.Trim(); }
+        //}
         public Form1()
         {
             InitializeComponent();
@@ -137,9 +147,9 @@ namespace CodeLessTraveled.Osprey
             #endregion
 
 
-                string x = "";
+            string x = "";
 
-            m_XmlFileCollectionPath = Properties.Settings.Default.AltOspreyDataFolder;
+            m_XmlFileCollectionPath = String.IsNullOrEmpty(Properties.Settings.Default.AltXmlRepository) ? m_XmlFileCollectionPath : Properties.Settings.Default.AltXmlRepository;
            
 
             #region determine which xml file (by file name) to load.
@@ -1041,143 +1051,133 @@ namespace CodeLessTraveled.Osprey
 
             XmlNode selectedfolderteam  = m_CurrentXml.SelectSingleNode(xpath);
 
-            if (selectedfolderteam != null)
+            // Only continue if the node has child nodes. otherwise, there are no child windows to load.
+            if (selectedfolderteam.SelectNodes("ChildExplorer").Count > 0)
             {
-                //XmlNodeList explorerchildren = selectedfolderteam.ChildNodes;
-
-                //var FolderGroupNames = XmlFolderTeamNodes.Cast<XmlNode>().Select(node => node.Attributes["DisplayName"].Value).ToList();
-
-
-              
-                // Ensure each child node has a WindowOrder assigned to it. Force "0" if not exists.
-                // Sort the List
-
-                foreach(XmlNode ChildExplorer in selectedfolderteam.SelectNodes("ChildExplorer"))
+                
+                if (selectedfolderteam != null)
                 {
-                    XmlAttribute attWindowOrder;
-                    attWindowOrder = ChildExplorer.Attributes["WindowOrder"];
-                   
-                    if (attWindowOrder==null )
-                    {
-                        attWindowOrder = m_CurrentXml.CreateAttribute("WindowOrder");
-                   
-                        attWindowOrder.Value = "0";
+                    // Ensure each child node has a WindowOrder assigned to it. Force "0" if not exists.
+                    // Sort the List
 
-                        ChildExplorer.Attributes.Append(attWindowOrder);
-                     }
+                    foreach (XmlNode ChildExplorer in selectedfolderteam.SelectNodes("ChildExplorer"))
+                    {
+                        XmlAttribute attWindowOrder;
+                        attWindowOrder = ChildExplorer.Attributes["WindowOrder"];
+
+                        if (attWindowOrder == null)
+                        {
+                            attWindowOrder = m_CurrentXml.CreateAttribute("WindowOrder");
+
+                            attWindowOrder.Value = "0";
+
+                            ChildExplorer.Attributes.Append(attWindowOrder);
+                        }
+                        else
+                        {
+                            int WindowOrder = 0;
+
+                            bool WindowOrder_IS_INT = int.TryParse(attWindowOrder.Value, out WindowOrder);
+
+                            if (!WindowOrder_IS_INT)
+                            {
+                                attWindowOrder.Value = "0";
+                            }
+                        }
+                    }
+
+
+                    var ExplorerChildren = selectedfolderteam.ChildNodes.Cast<XmlNode>().ToList();
+
+                    var orderedExplorerChildren = selectedfolderteam.ChildNodes.Cast<XmlNode>().OrderBy(node => Convert.ToInt32(node.Attributes["WindowOrder"].Value)).ToList();
+
+                    if (orderedExplorerChildren.Count == 0)
+                    {
+                        m_UI_STATE_HasChildren = false;
+
+                        if (this.b_ShowMessages)
+                        {
+                            string warning01 = "this folder group is empty. add new folder groups.";
+
+                            util_ShowStatusMessage(warning01, System.Drawing.Color.Black, System.Drawing.Color.Orange, warning01, System.Drawing.Color.DarkOrange, DefaultBackColor);
+                        }
+                    }
                     else
                     {
-                        int WindowOrder = 0;
+                        m_UI_STATE_HasChildren = true;
 
-                        bool WindowOrder_IS_INT = int.TryParse(attWindowOrder.Value, out WindowOrder);
-
-                        if (!WindowOrder_IS_INT)
+                        if (orderedExplorerChildren != null)
                         {
-                            attWindowOrder.Value = "0";
-                        }
-                    }
-                }
+                            //  foreach (XmlNode nChildExplorer in selectedfolderteam.ChildNodes)
 
+                            XmlNode[] OrderedExplorerChildXmlNodes = orderedExplorerChildren.ToArray();
 
-                var ExplorerChildren = selectedfolderteam.ChildNodes.Cast<XmlNode>().ToList();
-
-                var orderedExplorerChildren = selectedfolderteam.ChildNodes.Cast<XmlNode>().OrderBy(node => Convert.ToInt32(node.Attributes["WindowOrder"].Value)).ToList();
-
-                string attributeCheck = orderedExplorerChildren[0].Attributes["WindowOrder"].Value;
-
-                //if (attributeCheck != null)
-                //{
-                //    orderedExplorerChildren = explorerchildren.OrderBy(node => node.Attributes["WindowOrder"].Value).ToList();
-                //}
-
-
-
-                if (orderedExplorerChildren.Count == 0)
-                {
-                    m_UI_STATE_HasChildren = false;
-
-                    if (this.b_ShowMessages)
-                    {
-                        string warning01 = "this folder group is empty. add new folder groups.";
-                
-                        util_ShowStatusMessage(warning01, System.Drawing.Color.Black, System.Drawing.Color.Orange, warning01, System.Drawing.Color.DarkOrange, DefaultBackColor);
-                    }
-                }
-                else
-                {
-                    m_UI_STATE_HasChildren = true;
-
-                    if (orderedExplorerChildren != null)
-                    {
-                        //  foreach (XmlNode nChildExplorer in selectedfolderteam.ChildNodes)
-
-                        XmlNode[] OrderedExplorerChildXmlNodes = orderedExplorerChildren.ToArray();
-
-                        foreach (XmlNode nChildExplorer in OrderedExplorerChildXmlNodes)
-                        {
-                            string uri          = nChildExplorer.Attributes["uri"].Value;
-                                
-                            string label        = nChildExplorer.Attributes["label"].Value;
-
-                            string colortest    = null;
-                               
-                            int colorargb       = 0;
-                                
-                            string windowOrderTest = null;
-
-                            int IntWindowOrder     = -1;
-                                
-                            XmlAttribute colorAttrib = nChildExplorer.Attributes["colorargb"];
-                                
-                            if (colorAttrib != null)
+                            foreach (XmlNode nChildExplorer in OrderedExplorerChildXmlNodes)
                             {
-                                colortest = nChildExplorer.Attributes["colorargb"].Value;
+                                string uri = nChildExplorer.Attributes["uri"].Value;
 
-                                if (colortest != null)
+                                string label = nChildExplorer.Attributes["label"].Value;
+
+                                string colortest = null;
+
+                                int colorargb = 0;
+
+                                string windowOrderTest = null;
+
+                                int IntWindowOrder = -1;
+
+                                XmlAttribute colorAttrib = nChildExplorer.Attributes["colorargb"];
+
+                                if (colorAttrib != null)
                                 {
-                                    int.TryParse(colortest, out colorargb);
+                                    colortest = nChildExplorer.Attributes["colorargb"].Value;
+
+                                    if (colortest != null)
+                                    {
+                                        int.TryParse(colortest, out colorargb);
+                                    }
+
                                 }
 
-                            }
+                                XmlAttribute orderAttrib = nChildExplorer.Attributes["WindowOrder"];
 
-                            XmlAttribute orderAttrib = nChildExplorer.Attributes["WindowOrder"];
-                                
-                            if (orderAttrib != null)
-                            {
-                                windowOrderTest = nChildExplorer.Attributes["WindowOrder"].Value;
-
-                                if (windowOrderTest != null)
+                                if (orderAttrib != null)
                                 {
-                                    int.TryParse(windowOrderTest, out IntWindowOrder);
+                                    windowOrderTest = nChildExplorer.Attributes["WindowOrder"].Value;
+
+                                    if (windowOrderTest != null)
+                                    {
+                                        int.TryParse(windowOrderTest, out IntWindowOrder);
+                                    }
+
                                 }
 
+                                ChildExplorerConfig childconfig = new ChildExplorerConfig();
+
+                                if (colorargb != 0)
+                                {
+                                    childconfig.ColorArgbInt = colorargb;
+                                }
+
+                                childconfig.label = label;
+
+                                childconfig.uri = uri;
+
+                                childconfig.WindowOrder = IntWindowOrder;
+
+                                ChildExplorer NewFileExplorer = new ChildExplorer(childconfig);
+
+                                NewFileExplorer.MdiParent = this;
+
+                                NewFileExplorer.Show();
+
+                                this.m_ChildExplorerCount++;
                             }
-
-                            ChildExplorerConfig childconfig = new ChildExplorerConfig();
-
-                            if (colorargb != 0)
-                            {
-                                childconfig.ColorArgbInt = colorargb;
-                            }
-                                
-                            childconfig.label   = label;
-                               
-                            childconfig.uri     = uri;
-
-                            childconfig.WindowOrder = IntWindowOrder;
-                                
-                            ChildExplorer NewFileExplorer = new ChildExplorer(childconfig);
-
-                            NewFileExplorer.MdiParent = this;
-                                
-                            NewFileExplorer.Show();
-
-                            this.m_ChildExplorerCount++;
                         }
                     }
-                }
 
-                Menu_View_Vertical_Click(new object(), new EventArgs());  //this will force the windows to tile
+                    Menu_View_Vertical_Click(new object(), new EventArgs());  //this will force the windows to tile
+                }
             }
         }
 
@@ -1603,9 +1603,16 @@ namespace CodeLessTraveled.Osprey
 
             util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
 
-            FormConfig frmConfig = new FormConfig();
-            frmConfig.MdiParent = this;
+            bool b_Use_Default_Repo = false;
 
+            if (String.IsNullOrEmpty(Properties.Settings.Default.AltXmlRepository.Trim()))
+            {
+                b_Use_Default_Repo = true;
+            }
+
+            FormConfig frmConfig = new FormConfig(b_Use_Default_Repo);
+
+            frmConfig.MdiParent = this;
 
             frmConfig.Show();
 

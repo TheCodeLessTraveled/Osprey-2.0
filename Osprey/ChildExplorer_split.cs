@@ -17,7 +17,7 @@ namespace CodeLessTraveled.Osprey
         private string  m_trans_uri             = null;
         private int     m_trans_ColorArgbInt    = -1;
         private int     m_trans_WindowOrder     = -1;
-
+        private bool    m_USE_DEFAULT_COLOR     = false;
         private string m_Track_Window_Sequence;
 
 
@@ -108,6 +108,23 @@ namespace CodeLessTraveled.Osprey
         
         private void ChildExplorer_ResizeEnd(object sender, EventArgs e)
         {
+
+            //TS_TextboxUri.Width = this.Width - (toolStrip2.Width) 
+
+            int MinFormWidth = 600;
+            int ToolStripWidth = 290;
+
+            int AvailableWidth = this.Width - ToolStripWidth;
+
+            if (this.Width > MinFormWidth)
+            {
+                TS_TextboxUri.Width = AvailableWidth;
+            }
+
+
+            StatusMessage.Text = String.Format("F:{0}, TS:{1}, Tx:{2}, ", this.Width, toolStrip2.Width, TS_TextboxUri.Width);
+
+
             // the TextboxUri width is 200 to 400
 
             // the init form is 600. The init textboxuri width is 330
@@ -142,6 +159,7 @@ namespace CodeLessTraveled.Osprey
             //}
 
             //StatusMessage.Text = String.Format("textbox Width: {0} | form Width: {1}", TS_TextboxUri.Width, this.Width);
+
         }
 
 
@@ -402,7 +420,7 @@ namespace CodeLessTraveled.Osprey
 
         private void TS_Options_Button_Click(object sender, EventArgs e)
         {
-            splitContainer1.SplitterDistance = 150;
+            splitContainer1.SplitterDistance = 200;
             splitContainer1.Panel1Collapsed = false;
         }
 
@@ -452,7 +470,16 @@ namespace CodeLessTraveled.Osprey
             }
 
             m_trans_label = Opt_Title_Textbox.Text;
+
             m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
+
+            if (m_USE_DEFAULT_COLOR)
+            {
+                m_trans_ColorArgbInt = System.Drawing.Color.LightGray.ToArgb();
+
+                m_USE_DEFAULT_COLOR = false;
+            }
+
 
             if (String.IsNullOrEmpty(error_msg))
             {
@@ -569,7 +596,7 @@ namespace CodeLessTraveled.Osprey
 
         private void Opt_ColorDefault_Click(object sender, EventArgs e)
         {
-            m_trans_ColorArgbInt = System.Drawing.Color.LightGray.ToArgb();
+            m_USE_DEFAULT_COLOR = true;
             
 
         }
@@ -585,6 +612,12 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            StatusMessage.Text = splitContainer1.SplitterDistance.ToString();
+        }
+
+      
     }
 
     
