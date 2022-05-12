@@ -77,6 +77,7 @@
             this.Menu_FolderGroup_ComboBox_0 = new System.Windows.Forms.ToolStripComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Menu_Edit_Config = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -325,7 +326,8 @@
             this.Menu_Edit_RenameFolderGroup,
             this.Menu_Edit_DeleteFolderGroup,
             this.toolStripSeparator5,
-            this.Menu_Edit_OspreyDataXml_OpenLocation});
+            this.Menu_Edit_OspreyDataXml_OpenLocation,
+            this.Menu_Edit_Config});
             this.Menu_Edit.Name = "Menu_Edit";
             this.Menu_Edit.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Menu_Edit.Size = new System.Drawing.Size(43, 32);
@@ -429,7 +431,7 @@
             // 
             this.toolStripSeparator3.AutoSize = false;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 20);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 20);
             // 
             // Menu_View_ClearAll
             // 
@@ -501,7 +503,7 @@
             this.Menu_FolderGroup_ComboBox_0.AutoSize = false;
             this.Menu_FolderGroup_ComboBox_0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_FolderGroup_ComboBox_0.Name = "Menu_FolderGroup_ComboBox_0";
-            this.Menu_FolderGroup_ComboBox_0.Size = new System.Drawing.Size(200, 30);
+            this.Menu_FolderGroup_ComboBox_0.Size = new System.Drawing.Size(200, 23);
             this.Menu_FolderGroup_ComboBox_0.ToolTipText = "Select a group of folders";
             this.Menu_FolderGroup_ComboBox_0.SelectedIndexChanged += new System.EventHandler(this.Menu_FolderGroup_ComboBox_SelectedIndexChanged);
             // 
@@ -520,6 +522,14 @@
             // 
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // Menu_Edit_Config
+            // 
+            this.Menu_Edit_Config.Image = global::CodeLessTraveled.Osprey.Properties.Resources.gear_32xMD;
+            this.Menu_Edit_Config.Name = "Menu_Edit_Config";
+            this.Menu_Edit_Config.Size = new System.Drawing.Size(233, 26);
+            this.Menu_Edit_Config.Text = "Configuration";
+            this.Menu_Edit_Config.Click += new System.EventHandler(this.Menu_Edit_Config_Click_1);
             // 
             // Form1
             // 
@@ -544,8 +554,10 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.Move += new System.EventHandler(this.Form1_Move);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -607,6 +619,7 @@
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
         private System.Windows.Forms.ToolStripMenuItem AdHocTest;
         private System.Windows.Forms.ToolStripComboBox Menu_FolderGroup_ComboBox;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Edit_Config;
     }
 }
 

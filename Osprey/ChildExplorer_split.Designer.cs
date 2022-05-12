@@ -32,13 +32,11 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.TS_ButtonOpen = new System.Windows.Forms.ToolStripButton();
-            this.TS_TextboxUri = new System.Windows.Forms.ToolStripTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Opt_ColorDialog = new System.Windows.Forms.ColorDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.Opt_Error_Textbox = new System.Windows.Forms.TextBox();
             this.Opt_Cancel_Button = new System.Windows.Forms.Button();
@@ -51,16 +49,14 @@
             this.Opt_Title_Textbox = new System.Windows.Forms.TextBox();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.TS_Button_Options = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.TS_ButtonEditColor = new System.Windows.Forms.ToolStripButton();
             this.TS_OrderTextbox = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.TS_ButtonBack = new System.Windows.Forms.ToolStripButton();
             this.TS_ButtonForward = new System.Windows.Forms.ToolStripButton();
             this.TS_ButtonUp = new System.Windows.Forms.ToolStripButton();
+            this.TS_ButtonOpen = new System.Windows.Forms.ToolStripButton();
+            this.TS_TextboxUri = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.button1 = new System.Windows.Forms.Button();
-            this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -83,64 +79,18 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(837, 170);
+            this.webBrowser1.Size = new System.Drawing.Size(710, 299);
             this.webBrowser1.TabIndex = 4;
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.AllowItemReorder = true;
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TS_ButtonOpen,
-            this.TS_TextboxUri});
-            this.toolStrip1.Location = new System.Drawing.Point(176, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(469, 25);
-            this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
-            // 
-            // TS_ButtonOpen
-            // 
-            this.TS_ButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TS_ButtonOpen.Image = global::CodeLessTraveled.Osprey.Properties.Resources.openHS;
-            this.TS_ButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TS_ButtonOpen.Name = "TS_ButtonOpen";
-            this.TS_ButtonOpen.Size = new System.Drawing.Size(23, 22);
-            this.TS_ButtonOpen.Text = "&Open";
-            this.TS_ButtonOpen.ToolTipText = "Open to navigate to a folder";
-            this.TS_ButtonOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            // 
-            // TS_TextboxUri
-            // 
-            this.TS_TextboxUri.AutoSize = false;
-            this.TS_TextboxUri.AutoToolTip = true;
-            this.TS_TextboxUri.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TS_TextboxUri.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TS_TextboxUri.Margin = new System.Windows.Forms.Padding(0);
-            this.TS_TextboxUri.MaxLength = 500;
-            this.TS_TextboxUri.Name = "TS_TextboxUri";
-            this.TS_TextboxUri.ShortcutsEnabled = false;
-            this.TS_TextboxUri.Size = new System.Drawing.Size(400, 25);
-            this.TS_TextboxUri.ToolTipText = "Type a folder path and press <Enter>";
-            this.TS_TextboxUri.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TS_TextboxUri_KeyUp);
-            this.TS_TextboxUri.Click += new System.EventHandler(this.TS_TextboxUri_Click);
-            this.TS_TextboxUri.LocationChanged += new System.EventHandler(this.TS_TextboxUri_LocationChanged);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusMessage});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 458);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 530);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(837, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(710, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -158,6 +108,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FloralWhite;
             this.splitContainer1.Panel1.Controls.Add(this.button1);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.Opt_Error_Textbox);
@@ -169,14 +120,25 @@
             this.splitContainer1.Panel1.Controls.Add(this.Opt_OK_Button);
             this.splitContainer1.Panel1.Controls.Add(this.Opt_Color_Button);
             this.splitContainer1.Panel1.Controls.Add(this.Opt_Title_Textbox);
-            this.splitContainer1.Panel1MinSize = 150;
+            this.splitContainer1.Panel1MinSize = 170;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer1.Size = new System.Drawing.Size(837, 433);
-            this.splitContainer1.SplitterDistance = 259;
+            this.splitContainer1.Size = new System.Drawing.Size(710, 507);
+            this.splitContainer1.SplitterDistance = 204;
             this.splitContainer1.TabIndex = 8;
+            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(336, 57);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(52, 23);
+            this.button1.TabIndex = 101;
+            this.button1.Text = "Default";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Opt_ColorDefault_Click);
             // 
             // label1
             // 
@@ -243,7 +205,7 @@
             this.Opt_SortOrder_Textbox.Location = new System.Drawing.Point(106, 57);
             this.Opt_SortOrder_Textbox.MaxLength = 2;
             this.Opt_SortOrder_Textbox.Name = "Opt_SortOrder_Textbox";
-            this.Opt_SortOrder_Textbox.Size = new System.Drawing.Size(42, 20);
+            this.Opt_SortOrder_Textbox.Size = new System.Drawing.Size(19, 20);
             this.Opt_SortOrder_Textbox.TabIndex = 2;
             // 
             // Opt_OK_Button
@@ -277,23 +239,27 @@
             // 
             // toolStrip2
             // 
-            this.toolStrip2.AllowItemReorder = true;
             this.toolStrip2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStrip2.GripMargin = new System.Windows.Forms.Padding(0);
+            this.toolStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TS_Button_Options,
-            this.toolStripSeparator3,
             this.TS_ButtonEditColor,
             this.TS_OrderTextbox,
-            this.toolStripSeparator4,
             this.TS_ButtonBack,
             this.TS_ButtonForward,
-            this.TS_ButtonUp});
-            this.toolStrip2.Location = new System.Drawing.Point(3, 0);
+            this.TS_ButtonUp,
+            this.TS_ButtonOpen,
+            this.TS_TextboxUri});
+            this.toolStrip2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
+            this.toolStrip2.Location = new System.Drawing.Point(0, 0);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip2.Size = new System.Drawing.Size(173, 25);
+            this.toolStrip2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStrip2.Size = new System.Drawing.Size(710, 23);
+            this.toolStrip2.Stretch = true;
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
             // 
@@ -303,15 +269,9 @@
             this.TS_Button_Options.Image = global::CodeLessTraveled.Osprey.Properties.Resources.gear_32xMD;
             this.TS_Button_Options.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TS_Button_Options.Name = "TS_Button_Options";
-            this.TS_Button_Options.Size = new System.Drawing.Size(23, 22);
+            this.TS_Button_Options.Size = new System.Drawing.Size(23, 20);
             this.TS_Button_Options.ToolTipText = "Settings Options. Customize color hint, window order, title text";
             this.TS_Button_Options.Click += new System.EventHandler(this.TS_Button_Options_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // TS_ButtonEditColor
             // 
@@ -320,10 +280,11 @@
             this.TS_ButtonEditColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.TS_ButtonEditColor.Enabled = false;
             this.TS_ButtonEditColor.Image = ((System.Drawing.Image)(resources.GetObject("TS_ButtonEditColor.Image")));
+            this.TS_ButtonEditColor.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.TS_ButtonEditColor.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TS_ButtonEditColor.Margin = new System.Windows.Forms.Padding(0, 1, 6, 2);
             this.TS_ButtonEditColor.Name = "TS_ButtonEditColor";
-            this.TS_ButtonEditColor.Size = new System.Drawing.Size(13, 13);
+            this.TS_ButtonEditColor.Size = new System.Drawing.Size(23, 4);
             this.TS_ButtonEditColor.Text = "toolStripButton1";
             this.TS_ButtonEditColor.ToolTipText = "Use the Settings Options to customize this color hint.";
             this.TS_ButtonEditColor.Click += new System.EventHandler(this.TS_ButtonEditColor_Click_1);
@@ -335,27 +296,22 @@
             this.TS_OrderTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TS_OrderTextbox.Enabled = false;
             this.TS_OrderTextbox.Font = new System.Drawing.Font("Consolas", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TS_OrderTextbox.Margin = new System.Windows.Forms.Padding(1, 0, 6, 0);
+            this.TS_OrderTextbox.Margin = new System.Windows.Forms.Padding(0);
             this.TS_OrderTextbox.MaxLength = 2;
             this.TS_OrderTextbox.Name = "TS_OrderTextbox";
-            this.TS_OrderTextbox.Size = new System.Drawing.Size(20, 18);
+            this.TS_OrderTextbox.Size = new System.Drawing.Size(18, 15);
             this.TS_OrderTextbox.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.TS_OrderTextbox.ToolTipText = "Window sort order is set by the configuration gear icon.";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // TS_ButtonBack
             // 
             this.TS_ButtonBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TS_ButtonBack.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.TS_ButtonBack.Image = ((System.Drawing.Image)(resources.GetObject("TS_ButtonBack.Image")));
             this.TS_ButtonBack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TS_ButtonBack.Name = "TS_ButtonBack";
-            this.TS_ButtonBack.Size = new System.Drawing.Size(23, 22);
-            this.TS_ButtonBack.Text = "B";
+            this.TS_ButtonBack.Size = new System.Drawing.Size(23, 17);
+            this.TS_ButtonBack.Text = "b";
             this.TS_ButtonBack.ToolTipText = "Navigate back";
             this.TS_ButtonBack.Click += new System.EventHandler(this.TS_ButtonBack_Click);
             // 
@@ -365,8 +321,8 @@
             this.TS_ButtonForward.Image = ((System.Drawing.Image)(resources.GetObject("TS_ButtonForward.Image")));
             this.TS_ButtonForward.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TS_ButtonForward.Name = "TS_ButtonForward";
-            this.TS_ButtonForward.Size = new System.Drawing.Size(23, 22);
-            this.TS_ButtonForward.Text = "F";
+            this.TS_ButtonForward.Size = new System.Drawing.Size(23, 19);
+            this.TS_ButtonForward.Text = "f";
             this.TS_ButtonForward.ToolTipText = "Navigate forward";
             this.TS_ButtonForward.Click += new System.EventHandler(this.TS_ButtonForward_Click);
             // 
@@ -376,10 +332,29 @@
             this.TS_ButtonUp.Image = ((System.Drawing.Image)(resources.GetObject("TS_ButtonUp.Image")));
             this.TS_ButtonUp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TS_ButtonUp.Name = "TS_ButtonUp";
-            this.TS_ButtonUp.Size = new System.Drawing.Size(23, 22);
-            this.TS_ButtonUp.Text = "U";
+            this.TS_ButtonUp.Size = new System.Drawing.Size(23, 19);
+            this.TS_ButtonUp.Text = "u";
             this.TS_ButtonUp.ToolTipText = "Navigate up";
             this.TS_ButtonUp.Click += new System.EventHandler(this.TS_ButtonUp_Click);
+            // 
+            // TS_ButtonOpen
+            // 
+            this.TS_ButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TS_ButtonOpen.Image = global::CodeLessTraveled.Osprey.Properties.Resources.openHS;
+            this.TS_ButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TS_ButtonOpen.Name = "TS_ButtonOpen";
+            this.TS_ButtonOpen.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.TS_ButtonOpen.Size = new System.Drawing.Size(30, 20);
+            this.TS_ButtonOpen.Text = "toolStripButton1";
+            // 
+            // TS_TextboxUri
+            // 
+            this.TS_TextboxUri.AutoSize = false;
+            this.TS_TextboxUri.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TS_TextboxUri.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TS_TextboxUri.Margin = new System.Windows.Forms.Padding(0);
+            this.TS_TextboxUri.Name = "TS_TextboxUri";
+            this.TS_TextboxUri.Size = new System.Drawing.Size(200, 23);
             // 
             // toolStripContainer1
             // 
@@ -387,13 +362,13 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(837, 433);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(710, 507);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.LeftToolStripPanelVisible = false;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.RightToolStripPanelVisible = false;
-            this.toolStripContainer1.Size = new System.Drawing.Size(837, 458);
+            this.toolStripContainer1.Size = new System.Drawing.Size(710, 530);
             this.toolStripContainer1.TabIndex = 10;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -401,24 +376,14 @@
             // 
             this.toolStripContainer1.TopToolStripPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip2);
-            this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.toolStrip1);
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(336, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(52, 23);
-            this.button1.TabIndex = 101;
-            this.button1.Text = "Default";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Opt_ColorDefault_Click);
+            this.toolStripContainer1.TopToolStripPanel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
             // ChildExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 480);
+            this.ClientSize = new System.Drawing.Size(710, 552);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -429,8 +394,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChildExplorer_FormClosing);
             this.Load += new System.EventHandler(this.ChildExplorer_Load);
             this.ResizeEnd += new System.EventHandler(this.ChildExplorer_ResizeEnd);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -455,9 +418,6 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripTextBox TS_TextboxUri;
-        private System.Windows.Forms.ToolStripButton TS_ButtonOpen;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ColorDialog Opt_ColorDialog;
         private System.Windows.Forms.ToolStripStatusLabel StatusMessage;
@@ -473,15 +433,15 @@
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton TS_Button_Options;
         private System.Windows.Forms.ToolStripContainer toolStripContainer1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton TS_ButtonBack;
         private System.Windows.Forms.ToolStripButton TS_ButtonForward;
         private System.Windows.Forms.ToolStripButton TS_ButtonUp;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton TS_ButtonEditColor;
         private System.Windows.Forms.ToolStripTextBox TS_OrderTextbox;
         private System.Windows.Forms.TextBox Opt_Error_Textbox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripButton TS_ButtonOpen;
+        private System.Windows.Forms.ToolStripTextBox TS_TextboxUri;
     }
 }
