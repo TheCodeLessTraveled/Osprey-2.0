@@ -734,7 +734,8 @@ namespace CodeLessTraveled.Osprey
         private void Menu_View_Vertical_Click(object sender, EventArgs e)
         {
             if (this.MdiChildren.Count() > 0)
-            { 
+            {
+                this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
                 Menu_View_Refresh();
                 Menu_View_Vertical.Checked = true;
             }

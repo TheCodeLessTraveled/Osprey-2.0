@@ -18,7 +18,8 @@ namespace CodeLessTraveled.Osprey
         private int     m_trans_WindowOrder         = -1;
         private string  m_Track_Window_Sequence;
 
-        private System.Drawing.Color m_DEFAULT_COLOR = System.Drawing.Color.LightGray;
+        private int m_DEFAULT_COLOR = System.Drawing.Color.LightGray.ToArgb();
+
         private bool    m_USE_DEFAULT_COLOR         = false;
 
         public ChildExplorer()
@@ -58,42 +59,67 @@ namespace CodeLessTraveled.Osprey
 
         private void SetConfigOptions(ChildExplorerConfig configs)
         {
-            m_ChildConfig.label         = configs.label;
            
-            m_ChildConfig.uri           = configs.uri;
-            
-            m_ChildConfig.ColorArgbInt  = configs.ColorArgbInt;
-            
-            m_ChildConfig.WindowOrder   = configs.WindowOrder;
+            m_ChildConfig.uri               = configs.uri;
+                TS_TextboxUri.Text          = m_ChildConfig.uri;
+                WebBrowerSetUrl(this.m_ChildConfig.uri);
 
-            
-            Opt_Title_Textbox.Text = m_ChildConfig.label;
-            
-            this.Text = m_ChildConfig.label;
 
-            this.SetBrowserUrl(this.m_ChildConfig.uri);
-            
-            TS_TextboxUri.Text = m_ChildConfig.uri;
+            m_ChildConfig.WindowOrder       = configs.WindowOrder;
+                Opt_SortOrder_Textbox.Text  = m_ChildConfig.WindowOrder.ToString();
+                TS_OrderTextbox.Text        = m_ChildConfig.WindowOrder.ToString();
 
-            if (m_ChildConfig.ColorArgbInt != 0)
-            {
-                Opt_ColorDialog.Color        = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
-            
+            m_ChildConfig.label             = configs.label;
+                Opt_Title_Textbox.Text      = m_ChildConfig.label;
+                this.Text                   = m_ChildConfig.label;
+
+
+            m_ChildConfig.ColorArgbInt = configs.ColorArgbInt;
+                if (m_ChildConfig.ColorArgbInt == m_DEFAULT_COLOR)
+                {
+                    m_USE_DEFAULT_COLOR = true;
+                    Opt_UseDefaultColor_Checkbox.Checked = true;
+                }
+                else
+                {
+                    m_USE_DEFAULT_COLOR = false;
+                    Opt_UseDefaultColor_Checkbox.Checked = false;
+                }
+
+                Opt_ColorDialog.Color  = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
                 TS_ButtonEditColor.BackColor = Opt_ColorDialog.Color;
-                
-                Opt_UseDefaultColor_Checkbox.Checked = false;
-            }
-            else
-            {
-                Opt_UseDefaultColor_Checkbox.Checked = true;
-            }
-            
-            Opt_SortOrder_Textbox.Text  = m_ChildConfig.WindowOrder.ToString();
-           
-            TS_OrderTextbox.Text        = m_ChildConfig.WindowOrder.ToString();
+
+
         }
 
 
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            {
+                if (!String.IsNullOrEmpty(TS_TextboxUri.Text))
+                {   // test to see if the entry is a folder.
+
+                    if (System.IO.Directory.Exists(TS_TextboxUri.Text))
+                    {
+                        fbd.SelectedPath = TS_TextboxUri.Text;
+                    }
+                }
+
+                fbd.Description = "Browse for Folder";
+
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    this.m_ChildConfig.uri = fbd.SelectedPath;
+
+                    webBrowser1.Url = new Uri(this.m_ChildConfig.uri);
+
+                    TS_TextboxUri.Text = this.m_ChildConfig.uri;
+
+                }
+            }
+        }
 
 
         private void ChildExplorer_FormClosing(object sender, FormClosingEventArgs e)
@@ -104,6 +130,7 @@ namespace CodeLessTraveled.Osprey
 
             this.m_ChildConfig.WindowOrder = Int_WindowOrder;
         }
+
 
         private void ChildExplorer_Load(object sender, EventArgs e)
         {
@@ -117,6 +144,7 @@ namespace CodeLessTraveled.Osprey
          
         }
         
+
         private void ChildExplorer_ResizeEnd(object sender, EventArgs e)
         {
 
@@ -138,49 +166,152 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-        private void btnOpen_Click(object sender, EventArgs e)
+      
+        private void Opt_Cancel_button_Click(object sender, EventArgs e)
         {
+            Opt_SortOrder_Textbox.Text = m_ChildConfig.WindowOrder.ToString();
 
-            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            Opt_Title_Textbox.Text = m_ChildConfig.label;
+
+            Opt_ColorDialog.Color = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+
+            splitContainer1.Panel1Collapsed = true;
+
+        }
+
+
+        private void Opt_Color_Button_Click(object sender, EventArgs e)
+        {
+            using (Opt_ColorDialog)
             {
-                if (!String.IsNullOrEmpty(TS_TextboxUri.Text))
-                {   // test to see if the entry is a folder.
+                if (Opt_ColorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
 
-                    if (System.IO.Directory.Exists(TS_TextboxUri.Text))
-                    {
-                        fbd.SelectedPath = TS_TextboxUri.Text;
-                    }
                 }
 
-                fbd.Description = "Browse for Folder";
-                
-                if (fbd.ShowDialog() == DialogResult.OK)
-                {
-                    this.m_ChildConfig.uri = fbd.SelectedPath;
-
-                    webBrowser1.Url = new Uri(this.m_ChildConfig.uri);
-
-                    TS_TextboxUri.Text = this.m_ChildConfig.uri;
-
-                 }
             }
         }
-        
 
-        public void SetBrowserUrl(string BrowserUrl)
+
+        private void Opt_OK_button_Click(object sender, EventArgs e)
         {
-            try
+            string error_msg = "";
+
+
+            // Before the use clicked <OK>, the selections are transient.
+            // The use could <Cancel> so you cannot save options until <OK> is clicked.
+            // Now, take the transient selected values and save them to the config object that will be passed back to the MDI parent to save in the XML.
+
+            m_trans_label = Opt_Title_Textbox.Text;
+
+            m_trans_WindowOrder = -1;
+
+            bool Test_Is_Number = int.TryParse(Opt_SortOrder_Textbox.Text, out m_trans_WindowOrder);
+
+            if (Test_Is_Number)
             {
-                this.webBrowser1.Url = new Uri(BrowserUrl);
-        
-                this.TS_TextboxUri.Text = BrowserUrl;
+                m_ChildConfig.WindowOrder = m_trans_WindowOrder;
             }
-            catch (System.UriFormatException eUri)
-            {   
-                this.Text = "Invalid uri! ";
+            else
+            {
+                error_msg += String.Format("'{0}' is not a number. Must be a number and maximum of 2 digits.{1}", Opt_SortOrder_Textbox.Text, Environment.NewLine);
             }
 
+
+            if (m_USE_DEFAULT_COLOR == true)
+            {
+                m_trans_ColorArgbInt = m_DEFAULT_COLOR;
+
+                m_USE_DEFAULT_COLOR = true;
+            }
+            else
+            {
+                m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
+
+                m_USE_DEFAULT_COLOR = false;
+            }
+
+
+            if (String.IsNullOrEmpty(error_msg))
+            {
+                splitContainer1.Panel1Collapsed = true;
+
+                ////    SET THE CURRENT VALUES (to be saved) TO THE TRANSIENT VALUES SELECTED BY THE USER (but not saved).
+
+
+                /// SAVE COLOR. SET THE UI CONTROLS RELATED TO COLOR
+                m_ChildConfig.ColorArgbInt = m_trans_ColorArgbInt;  // this is m_DEFAULT_COLOR when using the default value.
+
+                TS_ButtonEditColor.BackColor = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+
+                Opt_ColorDialog.Color = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+
+
+                /// SET THE UI CONTROLS RELATED TO WINDOW ORDER.  m_ChildConfig.WindowOrder  = This is set above in the "if" block.
+                TS_OrderTextbox.Text = m_ChildConfig.WindowOrder.ToString();
+
+                Opt_SortOrder_Textbox.Text = m_ChildConfig.WindowOrder.ToString();
+
+                // Form label
+                m_ChildConfig.label = m_trans_label;
+
+                this.Text = m_ChildConfig.label;
+
+                Opt_Title_Textbox.Text = m_ChildConfig.label;
+
+                // Other
+                Opt_Error_Textbox.Visible = false;
+
+                Opt_Error_Textbox.Text = "";
+
+
+
+            }
+            else
+            {
+                Opt_Error_Textbox.Text = error_msg;
+
+                Opt_Error_Textbox.Visible = true;
+
+                Opt_SortOrder_Textbox.BackColor = System.Drawing.Color.Yellow;
+            }
         }
+
+
+        private void Opt_UseDefaultColor_Checkbox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (Opt_UseDefaultColor_Checkbox.Checked == true)
+            {
+                m_USE_DEFAULT_COLOR = true;
+
+                Opt_Color_Button.Enabled = false;
+            }
+            else // false
+            {
+                m_USE_DEFAULT_COLOR = false;
+
+                Opt_Color_Button.Enabled = true;
+            }
+
+
+        }
+
+
+        private void Opt_Title_Textbox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Opt_SortOrder_Textbox.Focus();
+            }
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            StatusMessage.Text = splitContainer1.SplitterDistance.ToString();
+        }
+
+
 
 
         private void TS_ButtonBack_Click(object sender, EventArgs e)
@@ -244,7 +375,6 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-
         private void TS_TextboxUri_KeyUp(object sender, KeyEventArgs e)
         {
          
@@ -260,7 +390,7 @@ namespace CodeLessTraveled.Osprey
                 {
                     StatusMessage.Text = "";
                     
-                    SetBrowserUrl(TS_TextboxUri.Text);
+                    WebBrowerSetUrl(TS_TextboxUri.Text);
                     
                     this.m_ChildConfig.uri = TS_TextboxUri.Text;
                 }
@@ -317,115 +447,32 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+
+        private void TS_ButtonOpen_Click(object sender, EventArgs e)
         {
-            TS_TextboxUri.Text = webBrowser1.Url.LocalPath;
-
-            this.m_ChildConfig.uri  = TS_TextboxUri.Text;
-
-            if (String.IsNullOrEmpty(this.m_ChildConfig.label))
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
-                this.m_ChildConfig.label = TS_TextboxUri.Text;
+                if (!String.IsNullOrEmpty(TS_TextboxUri.Text))
+                {
+                    // test to see if the entry is a folder.
+
+                    if (System.IO.Directory.Exists(TS_TextboxUri.Text))
+                    {
+                        fbd.SelectedPath = TS_TextboxUri.Text;// this.m_TxtboxFolderPath;
+                    }
+                }
+
+                fbd.Description = "Browse for Folder";
+
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    this.m_ChildConfig.uri = fbd.SelectedPath;
+
+                    webBrowser1.Url = new Uri(this.m_ChildConfig.uri);
+
+                    TS_TextboxUri.Text = this.m_ChildConfig.uri;
+                }
             }
-        }
-
-
-             
-        private void Opt_OK_button_Click(object sender, EventArgs e)
-        {
-            string error_msg = "";
-
-
-            // Before the use clicked <OK>, the selections are transient.
-            // The use could <Cancel> so you cannot save options until <OK> is clicked.
-            // Now, take the transient selected values and save them to the config object that will be passed back to the MDI parent to save in the XML.
-
-            m_trans_label = Opt_Title_Textbox.Text;
-
-            m_trans_WindowOrder = -1;
-
-            bool Test_Is_Number = int.TryParse( Opt_SortOrder_Textbox.Text, out m_trans_WindowOrder);
-
-            if (Test_Is_Number)
-            {
-                m_ChildConfig.WindowOrder = m_trans_WindowOrder;
-            }
-            else
-            {
-                error_msg += String.Format("'{0}' is not a number. Must be a number and maximum of 2 digits.{1}", Opt_SortOrder_Textbox.Text,Environment.NewLine);
-            }
-
-            
-            if (m_USE_DEFAULT_COLOR == true)
-            {
-                m_trans_ColorArgbInt = m_DEFAULT_COLOR.ToArgb();
-
-                m_USE_DEFAULT_COLOR = true;
-            }
-            else
-            {
-                m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
-
-                m_USE_DEFAULT_COLOR = false;
-            }
-
-
-            if (String.IsNullOrEmpty(error_msg))
-            {
-                splitContainer1.Panel1Collapsed = true;
-
-             ////    SET THE CURRENT VALUES (to be saved) TO THE TRANSIENT VALUES SELECTED BY THE USER (but not saved).
-              
-                
-                /// SAVE COLOR. SET THE UI CONTROLS RELATED TO COLOR
-                m_ChildConfig.ColorArgbInt    = m_trans_ColorArgbInt;  // this is m_DEFAULT_COLOR when using the default value.
-                
-                TS_ButtonEditColor.BackColor  = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
-                
-                Opt_ColorDialog.Color = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
-
-
-                /// SET THE UI CONTROLS RELATED TO WINDOW ORDER.  m_ChildConfig.WindowOrder  = This is set above in the "if" block.
-                TS_OrderTextbox.Text            = m_ChildConfig.WindowOrder.ToString();
-                
-                Opt_SortOrder_Textbox.Text      = m_ChildConfig.WindowOrder.ToString();
-
-                // Form label
-                m_ChildConfig.label         = m_trans_label;
-                
-                this.Text                   = m_ChildConfig.label;
-                
-                Opt_Title_Textbox.Text      = m_ChildConfig.label;
-
-                // Other
-                Opt_Error_Textbox.Visible   = false;
-                
-                Opt_Error_Textbox.Text      = "";
-            
-                
-            
-            }
-            else
-            {
-                Opt_Error_Textbox.Text = error_msg;
-                
-                Opt_Error_Textbox.Visible = true;
-                
-                Opt_SortOrder_Textbox.BackColor = System.Drawing.Color.Yellow;
-            }
-        }
-
-       
-        private void Opt_Cancel_button_Click(object sender, EventArgs e)
-        {
-            Opt_SortOrder_Textbox.Text  = m_ChildConfig.WindowOrder.ToString();
-            
-            Opt_Title_Textbox.Text      = m_ChildConfig.label;
-            
-            Opt_ColorDialog.Color       = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
-
-            splitContainer1.Panel1Collapsed = true;
-
         }
 
 
@@ -434,6 +481,7 @@ namespace CodeLessTraveled.Osprey
             splitContainer1.SplitterDistance = 150;
             splitContainer1.Panel1Collapsed = false;
         }
+
 
         private void TS_ButtonEditColor_Click_1(object sender, EventArgs e)
         {
@@ -466,57 +514,36 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-        private void Opt_Color_Button_Click(object sender, EventArgs e)
+
+        public void WebBrowerSetUrl(string BrowserUrl)
         {
-            using (Opt_ColorDialog)
+            try
             {
-                if (Opt_ColorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    m_trans_ColorArgbInt = Opt_ColorDialog.Color.ToArgb();
+                this.webBrowser1.Url = new Uri(BrowserUrl);
 
-                }
-
+                this.TS_TextboxUri.Text = BrowserUrl;
             }
-        }
-
-
-        private void Opt_UseDefaultColor_Checkbox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (Opt_UseDefaultColor_Checkbox.Checked == true)
+            catch (System.UriFormatException eUri)
             {
-                m_USE_DEFAULT_COLOR = true;
-
-                Opt_Color_Button.Enabled = false;
-            }
-            else // false
-            {   
-                m_USE_DEFAULT_COLOR = false;
-
-                Opt_Color_Button.Enabled = true;
+                this.Text = "Invalid uri! ";
             }
 
-            
         }
 
 
-        private void Opt_Title_Textbox_KeyUp(object sender, KeyEventArgs e)
+        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            TS_TextboxUri.Text = webBrowser1.Url.LocalPath;
+
+            this.m_ChildConfig.uri = TS_TextboxUri.Text;
+
+            if (String.IsNullOrEmpty(this.m_ChildConfig.label))
             {
-                Opt_SortOrder_Textbox.Focus();
+                this.m_ChildConfig.label = TS_TextboxUri.Text;
             }
         }
 
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-            StatusMessage.Text = splitContainer1.SplitterDistance.ToString();
-        }
-
-        private void TS_ButtonOpen_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 
-    
+
 }
