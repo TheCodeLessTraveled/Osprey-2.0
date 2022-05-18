@@ -14,8 +14,8 @@
     <Setting Name="LastXmlFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)">beer</Value>
     </Setting>
-    <Setting Name="DefaultXmlRepository" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="UseDefaultXmlRepository" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

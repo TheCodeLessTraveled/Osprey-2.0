@@ -9,32 +9,19 @@ using System.Windows.Forms;
 
 namespace CodeLessTraveled.Osprey
 {
+    
     public partial class FormConfig : Form
     {
         private string  m_trans_Cfg_XmlRepositoryPath;
         private bool    m_trans_Cfg_XmlRepBrowse_Button_Enabled;
         private bool    m_trans_Cfg_XmlRep_TextBox_Enabled;
         private string  m_trans_Cfg_Message_Textbox_Value;
-        private bool    m_trans_Cfg_UseDefault_Chkbox_Value;
-
-        //   private bool m_trans_Cfg_OK_Enabled;
-
-
-        //private bool m_Is_Use_Cfg_Default;
-        //private string m_XmlRepositoryPath;
-        //public string XmlRepositoryPath
-        //{
-        //    get{return m_XmlRepositoryPath; }
-        //    set{ m_XmlRepositoryPath = value; }
-        //}
-        //protected string XmlRepositoryPath_protected
-        //{
-        //    get { return m_XmlRepositoryPath; }
-        //    set { m_XmlRepositoryPath = value; }
-        //}
+        private bool    m_restore_val_Cfg_UseDefault_Chkbox;
 
         public FormConfig(bool UseDefaultDataFilePath)
         {
+            
+
           // m_Is_Use_Cfg_Default = UseDefaultDataFilePath;
 
             //////////// temp test //////////////////////
@@ -61,17 +48,17 @@ namespace CodeLessTraveled.Osprey
             if (String.IsNullOrEmpty(XmlSavedRepoPath))
             {
                 // Use the default setting which is set on for form_load of the parent form, "Form1.cs".
-                Cfg_UseDefault_ChkBox.Checked = true;
-                Cfg_XmlRepo_TextBox.Text = "";
-                Cfg_XmlRepo_TextBox.Enabled = false;
-                Cfg_XmlRepoBrowse_Button.Enabled = false;
+                Cfg_UseDefault_ChkBox.Checked       = true;
+                Cfg_XmlRepo_TextBox.Text            = "";
+                Cfg_XmlRepo_TextBox.Enabled         = false;
+                Cfg_XmlRepoBrowse_Button.Enabled    = false;
             }
             else
             {
-                Cfg_UseDefault_ChkBox.Checked = false;
-                Cfg_XmlRepo_TextBox.Text = XmlSavedRepoPath;
-                Cfg_XmlRepo_TextBox.Enabled = true;
-                Cfg_XmlRepoBrowse_Button.Enabled = true;
+                Cfg_UseDefault_ChkBox.Checked       = false;
+                Cfg_XmlRepo_TextBox.Text            = XmlSavedRepoPath;
+                Cfg_XmlRepo_TextBox.Enabled         = true;
+                Cfg_XmlRepoBrowse_Button.Enabled    = true;
             }
 
             Cfg_UseDefault_ChkBox.Focus();
@@ -82,6 +69,7 @@ namespace CodeLessTraveled.Osprey
         private void Cfg_XmlRepBrowseButton_Click(object sender, EventArgs e)
         {
             string UserInputPath = Cfg_XmlRepo_TextBox.Text.Replace('"',' ').Trim();
+            
             using (FolderBrowserDialog_XmlFiles)
             {
 
@@ -102,7 +90,13 @@ namespace CodeLessTraveled.Osprey
 
                         Cfg_Message_TextBox.ForeColor = Color.DarkGreen;
 
-                        Cfg_Message_TextBox.Text = String.Format("Press <OK> to save for default XML repository location. {0}", FolderBrowserDialog_XmlFiles.SelectedPath);
+                        string  saveLocMsg  = String.Format("Pressing <Save> will move files from the current location to this new location");
+                            //    saveLocMsg += String.Format(" From: {0}", Properties.Settings.Default);
+                              //  saveLocMsg += String.Format(" T0:   {0}", FolderBrowserDialog_XmlFiles.SelectedPath);
+
+
+
+                        Cfg_Message_TextBox.Text = saveLocMsg;
 
                         cfg_Save_Button.Focus();
                     }
@@ -175,17 +169,23 @@ namespace CodeLessTraveled.Osprey
                 else
                 {
                     Properties.Settings.Default.AltXmlRepository = FolderBrowserDialog_XmlFiles.SelectedPath;
+                    
+                    Properties.Settings.Default.UseDefaultXmlRepository = true;
 
                     Cfg_Message_TextBox.Text = String.Format("Folder path saved as default location. {0}", FolderBrowserDialog_XmlFiles.SelectedPath);
+                    
                     Cfg_Message_TextBox.Text += Environment.NewLine + "Close and restart the Osprey application.";
                 }
             }
-            else
+            else  // Use the default location
             {
-                Cfg_Message_TextBox.Text = "Default path.";
+                Cfg_Message_TextBox.Text = "Use Ospry's default Xml repository path.";
 
                 Properties.Settings.Default.AltXmlRepository ="";
             }
+
+            this.Close();
+
         }
 
         private void Cfg_UseDefault_ChkBox_CheckedChanged(object sender, EventArgs e)
@@ -196,13 +196,15 @@ namespace CodeLessTraveled.Osprey
             m_trans_Cfg_XmlRepBrowse_Button_Enabled = Cfg_XmlRepoBrowse_Button.Enabled;
             m_trans_Cfg_XmlRep_TextBox_Enabled      = Cfg_XmlRepo_TextBox.Enabled;
             m_trans_Cfg_Message_Textbox_Value       = Cfg_Message_TextBox.Text;
-            m_trans_Cfg_UseDefault_Chkbox_Value     = !Cfg_UseDefault_ChkBox.Checked;   // at this point the checkbox was selected and the previous state was opposite of what is evaluated here.
-                                                                                        // if it was checked before the user unchecked it, then we want to capture the "checked" state.
+            m_restore_val_Cfg_UseDefault_Chkbox     = !Cfg_UseDefault_ChkBox.Checked;   // at this point the checkbox was selected and the previous state (potentially to be restored to) was opposite of new value.
+                                                                                        // if it was "CHECKED" before the user clicked it, then we want to capture the "CHECKED" state.
             Cfg_Message_TextBox.Text = "";
 
             if (Cfg_UseDefault_ChkBox.Checked == true)
             {
-                // Use the default setting which is set on for form_load of the parent form, "Form1.cs".
+                // this initially is set based on the Properties.Settings value.
+                Properties.Settings.Default.UseDefaultXmlRepository = true;
+
                 Cfg_XmlRepo_TextBox.Text        = "";
 
                 Cfg_XmlRepo_TextBox.Enabled     = false;
@@ -211,6 +213,8 @@ namespace CodeLessTraveled.Osprey
             }
             else
             {
+                Properties.Settings.Default.UseDefaultXmlRepository = false;
+
                 Cfg_UseDefault_ChkBox.Checked   = false;
 
                 Cfg_XmlRepo_TextBox.Enabled     = true;
@@ -223,7 +227,7 @@ namespace CodeLessTraveled.Osprey
                 {
                     Cfg_Message_TextBox.ForeColor = Color.DarkRed;
                 
-                    Cfg_Message_TextBox.Text = String.Format("The saved path, \"{0}\", does not exist. Correct the path before saving.", AltXmlRepoPath);
+                    Cfg_Message_TextBox.Text = String.Format("If you select a different folder for your XML files, you must also move your current XML files to your new location for them to be available." );
                 }
 
                 Cfg_XmlRepo_TextBox.Text = AltXmlRepoPath;
@@ -239,7 +243,7 @@ namespace CodeLessTraveled.Osprey
             Cfg_XmlRepo_TextBox.Text            = m_trans_Cfg_XmlRepositoryPath;
             Cfg_XmlRepoBrowse_Button.Enabled    = m_trans_Cfg_XmlRepBrowse_Button_Enabled;
             Cfg_XmlRepo_TextBox.Enabled         = m_trans_Cfg_XmlRep_TextBox_Enabled;
-            Cfg_UseDefault_ChkBox.Checked       = m_trans_Cfg_UseDefault_Chkbox_Value;
+            Cfg_UseDefault_ChkBox.Checked       = m_restore_val_Cfg_UseDefault_Chkbox;
 
             this.Close();
         }

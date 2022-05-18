@@ -36,11 +36,10 @@
             this.StatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.Opt_ColorDialog = new System.Windows.Forms.ColorDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Opt_UseDefaultColor_Checkbox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Opt_Error_Textbox = new System.Windows.Forms.TextBox();
             this.Opt_Cancel_Button = new System.Windows.Forms.Button();
-            this.label_ColorPicker = new System.Windows.Forms.Label();
             this.label_SortOrder = new System.Windows.Forms.Label();
             this.label_FormText = new System.Windows.Forms.Label();
             this.Opt_SortOrder_Textbox = new System.Windows.Forms.TextBox();
@@ -81,7 +80,6 @@
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(710, 299);
             this.webBrowser1.TabIndex = 4;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
             // 
             // statusStrip1
@@ -109,11 +107,10 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FloralWhite;
-            this.splitContainer1.Panel1.Controls.Add(this.button1);
+            this.splitContainer1.Panel1.Controls.Add(this.Opt_UseDefaultColor_Checkbox);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
             this.splitContainer1.Panel1.Controls.Add(this.Opt_Error_Textbox);
             this.splitContainer1.Panel1.Controls.Add(this.Opt_Cancel_Button);
-            this.splitContainer1.Panel1.Controls.Add(this.label_ColorPicker);
             this.splitContainer1.Panel1.Controls.Add(this.label_SortOrder);
             this.splitContainer1.Panel1.Controls.Add(this.label_FormText);
             this.splitContainer1.Panel1.Controls.Add(this.Opt_SortOrder_Textbox);
@@ -130,15 +127,17 @@
             this.splitContainer1.TabIndex = 8;
             this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
-            // button1
+            // Opt_UseDefaultColor_Checkbox
             // 
-            this.button1.Location = new System.Drawing.Point(336, 57);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(52, 23);
-            this.button1.TabIndex = 101;
-            this.button1.Text = "Default";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Opt_ColorDefault_Click);
+            this.Opt_UseDefaultColor_Checkbox.AutoSize = true;
+            this.Opt_UseDefaultColor_Checkbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Opt_UseDefaultColor_Checkbox.Location = new System.Drawing.Point(178, 59);
+            this.Opt_UseDefaultColor_Checkbox.Name = "Opt_UseDefaultColor_Checkbox";
+            this.Opt_UseDefaultColor_Checkbox.Size = new System.Drawing.Size(109, 17);
+            this.Opt_UseDefaultColor_Checkbox.TabIndex = 102;
+            this.Opt_UseDefaultColor_Checkbox.Text = "Use Default Color";
+            this.Opt_UseDefaultColor_Checkbox.UseVisualStyleBackColor = true;
+            this.Opt_UseDefaultColor_Checkbox.CheckedChanged += new System.EventHandler(this.Opt_UseDefaultColor_Checkbox_CheckedChanged);
             // 
             // label1
             // 
@@ -155,7 +154,7 @@
             this.Opt_Error_Textbox.BackColor = System.Drawing.SystemColors.Info;
             this.Opt_Error_Textbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Opt_Error_Textbox.ForeColor = System.Drawing.Color.DarkRed;
-            this.Opt_Error_Textbox.Location = new System.Drawing.Point(106, 95);
+            this.Opt_Error_Textbox.Location = new System.Drawing.Point(106, 113);
             this.Opt_Error_Textbox.Multiline = true;
             this.Opt_Error_Textbox.Name = "Opt_Error_Textbox";
             this.Opt_Error_Textbox.Size = new System.Drawing.Size(292, 50);
@@ -165,22 +164,13 @@
             // 
             // Opt_Cancel_Button
             // 
-            this.Opt_Cancel_Button.Location = new System.Drawing.Point(13, 122);
+            this.Opt_Cancel_Button.Location = new System.Drawing.Point(13, 140);
             this.Opt_Cancel_Button.Name = "Opt_Cancel_Button";
             this.Opt_Cancel_Button.Size = new System.Drawing.Size(75, 23);
             this.Opt_Cancel_Button.TabIndex = 5;
             this.Opt_Cancel_Button.Text = "Cancel";
             this.Opt_Cancel_Button.UseVisualStyleBackColor = true;
             this.Opt_Cancel_Button.Click += new System.EventHandler(this.Opt_Cancel_button_Click);
-            // 
-            // label_ColorPicker
-            // 
-            this.label_ColorPicker.AutoSize = true;
-            this.label_ColorPicker.Location = new System.Drawing.Point(191, 57);
-            this.label_ColorPicker.Name = "label_ColorPicker";
-            this.label_ColorPicker.Size = new System.Drawing.Size(63, 13);
-            this.label_ColorPicker.TabIndex = 100;
-            this.label_ColorPicker.Text = "Pick a color";
             // 
             // label_SortOrder
             // 
@@ -210,7 +200,7 @@
             // 
             // Opt_OK_Button
             // 
-            this.Opt_OK_Button.Location = new System.Drawing.Point(12, 93);
+            this.Opt_OK_Button.Location = new System.Drawing.Point(12, 111);
             this.Opt_OK_Button.Name = "Opt_OK_Button";
             this.Opt_OK_Button.Size = new System.Drawing.Size(75, 23);
             this.Opt_OK_Button.TabIndex = 4;
@@ -220,11 +210,11 @@
             // 
             // Opt_Color_Button
             // 
-            this.Opt_Color_Button.Location = new System.Drawing.Point(273, 57);
+            this.Opt_Color_Button.Location = new System.Drawing.Point(314, 59);
             this.Opt_Color_Button.Name = "Opt_Color_Button";
-            this.Opt_Color_Button.Size = new System.Drawing.Size(52, 23);
+            this.Opt_Color_Button.Size = new System.Drawing.Size(74, 23);
             this.Opt_Color_Button.TabIndex = 3;
-            this.Opt_Color_Button.Text = "Color";
+            this.Opt_Color_Button.Text = "Pick a Color";
             this.Opt_Color_Button.UseVisualStyleBackColor = true;
             this.Opt_Color_Button.Click += new System.EventHandler(this.Opt_Color_Button_Click);
             // 
@@ -299,7 +289,7 @@
             this.TS_OrderTextbox.Margin = new System.Windows.Forms.Padding(0);
             this.TS_OrderTextbox.MaxLength = 2;
             this.TS_OrderTextbox.Name = "TS_OrderTextbox";
-            this.TS_OrderTextbox.Size = new System.Drawing.Size(18, 15);
+            this.TS_OrderTextbox.Size = new System.Drawing.Size(18, 18);
             this.TS_OrderTextbox.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.TS_OrderTextbox.ToolTipText = "Window sort order is set by the configuration gear icon.";
             // 
@@ -346,6 +336,7 @@
             this.TS_ButtonOpen.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.TS_ButtonOpen.Size = new System.Drawing.Size(30, 20);
             this.TS_ButtonOpen.Text = "toolStripButton1";
+            this.TS_ButtonOpen.Click += new System.EventHandler(this.TS_ButtonOpen_Click);
             // 
             // TS_TextboxUri
             // 
@@ -428,7 +419,6 @@
         private System.Windows.Forms.Label label_SortOrder;
         private System.Windows.Forms.Label label_FormText;
         private System.Windows.Forms.TextBox Opt_SortOrder_Textbox;
-        private System.Windows.Forms.Label label_ColorPicker;
         private System.Windows.Forms.Button Opt_Cancel_Button;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripButton TS_Button_Options;
@@ -440,8 +430,8 @@
         private System.Windows.Forms.ToolStripTextBox TS_OrderTextbox;
         private System.Windows.Forms.TextBox Opt_Error_Textbox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripButton TS_ButtonOpen;
         private System.Windows.Forms.ToolStripTextBox TS_TextboxUri;
+        private System.Windows.Forms.CheckBox Opt_UseDefaultColor_Checkbox;
     }
 }
