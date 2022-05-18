@@ -73,13 +73,13 @@ namespace CodeLessTraveled.Osprey.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DefaultXmlRepository {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseDefaultXmlRepository {
             get {
-                return ((string)(this["DefaultXmlRepository"]));
+                return ((bool)(this["UseDefaultXmlRepository"]));
             }
             set {
-                this["DefaultXmlRepository"] = value;
+                this["UseDefaultXmlRepository"] = value;
             }
         }
     }
