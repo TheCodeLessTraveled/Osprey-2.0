@@ -1,7 +1,7 @@
 # Osprey
 ![GitHub all releases](https://img.shields.io/github/downloads/TheCodeLessTraveled/Osprey-2.0/total?color=green)
 
-<p>Osprey is a Windows application tool intended for IT professionals to monitor groups of folders and the activity within them by collecting and organizing the File Explorer windows into one parent window. These settings are easily saved and reloaded as needed.
+<p>Osprey is a Windows application tool that allows you to conveniently  drag folders into a single parent window and get a bird’s eye, tiled view of all your folders. Clearly layout all your Explorer windows by tile or cascade. Minimize, resize and maximize all at once or drag the entire group to another screen. Use this as an ad hoc tool or save your views to conveniently reload your folders into a tiled view. 
  </p>
  <p><b>PROBLEM EXPLAINED</b>
  <br>Do you ever wish your File Explorer windows were grouped into one parent window that would function as one window? If you are like me, you reopen File Explore countless times because you've lost track of folders in you cluttered taskbar. <b>Time-after-time</b> you sift through the heap of taskbar icons to reposition your folders buried under a myriad of application windows.</p>
