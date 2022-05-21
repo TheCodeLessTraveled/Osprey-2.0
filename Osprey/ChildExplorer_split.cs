@@ -49,8 +49,12 @@ namespace CodeLessTraveled.Osprey
                 m_ChildConfig.WindowOrder   = int_windowSequence;
            
                 m_ChildConfig.ColorArgbInt  = this.TS_ButtonEditColor.BackColor.ToArgb();
-                
-                m_ChildConfig.uri           = this.webBrowser1.Url.LocalPath;
+
+                if (!String.IsNullOrEmpty(this.webBrowser1.Url.LocalPath))
+                {
+                    m_ChildConfig.uri = this.webBrowser1.Url.LocalPath;
+                }
+
                 
                 return m_ChildConfig;
             }    
@@ -62,8 +66,10 @@ namespace CodeLessTraveled.Osprey
            
             m_ChildConfig.uri               = configs.uri;
                 TS_TextboxUri.Text          = m_ChildConfig.uri;
-                WebBrowerSetUrl(this.m_ChildConfig.uri);
-
+                if (!String.IsNullOrEmpty(this.m_ChildConfig.uri))
+                {
+                    WebBrowerSetUrl(this.m_ChildConfig.uri);
+                }
 
             m_ChildConfig.WindowOrder       = configs.WindowOrder;
                 Opt_SortOrder_Textbox.Text  = m_ChildConfig.WindowOrder.ToString();
@@ -74,22 +80,33 @@ namespace CodeLessTraveled.Osprey
                 this.Text                   = m_ChildConfig.label;
 
 
+           
             m_ChildConfig.ColorArgbInt = configs.ColorArgbInt;
-                if (m_ChildConfig.ColorArgbInt == m_DEFAULT_COLOR)
+
+                if (m_ChildConfig.b_USE_DEFAULT_COLOR == true)
                 {
-                    m_USE_DEFAULT_COLOR = true;
+                    m_USE_DEFAULT_COLOR             = true;
+                    
+                    Opt_Color_Button.Enabled        = false;
+
+                    TS_ButtonEditColor.BackColor    = m_ChildConfig.DefaultColor;
+
+                    Opt_ColorDialog.Color           = m_ChildConfig.DefaultColor;
+
                     Opt_UseDefaultColor_Checkbox.Checked = true;
                 }
                 else
                 {
-                    m_USE_DEFAULT_COLOR = false;
+                    m_USE_DEFAULT_COLOR             = false;
+
+                    Opt_ColorDialog.Color           = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
+
+                    TS_ButtonEditColor.BackColor    = Opt_ColorDialog.Color;
+
+                    Opt_Color_Button.Enabled        = true;
+                    
                     Opt_UseDefaultColor_Checkbox.Checked = false;
                 }
-
-                Opt_ColorDialog.Color  = System.Drawing.Color.FromArgb(m_ChildConfig.ColorArgbInt);
-                TS_ButtonEditColor.BackColor = Opt_ColorDialog.Color;
-
-
         }
 
 
@@ -543,6 +560,24 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
+        private void TS_TextboxUri_KeyUp_1(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!System.IO.Directory.Exists(this.TS_TextboxUri.Text))
+                {
+                    StatusMessage.Text = "Folder path is not valid.";
+                    StatusMessage.ForeColor = System.Drawing.Color.DarkRed;
+                    StatusMessage.BackColor = System.Drawing.Color.White;
+                }
+                else
+                {
+                    this.m_ChildConfig.uri = this.TS_TextboxUri.Text;
+    
+                    webBrowser1.Url = new Uri(TS_TextboxUri.Text);
+                }
+            }
+        }
     }
 
 

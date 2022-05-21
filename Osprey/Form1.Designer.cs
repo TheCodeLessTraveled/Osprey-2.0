@@ -63,6 +63,7 @@
             this.Menu_Edit_DeleteFolderGroup_DoDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_Edit_OspreyDataXml_OpenLocation = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_Edit_Config = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View_CascadeAll = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View_Horizontal = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +78,6 @@
             this.Menu_FolderGroup_ComboBox_0 = new System.Windows.Forms.ToolStripComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Menu_Edit_Config = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -390,6 +390,14 @@
             this.Menu_Edit_OspreyDataXml_OpenLocation.ToolTipText = "Navigate to the data file folder.";
             this.Menu_Edit_OspreyDataXml_OpenLocation.Click += new System.EventHandler(this.Menu_Edit_OspreyDataXml_OpenLocation_Click_1);
             // 
+            // Menu_Edit_Config
+            // 
+            this.Menu_Edit_Config.Image = global::CodeLessTraveled.Osprey.Properties.Resources.gear_32xMD;
+            this.Menu_Edit_Config.Name = "Menu_Edit_Config";
+            this.Menu_Edit_Config.Size = new System.Drawing.Size(233, 26);
+            this.Menu_Edit_Config.Text = "Configuration";
+            this.Menu_Edit_Config.Click += new System.EventHandler(this.Menu_Edit_Config_Click_1);
+            // 
             // Menu_View
             // 
             this.Menu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -521,14 +529,6 @@
             // 
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(0, 17);
-            // 
-            // Menu_Edit_Config
-            // 
-            this.Menu_Edit_Config.Image = global::CodeLessTraveled.Osprey.Properties.Resources.gear_32xMD;
-            this.Menu_Edit_Config.Name = "Menu_Edit_Config";
-            this.Menu_Edit_Config.Size = new System.Drawing.Size(233, 26);
-            this.Menu_Edit_Config.Text = "Configuration";
-            this.Menu_Edit_Config.Click += new System.EventHandler(this.Menu_Edit_Config_Click_1);
             // 
             // Form1
             // 
