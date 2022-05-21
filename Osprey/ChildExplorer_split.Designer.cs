@@ -131,6 +131,8 @@
             // 
             this.Opt_UseDefaultColor_Checkbox.AutoSize = true;
             this.Opt_UseDefaultColor_Checkbox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.Opt_UseDefaultColor_Checkbox.Checked = true;
+            this.Opt_UseDefaultColor_Checkbox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Opt_UseDefaultColor_Checkbox.Location = new System.Drawing.Point(178, 59);
             this.Opt_UseDefaultColor_Checkbox.Name = "Opt_UseDefaultColor_Checkbox";
             this.Opt_UseDefaultColor_Checkbox.Size = new System.Drawing.Size(109, 17);
@@ -210,6 +212,7 @@
             // 
             // Opt_Color_Button
             // 
+            this.Opt_Color_Button.Enabled = false;
             this.Opt_Color_Button.Location = new System.Drawing.Point(314, 59);
             this.Opt_Color_Button.Name = "Opt_Color_Button";
             this.Opt_Color_Button.Size = new System.Drawing.Size(74, 23);
@@ -342,10 +345,10 @@
             // 
             this.TS_TextboxUri.AutoSize = false;
             this.TS_TextboxUri.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TS_TextboxUri.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.TS_TextboxUri.Margin = new System.Windows.Forms.Padding(0);
             this.TS_TextboxUri.Name = "TS_TextboxUri";
             this.TS_TextboxUri.Size = new System.Drawing.Size(200, 23);
+            this.TS_TextboxUri.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TS_TextboxUri_KeyUp_1);
             // 
             // toolStripContainer1
             // 

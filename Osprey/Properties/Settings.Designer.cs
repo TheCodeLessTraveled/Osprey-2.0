@@ -82,5 +82,17 @@ namespace CodeLessTraveled.Osprey.Properties {
                 this["UseDefaultXmlRepository"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool RunOnce {
+            get {
+                return ((bool)(this["RunOnce"]));
+            }
+            set {
+                this["RunOnce"] = value;
+            }
+        }
     }
 }

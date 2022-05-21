@@ -61,7 +61,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.btnOK);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(562, 334);
+            this.splitContainer1.Size = new System.Drawing.Size(558, 330);
             this.splitContainer1.SplitterDistance = 25;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -93,7 +93,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(213, 52);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Developer: Chuck Lavergne\r\nVersion : 2.0.0\r\n© 2021 Osprey by The Code Less Travel" +
+            this.label3.Text = "Developer: Chuck Lavergne\r\nVersion : 3.0.0\r\n© 2021 Osprey by The Code Less Travel" +
     "ed\r\n\r\n";
             // 
             // label2
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(562, 334);
+            this.ClientSize = new System.Drawing.Size(558, 330);
             this.ControlBox = false;
             this.Controls.Add(this.splitContainer1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

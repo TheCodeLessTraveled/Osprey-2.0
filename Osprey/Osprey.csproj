@@ -97,6 +97,12 @@
     <Compile Include="FormConfig.Designer.cs">
       <DependentUpon>FormConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAdHocTesting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAdHocTesting.Designer.cs">
+      <DependentUpon>FrmAdHocTesting.cs</DependentUpon>
+    </Compile>
     <Compile Include="LicenseInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     <EmbeddedResource Include="FormConfig.resx">
       <DependentUpon>FormConfig.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmAdHocTesting.resx">
+      <DependentUpon>FrmAdHocTesting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LicenseInfo.resx">
       <DependentUpon>LicenseInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -151,9 +160,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <Content Include="Osprey Help.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="OspreyData.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\app.manifest" />

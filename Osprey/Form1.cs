@@ -524,17 +524,24 @@ namespace CodeLessTraveled.Osprey
 
                 
         private void Menu_File_NewFileExplorer_Click(object sender, EventArgs e)
-        {
+        {   // This function is called by the main form menu strip's Open Folder icon.
             // are there any entries in the ospreydata.xml
             //  node count is 0, then nothing has been saved before. initial save requires a name and requires a name.
 
+            util_AddChildWindow(null);
+            /******************************************************************************************************
             ChildExplorer NewFileExplorer = new ChildExplorer();
           
             NewFileExplorer.MdiParent = this;
 
             arrayChildExplorer.Add(NewFileExplorer);
 
+            NewFileExplorer.Width = this.Width/2;
+            NewFileExplorer.Height= this.Height/2;
+
             NewFileExplorer.Show();
+            *******************************************************************************************************
+             */
 
             // m_ChildExplorerCount++;
         }
@@ -967,6 +974,10 @@ namespace CodeLessTraveled.Osprey
 
             ChildExplorer NewFileExplorer = new ChildExplorer(newconfig);
 
+            NewFileExplorer.Width = this.Width / 2;
+
+            NewFileExplorer.Height = this.Height / 2;
+    
             NewFileExplorer.MdiParent = this;
        
             arrayChildExplorer.Add(NewFileExplorer);
@@ -1064,20 +1075,20 @@ namespace CodeLessTraveled.Osprey
             
             string xpath = String.Format("//Osprey/FolderTeam[@Name='{0}']", folderteamname);
 
-            XmlNode selectedfolderteam  = m_CurrentXml.SelectSingleNode(xpath);
+            XmlNode xml_selected_foldergroup  = m_CurrentXml.SelectSingleNode(xpath);
 
             // Only continue if the node has child nodes. otherwise, there are no child windows to load.
-            if (selectedfolderteam.SelectNodes("ChildExplorer").Count > 0)
+            if (xml_selected_foldergroup.SelectNodes("ChildExplorer").Count > 0)
             {
-                if (selectedfolderteam != null)
+                if (xml_selected_foldergroup != null)
                 {
                     // Ensure each child node has a WindowOrder assigned to it. Force "0" if not exists.
                     // Sort the List
-                    foreach (XmlNode ChildExplorer in selectedfolderteam.SelectNodes("ChildExplorer"))
+                    foreach (XmlNode xml_ChildExplorer in xml_selected_foldergroup.SelectNodes("ChildExplorer"))
                     {
                         XmlAttribute attWindowOrder;
 
-                        attWindowOrder = ChildExplorer.Attributes["WindowOrder"];
+                        attWindowOrder = xml_ChildExplorer.Attributes["WindowOrder"];
 
                         if (attWindowOrder == null)
                         {
@@ -1085,25 +1096,20 @@ namespace CodeLessTraveled.Osprey
 
                             attWindowOrder.Value = "0";
 
-                            ChildExplorer.Attributes.Append(attWindowOrder);
+                            xml_ChildExplorer.Attributes.Append(attWindowOrder);
                         }
-                        else
-                        {
-                            int WindowOrder = 0;
+                        //else
+                        //{
+                        //    int WindowOrder = 0;
 
-                            bool WindowOrder_IS_INT = int.TryParse(attWindowOrder.Value, out WindowOrder);
-
-                            if (!WindowOrder_IS_INT)
-                            {
-                                attWindowOrder.Value = "0";
-                            }
-                        }
+                        //    bool WindowOrder_IS_INT = int.TryParse(attWindowOrder.Value, out WindowOrder);
+                        //}
                     }
 
 
-                    var ExplorerChildren = selectedfolderteam.ChildNodes.Cast<XmlNode>().ToList();
+                    var ExplorerChildren = xml_selected_foldergroup.ChildNodes.Cast<XmlNode>().ToList();
 
-                    var orderedExplorerChildren = selectedfolderteam.ChildNodes.Cast<XmlNode>().OrderBy(node => Convert.ToInt32(node.Attributes["WindowOrder"].Value)).ToList();
+                    var orderedExplorerChildren = xml_selected_foldergroup.ChildNodes.Cast<XmlNode>().OrderBy(node => Convert.ToInt32(node.Attributes["WindowOrder"].Value)).ToList();
 
                     if (orderedExplorerChildren.Count == 0)
                     {
@@ -1126,60 +1132,81 @@ namespace CodeLessTraveled.Osprey
 
                             foreach (XmlNode nChildExplorer in OrderedExplorerChildXmlNodes)
                             {
-                                string uri = nChildExplorer.Attributes["uri"].Value;
+                                string xml_uri              = nChildExplorer.Attributes["uri"].Value;
 
-                                string label = nChildExplorer.Attributes["label"].Value;
+                                string xml_label            = nChildExplorer.Attributes["label"].Value;
 
-                                string colortest = null;
 
-                                int colorargb = 0;
 
-                                string windowOrderTest = null;
+                                //  Two steps are needed to retrieve the color value from the xml. Otherwise, if a null is evaluated the app will crash.
+                                //  1. Does the attribute exist  2. Is the color value a valid integer. 
 
-                                int IntWindowOrder = -1;
+                                XmlAttribute xml_ColorAttribName = nChildExplorer.Attributes["colorargb"];
 
-                                XmlAttribute colorAttrib = nChildExplorer.Attributes["colorargb"];
+                                string xml_color_value_test = null;
 
-                                if (colorAttrib != null)
+                                int    xml_colorargb        = 0;
+
+                                if (xml_ColorAttribName != null)
                                 {
-                                    colortest = nChildExplorer.Attributes["colorargb"].Value;
+                                    xml_color_value_test = nChildExplorer.Attributes["colorargb"].Value;
 
-                                    if (colortest != null)
+                                    if (!String.IsNullOrEmpty(xml_color_value_test))
                                     {
-                                        int.TryParse(colortest, out colorargb);
+                                        int.TryParse(xml_color_value_test, out xml_colorargb);
                                     }
 
                                 }
 
-                                XmlAttribute orderAttrib = nChildExplorer.Attributes["WindowOrder"];
 
-                                if (orderAttrib != null)
+                                //  Two steps are needed to retrieve the child-window-order-value from the xml. Otherwise, if a null is evaluated the app will crash.
+                                //  1. Does the attribute exist  2. Is the value a valid integer. 
+                                
+                                XmlAttribute xml_orderAttrib    = nChildExplorer.Attributes["WindowOrder"];
+
+                                string xml_order_value_test     = null;
+
+                                int xml_orderInt                = 0;
+
+                                if (xml_orderAttrib != null)
                                 {
-                                    windowOrderTest = nChildExplorer.Attributes["WindowOrder"].Value;
+                                    xml_order_value_test = nChildExplorer.Attributes["WindowOrder"].Value;
 
-                                    if (windowOrderTest != null)
+                                    if (xml_order_value_test != null)
                                     {
-                                        int.TryParse(windowOrderTest, out IntWindowOrder);
+                                        int.TryParse(xml_order_value_test, out xml_orderInt);
                                     }
 
                                 }
 
                                 ChildExplorerConfig childconfig = new ChildExplorerConfig();
 
-                                if (colorargb != 0)
+                                if (xml_colorargb == childconfig.DefaultColorArgbInt)
                                 {
-                                    childconfig.ColorArgbInt = colorargb;
+                                    childconfig.ColorArgbInt = childconfig.DefaultColorArgbInt;
+
+                                    childconfig.b_USE_DEFAULT_COLOR = true;
+                                }
+                                else 
+                                {
+                                    childconfig.ColorArgbInt = xml_colorargb;
+                                
+                                    childconfig.b_USE_DEFAULT_COLOR = false;
                                 }
 
-                                childconfig.label = label;
+                                childconfig.label               = xml_label;
 
-                                childconfig.uri = uri;
+                                childconfig.uri                 = xml_uri;
 
-                                childconfig.WindowOrder = IntWindowOrder;
+                                childconfig.WindowOrder         = xml_orderInt;
 
-                                ChildExplorer NewFileExplorer = new ChildExplorer(childconfig);
+                                ChildExplorer NewFileExplorer   = new ChildExplorer(childconfig);
 
-                                NewFileExplorer.MdiParent = this;
+                                NewFileExplorer.MdiParent       = this;
+
+                                NewFileExplorer.Width           = (this.Width / 2);
+
+                                NewFileExplorer.Height          = (this.Height / 2);
 
                                 NewFileExplorer.Show();
 
@@ -1505,6 +1532,13 @@ namespace CodeLessTraveled.Osprey
 
         private void AdHocTest_Click(object sender, EventArgs e)
         {
+            string teststring = "q3";
+            int finalValue = -1;
+
+            bool b_IsValidInt = int.TryParse(teststring, out finalValue);
+
+            string x = "";
+            
             //statuslabel1.Text = "aaaaaaaaaaaaa";
             //System.threading.thread.sleep(1000);
             //statuslabel1.Text = "";
@@ -1521,9 +1555,9 @@ namespace CodeLessTraveled.Osprey
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
+           // string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
 
-           // util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
+           //// util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
         }
 
         private void Menu_Edit_Config_Click_1(object sender, EventArgs e)
@@ -1560,8 +1594,9 @@ namespace CodeLessTraveled.Osprey
     {
         private int     m_ColorArgbInt;
         private string  m_label;
-        private string m_uri;
-        private int m_WindowOrder;
+        private string  m_uri;
+        private int     m_WindowOrder;
+        private bool    m_Use_Default_Color;
 
 
         public int ColorArgbInt
@@ -1569,6 +1604,24 @@ namespace CodeLessTraveled.Osprey
             get { return m_ColorArgbInt; }
             set { m_ColorArgbInt = value; }
         }
+
+        public int DefaultColorArgbInt
+        {
+            // This must be read-only because it is the DEFAULT which must be treated as a CONSTANT.
+            get { return System.Drawing.Color.LightGray.ToArgb(); }
+        }
+        public System.Drawing.Color DefaultColor
+        {
+            // This must be read-only because it is the DEFAULT which must be treated as a CONSTANT.
+            get { return System.Drawing.Color.LightGray; }
+        }
+
+        public bool b_USE_DEFAULT_COLOR
+        {
+            get { return m_Use_Default_Color; }
+            set { m_Use_Default_Color = value; }
+        }
+
 
         public string label
         {
