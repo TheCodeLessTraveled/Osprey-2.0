@@ -255,7 +255,7 @@
             // 
             this.toolStripSeparator7.AutoSize = false;
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(181, 10);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(176, 10);
             // 
             // Menu_File_Save
             // 
@@ -302,7 +302,7 @@
             // 
             this.toolStripSeparator2.AutoSize = false;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 10);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(176, 10);
             // 
             // Menu_File_Exit
             // 
@@ -316,7 +316,7 @@
             // AdHocTest
             // 
             this.AdHocTest.Name = "AdHocTest";
-            this.AdHocTest.Size = new System.Drawing.Size(184, 26);
+            this.AdHocTest.Size = new System.Drawing.Size(179, 26);
             this.AdHocTest.Text = "Ad Hoc Test";
             this.AdHocTest.Click += new System.EventHandler(this.AdHocTest_Click);
             // 
@@ -502,7 +502,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(850, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(770, 36);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "File";
             // 
@@ -521,7 +521,7 @@
             this.StatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 392);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(850, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(770, 22);
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -537,7 +537,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(850, 414);
+            this.ClientSize = new System.Drawing.Size(770, 414);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.btn_AcceptButton);
