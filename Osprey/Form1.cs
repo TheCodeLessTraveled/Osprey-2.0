@@ -1369,17 +1369,15 @@ namespace CodeLessTraveled.Osprey
             
             this.Menu_File_New.Enabled                      = true;
             
-            this.Menu_FolderGroup_ComboBox_0.Enabled          = false;
+            this.Menu_FolderGroup_ComboBox_0.Enabled        = false;
             this.Menu_File_OpenDataFile.Enabled             = false;
             this.Menu_File_Save.Enabled                     = false;
             this.Menu_File_SaveAs.Enabled                   = false;
             this.Menu_Edit_DeleteFolderGroup.Enabled        = false;
             this.Menu_View_ClearAll.Enabled                 = false;
-            this.ToolStrip_Button_AddFolder.Enabled         = false;
-            this.ToolStrip_Button_Save.Enabled              = false;
-            
+            this.Menu_AddChildExplorer.Enabled              = false;
+            this.Menu_Save.Enabled                          = false;
 
-                        
             if (m_UI_STATE_HasFiles)
             {
                 this.Menu_File_OpenDataFile.Enabled = true;
@@ -1390,7 +1388,7 @@ namespace CodeLessTraveled.Osprey
             {
                 this.Menu_File_NewDataFile_TextBox.Text     = "";
 
-                this.ToolStrip_Button_Save.Enabled          = true;
+                this.Menu_Save.Enabled          = true;
                 
                 this.Text = String.Format("Osprey  \u2502  {0}", m_CurrentXmlFilename);
             }
@@ -1398,7 +1396,7 @@ namespace CodeLessTraveled.Osprey
 
             if (m_UI_STATE_FolderGroupIsOpen)
             {
-                this.ToolStrip_Button_AddFolder.Enabled = true;
+                this.Menu_AddChildExplorer.Enabled = true;
 
                 this.Menu_FolderGroup_ComboBox_0.Text         = m_CurrentFolderGroup[m_idxFTeamDisplayName];
 
@@ -1424,7 +1422,7 @@ namespace CodeLessTraveled.Osprey
                 this.Menu_File_Save.Enabled                 = true;
                 this.Menu_File_SaveAs.Enabled               = true;
                 this.Menu_FolderGroup_ComboBox_0.Enabled    = true;
-                this.ToolStrip_Button_Save.Enabled          = true;
+                this.Menu_Save.Enabled                      = true;
             }
 
             if (m_UI_STATE_HasChildren)
@@ -1545,13 +1543,7 @@ namespace CodeLessTraveled.Osprey
             //System.threading.thread.sleep(1000);
         }
 
-        private void Form1_Move(object sender, EventArgs e)
-        {
-            string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
-
-            util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
-        }
-
+      
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {

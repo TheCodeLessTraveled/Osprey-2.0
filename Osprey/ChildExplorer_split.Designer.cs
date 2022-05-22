@@ -56,6 +56,7 @@
             this.TS_ButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.TS_TextboxUri = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -74,21 +75,21 @@
             // webBrowser1
             // 
             this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.IsWebBrowserContextMenuEnabled = false;
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(710, 299);
+            this.webBrowser1.Size = new System.Drawing.Size(682, 176);
             this.webBrowser1.TabIndex = 4;
             this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusMessage});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 530);
+            this.StatusMessage,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 373);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(710, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(682, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -122,10 +123,9 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
-            this.splitContainer1.Size = new System.Drawing.Size(710, 507);
-            this.splitContainer1.SplitterDistance = 204;
+            this.splitContainer1.Size = new System.Drawing.Size(682, 350);
+            this.splitContainer1.SplitterDistance = 170;
             this.splitContainer1.TabIndex = 8;
-            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
             // 
             // Opt_UseDefaultColor_Checkbox
             // 
@@ -251,7 +251,7 @@
             this.toolStrip2.Padding = new System.Windows.Forms.Padding(0);
             this.toolStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStrip2.Size = new System.Drawing.Size(710, 23);
+            this.toolStrip2.Size = new System.Drawing.Size(682, 23);
             this.toolStrip2.Stretch = true;
             this.toolStrip2.TabIndex = 1;
             this.toolStrip2.Text = "toolStrip2";
@@ -339,12 +339,15 @@
             this.TS_ButtonOpen.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.TS_ButtonOpen.Size = new System.Drawing.Size(30, 20);
             this.TS_ButtonOpen.Text = "toolStripButton1";
+            this.TS_ButtonOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.TS_ButtonOpen.ToolTipText = "Browse to folder. Set folder view.";
             this.TS_ButtonOpen.Click += new System.EventHandler(this.TS_ButtonOpen_Click);
             // 
             // TS_TextboxUri
             // 
             this.TS_TextboxUri.AutoSize = false;
             this.TS_TextboxUri.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TS_TextboxUri.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.TS_TextboxUri.Margin = new System.Windows.Forms.Padding(0);
             this.TS_TextboxUri.Name = "TS_TextboxUri";
             this.TS_TextboxUri.Size = new System.Drawing.Size(200, 23);
@@ -356,13 +359,13 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(710, 507);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(682, 350);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.LeftToolStripPanelVisible = false;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.RightToolStripPanelVisible = false;
-            this.toolStripContainer1.Size = new System.Drawing.Size(710, 530);
+            this.toolStripContainer1.Size = new System.Drawing.Size(682, 373);
             this.toolStripContainer1.TabIndex = 10;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -373,11 +376,16 @@
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStripContainer1.TopToolStripPanel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
             // ChildExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(710, 552);
+            this.ClientSize = new System.Drawing.Size(682, 395);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -436,5 +444,6 @@
         private System.Windows.Forms.ToolStripButton TS_ButtonOpen;
         private System.Windows.Forms.ToolStripTextBox TS_TextboxUri;
         private System.Windows.Forms.CheckBox Opt_UseDefaultColor_Checkbox;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

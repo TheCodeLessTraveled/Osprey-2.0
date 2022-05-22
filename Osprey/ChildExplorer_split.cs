@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Windows.Forms;
 using System.IO;
 using System.Linq;
@@ -18,9 +18,10 @@ namespace CodeLessTraveled.Osprey
         private int     m_trans_WindowOrder         = -1;
         private string  m_Track_Window_Sequence;
 
-        private int m_DEFAULT_COLOR = System.Drawing.Color.LightGray.ToArgb();
-
+        private int     m_DEFAULT_COLOR = System.Drawing.Color.LightGray.ToArgb();
         private bool    m_USE_DEFAULT_COLOR         = false;
+        
+        private System.Drawing.Color m_Def_StatusLabel_BgColor = System.Drawing.SystemColors.Control;
 
         public ChildExplorer()
         {
@@ -35,11 +36,15 @@ namespace CodeLessTraveled.Osprey
             m_ChildConfig = config;
 
             SetConfigOptions(m_ChildConfig);
-        }
+        
+            System.Drawing.Color m_Def_StatusLabel_BgColor = System.Drawing.SystemColors.Control;
+
+
+    }
 
 
 
-        public ChildExplorerConfig ChildConfig
+    public ChildExplorerConfig ChildConfig
         {   get 
             {
                 int int_windowSequence = 0;
@@ -158,32 +163,20 @@ namespace CodeLessTraveled.Osprey
             TS_ButtonUp.Text        = "\u2191";
            
             splitContainer1.Panel1Collapsed = true;
-         
+
         }
-        
+
 
         private void ChildExplorer_ResizeEnd(object sender, EventArgs e)
         {
+            int frmWidth = this.Width;
 
-            int MinFormWidth    = 600;
-            
-            int ToolStripWidth  = 290;
-
-            int AvailableWidth = this.Width - ToolStripWidth;
-
-            if (this.Width > MinFormWidth)
-            {
-                TS_TextboxUri.Width = AvailableWidth;
-            }
-
-
-            StatusMessage.Text = String.Format("F:{0}, TS:{1}, Tx:{2}, ", this.Width, toolStrip2.Width, TS_TextboxUri.Width);
-
-
+            TS_TextboxUri.Width = frmWidth-200;  // 200 is an approximation of of the width of the toolbar icons. 
         }
 
 
-      
+
+
         private void Opt_Cancel_button_Click(object sender, EventArgs e)
         {
             Opt_SortOrder_Textbox.Text = m_ChildConfig.WindowOrder.ToString();
@@ -323,13 +316,7 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-            StatusMessage.Text = splitContainer1.SplitterDistance.ToString();
-        }
-
-
-
+   
 
         private void TS_ButtonBack_Click(object sender, EventArgs e)
         {
@@ -392,29 +379,6 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-        private void TS_TextboxUri_KeyUp(object sender, KeyEventArgs e)
-        {
-         
-           if (e.KeyCode == Keys.Enter)
-            {
-                if (!System.IO.Directory.Exists(this.TS_TextboxUri.Text))
-                {
-                    StatusMessage.Text = "Folder path is not valid.";
-        
-                    StatusMessage.ForeColor = System.Drawing.Color.DarkRed;
-                }
-                else
-                {
-                    StatusMessage.Text = "";
-                    
-                    WebBrowerSetUrl(TS_TextboxUri.Text);
-                    
-                    this.m_ChildConfig.uri = TS_TextboxUri.Text;
-                }
-            }
-        }
-
-
         private void TS_OrderTextbox_KeyUp(object sender, KeyEventArgs e)
         {
             int WindowOrderInt = -1;
@@ -422,16 +386,6 @@ namespace CodeLessTraveled.Osprey
             bool KeyStroke_Is_Numeric = false;
 
             string TheKeyStroke = e.KeyCode.ToString();
-
-            //if (
-            //    TheKeyStroke.StartsWith("D")                                        // is the keystroke a marked with a "D" (for digit)
-            //    && TheKeyStroke.Length == 2                                         // is the keystroke 2 characters long.
-            //    && "0123456789".IndexOf(TheKeyStroke.Substring(1, 1)) >= 0          // is the second/last character a match for a number (1-9)
-            //   )
-            //{
-  
-            //}
-
 
             {
                 KeyStroke_Is_Numeric = int.TryParse(TS_OrderTextbox.Text, out WindowOrderInt);
@@ -566,7 +520,7 @@ namespace CodeLessTraveled.Osprey
             {
                 if (!System.IO.Directory.Exists(this.TS_TextboxUri.Text))
                 {
-                    StatusMessage.Text = "Folder path is not valid.";
+                    StatusMessage.Text      = "Folder path is not valid.";
                     StatusMessage.ForeColor = System.Drawing.Color.DarkRed;
                     StatusMessage.BackColor = System.Drawing.Color.White;
                 }
@@ -575,8 +529,13 @@ namespace CodeLessTraveled.Osprey
                     this.m_ChildConfig.uri = this.TS_TextboxUri.Text;
     
                     webBrowser1.Url = new Uri(TS_TextboxUri.Text);
+
+                    StatusMessage.Text      = "";
+                    StatusMessage.ForeColor = System.Drawing.Color.Black;
+                    StatusMessage.BackColor = m_Def_StatusLabel_BgColor;
                 }
             }
+            
         }
     }
 

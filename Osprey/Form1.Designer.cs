@@ -36,9 +36,6 @@
             this.btn_AcceptButton = new System.Windows.Forms.Button();
             this.openNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.ToolStrip_Button_AddFolder = new System.Windows.Forms.ToolStripButton();
-            this.ToolStrip_Button_Save = new System.Windows.Forms.ToolStripButton();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.Timer_Message2 = new System.Windows.Forms.Timer(this.components);
             this.Menu_File = new System.Windows.Forms.ToolStripMenuItem();
@@ -78,7 +75,8 @@
             this.Menu_FolderGroup_ComboBox_0 = new System.Windows.Forms.ToolStripComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStrip1.SuspendLayout();
+            this.Menu_AddChildExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -120,48 +118,6 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStrip_Button_AddFolder,
-            this.ToolStrip_Button_Save});
-            this.toolStrip1.Location = new System.Drawing.Point(450, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(86, 36);
-            this.toolStrip1.Stretch = true;
-            this.toolStrip1.TabIndex = 12;
-            // 
-            // ToolStrip_Button_AddFolder
-            // 
-            this.ToolStrip_Button_AddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ToolStrip_Button_AddFolder.Image = global::CodeLessTraveled.Osprey.Properties.Resources._042b_AddCategory_24x24_72;
-            this.ToolStrip_Button_AddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ToolStrip_Button_AddFolder.Name = "ToolStrip_Button_AddFolder";
-            this.ToolStrip_Button_AddFolder.Padding = new System.Windows.Forms.Padding(0, 0, 6, 0);
-            this.ToolStrip_Button_AddFolder.Size = new System.Drawing.Size(30, 33);
-            this.ToolStrip_Button_AddFolder.Text = "&Open";
-            this.ToolStrip_Button_AddFolder.ToolTipText = "Add folder to group";
-            this.ToolStrip_Button_AddFolder.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
-            // 
-            // ToolStrip_Button_Save
-            // 
-            this.ToolStrip_Button_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ToolStrip_Button_Save.Image = global::CodeLessTraveled.Osprey.Properties.Resources.saveHS;
-            this.ToolStrip_Button_Save.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.ToolStrip_Button_Save.Name = "ToolStrip_Button_Save";
-            this.ToolStrip_Button_Save.Padding = new System.Windows.Forms.Padding(0, 0, 6, 0);
-            this.ToolStrip_Button_Save.Size = new System.Drawing.Size(30, 33);
-            this.ToolStrip_Button_Save.Text = "&Save";
-            this.ToolStrip_Button_Save.ToolTipText = "Save group";
-            this.ToolStrip_Button_Save.Click += new System.EventHandler(this.Menu_File_Save_Click_1);
             // 
             // Timer_Message2
             // 
@@ -496,6 +452,8 @@
             this.Menu_Edit,
             this.Menu_View,
             this.Menu_FolderGroup_ComboBox_0,
+            this.Menu_AddChildExplorer,
+            this.Menu_Save,
             this.Menu_Help});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -511,7 +469,7 @@
             this.Menu_FolderGroup_ComboBox_0.AutoSize = false;
             this.Menu_FolderGroup_ComboBox_0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_FolderGroup_ComboBox_0.Name = "Menu_FolderGroup_ComboBox_0";
-            this.Menu_FolderGroup_ComboBox_0.Size = new System.Drawing.Size(200, 23);
+            this.Menu_FolderGroup_ComboBox_0.Size = new System.Drawing.Size(250, 23);
             this.Menu_FolderGroup_ComboBox_0.ToolTipText = "Select a group of folders";
             this.Menu_FolderGroup_ComboBox_0.SelectedIndexChanged += new System.EventHandler(this.Menu_FolderGroup_ComboBox_SelectedIndexChanged);
             // 
@@ -530,6 +488,24 @@
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // Menu_AddChildExplorer
+            // 
+            this.Menu_AddChildExplorer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Menu_AddChildExplorer.Image = global::CodeLessTraveled.Osprey.Properties.Resources._042b_AddCategory_24x24_72;
+            this.Menu_AddChildExplorer.Name = "Menu_AddChildExplorer";
+            this.Menu_AddChildExplorer.Size = new System.Drawing.Size(32, 32);
+            this.Menu_AddChildExplorer.Text = "toolStripMenuItem3";
+            this.Menu_AddChildExplorer.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
+            // 
+            // Menu_Save
+            // 
+            this.Menu_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Menu_Save.Image = global::CodeLessTraveled.Osprey.Properties.Resources.saveHS;
+            this.Menu_Save.Name = "Menu_Save";
+            this.Menu_Save.Size = new System.Drawing.Size(32, 32);
+            this.Menu_Save.Text = "Menu_Save";
+            this.Menu_Save.Click += new System.EventHandler(this.Menu_File_Save_Click_1);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_AcceptButton;
@@ -539,7 +515,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(770, 414);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.btn_AcceptButton);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -556,9 +531,6 @@
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
-            this.Move += new System.EventHandler(this.Form1_Move);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -576,10 +548,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem openNewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.HelpProvider helpProvider1;
-        private System.Windows.Forms.ToolStripButton ToolStrip_Button_AddFolder;
-        private System.Windows.Forms.ToolStripButton ToolStrip_Button_Save;
         private System.Windows.Forms.Timer Timer_Message2;
         private System.Windows.Forms.ToolStripMenuItem Menu_File;
         private System.Windows.Forms.ToolStripMenuItem Menu_File_New;
@@ -619,6 +588,8 @@
         private System.Windows.Forms.ToolStripMenuItem AdHocTest;
         private System.Windows.Forms.ToolStripComboBox Menu_FolderGroup_ComboBox;
         private System.Windows.Forms.ToolStripMenuItem Menu_Edit_Config;
+        private System.Windows.Forms.ToolStripMenuItem Menu_AddChildExplorer;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Save;
     }
 }
 
