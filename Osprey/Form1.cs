@@ -19,7 +19,12 @@ namespace CodeLessTraveled.Osprey
     {
         
         #region _class members initial settings
-      
+
+        /*   
+        ╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗
+        ║                                 Set member variables                                              ║
+        ╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
+        */ 
         string HelpPath = System.IO.Path.Combine(Application.StartupPath,"osprey help.chm");
         private List<ChildExplorer> arrayChildExplorer = new List<ChildExplorer>();
         // variables used for data files and their xml contents.
@@ -33,7 +38,7 @@ namespace CodeLessTraveled.Osprey
 
        //     private string m_XmlFileCollectionPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "The Code Less Traveled", "Osprey");
         private string[]                m_CurrentFolderGroup        = new string[2] { "", "" };   // this array holds to two elements [0]= folder team name, [1]=folder team display name.
-        private int                     m_ChildExplorerCount        = 0;
+      //  private int                     m_ChildExplorerCount        = 0;
         private const int               m_idxFTeamNodeName          = 0;                
         private const int               m_idxFTeamDisplayName       = 1;
 
@@ -69,18 +74,6 @@ namespace CodeLessTraveled.Osprey
         enum SaveResults {Cancelled, Error, Initialize, Saved, Skip}
         #endregion
 
-        public string XmlFileCollectionPath
-        { 
-            get 
-            { 
-                return m_XmlFileCollectionPath;
-            }
-            set
-            {
-                m_XmlFileCollectionPath = value;
-            }
-        }
-        
         public Form1()
         {
             InitializeComponent();
@@ -121,34 +114,37 @@ namespace CodeLessTraveled.Osprey
             Properties.Settings.Default.LastXmlFileName = m_CurrentXmlFilename;
 
             Properties.Settings.Default.Save();
-
         }
 
       
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-            /* determine what to load:
-             *   1. is there a setting for a saved data file?
-             *        a. yes. look for the file. 
-             *              i)   if file found on disk, load the saved file.
-             *              ii)  if file not found, look for the default ospreydata.xml and load it.
-             *              iii) if the default ospreydata.xml is not found, create an empty default ospreydata.xml and load it.
-             *              
-             *        b. no - is there a a default ospreydata.xml?
-             *              iii) if the default ospreydata.xml is not found, create an empty default ospreydata.xml and load it.
-             *               
-             *  2.  load the combobox with a list of files and set the combobox text to the saved xml data file.
-             *      this triggers the event handler to load the list of folder teams from the selected file in the combobox.text.
-             *     
-             *  3.   set the folderteam list text to the saved FolderGroup which will trigger the event to load the child windows of FolderGroups.
+
+            /* 
+             ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+             ║                                                                                                                       ║
+             ║ determine what to load:                                                                                               ║
+             ║   1. is there a setting for a saved data file?                                                                        ║          
+             ║        a. yes. look for the file.                                                                                     ║
+             ║              i)   if file found on disk, load the saved file.                                                         ║
+             ║              ii)  if file not found, look for the default ospreydata.xml and load it.                                 ║
+             ║              iii) if the default ospreydata.xml is not found, create an empty default ospreydata.xml and load it.     ║
+             ║                                                                                                                       ║
+             ║        b. no - is there a a default ospreydata.xml?                                                                   ║
+             ║              iii) if the default ospreydata.xml is not found, create an empty default ospreydata.xml and load it.     ║
+             ║                                                                                                                       ║
+             ║  2.  load the combobox with a list of files and set the combobox text to the saved xml data file.                     ║
+             ║      this triggers the event handler to load the list of folder teams from the selected file in the combobox.text.    ║
+             ║                                                                                                                       ║
+             ║  3.  Set the folderteam list text to the saved FolderGroup which will trigger the event to load the child windows     ║
+             ║      of FolderGroups.                                                                                                 ║
+             ║                                                                                                                       ║
+             ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
              */
 
-            m_LogFilePath                  = System.IO.Path.Combine(m_XmlFileCollectionPath);
+            m_LogFilePath = System.IO.Path.Combine(m_XmlFileCollectionPath);
             helpProvider1.HelpNamespace    = this.HelpPath;
 
-
-          
 
             #region _region: form size and location settings
             // set form size and location per coordinates saved from the last session .
@@ -170,17 +166,6 @@ namespace CodeLessTraveled.Osprey
                 this.Location     = m_SavedLocation;
             #endregion
 
-            /*
-            
-            ╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗
-            ║                                                                                                   ║
-            ║   string strLoc = System.Reflection.Assembly.GetEntryAssembly().Location;                         ║
-            ║   util_ShowStatusMessage(strLoc, System.Drawing.Color.AliceBlue, System.Drawing.Color.Navy);      ║
-            ║                                                                                                   ║
-            ╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
-
-             */
-
             string AltXmlCol = Properties.Settings.Default.AltXmlRepository;
 
             m_XmlFileCollectionPath = String.IsNullOrEmpty(AltXmlCol) ? m_XmlFileCollectionPath : AltXmlCol;
@@ -194,10 +179,12 @@ namespace CodeLessTraveled.Osprey
                            - xor -
                        c) if ospreydata.xml does not exist, create it and load it.
                */
-               DirectoryInfo    di_DataFolder       = new System.IO.DirectoryInfo(m_XmlFileCollectionPath);
+                DirectoryInfo    di_DataFolder       = new System.IO.DirectoryInfo(m_XmlFileCollectionPath);
                 FileInfo[]      arrFilesOnDisk      = di_DataFolder.GetFiles("*.xml");
                 bool            b_XmlFileToLoad     = false;
-                string          saved_xmlfilename   = Properties.Settings.Default.LastXmlFileName.Trim();
+               
+
+                string saved_xmlfilename = Properties.Settings.Default.LastXmlFileName.Trim();
 
                 if(saved_xmlfilename != null)
                 {
@@ -224,6 +211,7 @@ namespace CodeLessTraveled.Osprey
 
                     m_CurrentXmlFilename = m_DefaultOspreyDataXml;
 
+
                     m_UI_STATE_HasFiles = true;
                 }
                 #endregion
@@ -244,9 +232,10 @@ namespace CodeLessTraveled.Osprey
 
         }
 
+
         private void Form1_DragDrop(object sender, DragEventArgs e)
         {
-
+            
             string[] arrFormats = e.Data.GetFormats();
 
             DirectoryInfo DragDirInfo = null;
@@ -377,40 +366,42 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_File_NewFolderGroup_Textbox_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    /*  save
+                     *  clear the list
+                     *  clear child windows
+                     *  
+                     */
+                    string FolderGroupName = Menu_File_NewFolderGroup_Textbox.Text;
 
-            }
+                    if (!String.IsNullOrEmpty(FolderGroupName))
+                    {
+                        util_SetCurrentFolderGroupName(FolderGroupName);
+
+                        m_UI_STATE_HasChildren = false;
+
+                        SaveResults savevalue = SaveMain(NodeChangeType.NewGroup, FolderGroupName);
+
+                        Menu_File.HideDropDown();
+
+                        util_PopulateFolderGroupList();
+
+                        Menu_File_NewFolderGroup_Textbox.Text = "";
+
+                        Menu_FolderGroup_ComboBox_0.Text = FolderGroupName;
+                    }
+                }
         }
+
 
         private void Menu_File_NewFolderGroup_Textbox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                /*  save
-                 *  clear the list
-                 *  clear child windows
-                 *  
-                 */
-                string FolderGroupName = Menu_File_NewFolderGroup_Textbox.Text;
-
-                if (!String.IsNullOrEmpty(FolderGroupName))
-                {
-                    util_SetCurrentFolderGroupName(FolderGroupName);
-
-                    m_UI_STATE_HasChildren = false;
-
-                    SaveResults savevalue = SaveMain(NodeChangeType.NewGroup, FolderGroupName);
-
-                    Menu_File.HideDropDown();
-
-                    util_PopulateFolderGroupList();
-
-                    Menu_File_NewFolderGroup_Textbox.Text = "";
-
-                    Menu_FolderGroup_ComboBox_0.Text = FolderGroupName;
-                }
+                e.SuppressKeyPress = true;
             }
+
         }
 
 
@@ -418,7 +409,7 @@ namespace CodeLessTraveled.Osprey
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //e.SuppressKeyPress= true;
+                e.SuppressKeyPress= true;
 
             }
         }
@@ -453,11 +444,11 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-
         private void Menu_File_NewDataFile_TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
+                e.SuppressKeyPress = true;
             }
         }
         
@@ -484,7 +475,7 @@ namespace CodeLessTraveled.Osprey
                 {
                     string newfilename          = this.Menu_File_NewDataFile_TextBox.Text;
                  
-                    FileInfo fi_newfile         = util_CreateDataXmlFile(newfilename,false);  //this function creates a new xml data file and initializes xml document nodes.
+                    FileInfo fi_newfile         = util_CreateDataXmlFile(newfilename, true);  //Creates a new xml data file, add a "Sample" folder group node.
                     
                     this.m_CurrentXmlfullpath   = fi_newfile.FullName;
                     
@@ -492,19 +483,18 @@ namespace CodeLessTraveled.Osprey
                     
                     this.m_CurrentXml           = util_GetOspreyDataXml(m_CurrentXmlfullpath);
 
-                    
-
+            
                     util_PopulateFileListCboBox(m_XmlFileCollectionPath);                   // count data files,  clear the cbobox, add file list to cbobox.
                     
                     this.Menu_File_OpenDataFile_CboBox.Text = fi_newfile.Name;              // set m_CurrentXml XmlDocument.
                        
                     m_UI_STATE_HasFiles             = true;
                     
-                    m_UI_STATE_FolderGroupIsOpen    = false;
+                    m_UI_STATE_FolderGroupIsOpen    = true; // was false
                    
-                    m_UI_STATE_HasChildren          = false;
-                    
-                    m_UI_STATE_HasFolderGroups      = false;
+                    m_UI_STATE_HasChildren          = true;// was false
+
+                    m_UI_STATE_HasFolderGroups      = true; // was false
 
                     Menu_File_OpenDataFile.Select();
                     
@@ -556,7 +546,7 @@ namespace CodeLessTraveled.Osprey
         }
   
         
-        private void Menu_File_OpenDataFile_CboBox_KeyUp(object sender, KeyEventArgs e)
+        private void Menu_File_OpenDataFile_CboBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -564,7 +554,7 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-  
+
         private void Menu_File_OpenDataFile_CboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             /*  this is the only place to set the m_CurrentXml.
@@ -662,9 +652,6 @@ namespace CodeLessTraveled.Osprey
                     //log error here and status
                     util_ShowStatusMessage("no folder group was selected. create a folder group if none exists", this.status_forecolor, this.status_backcolor);
                 }
-
-                
-            
             }
         }
 
@@ -673,7 +660,7 @@ namespace CodeLessTraveled.Osprey
         {
             if (e.KeyCode == Keys.Enter)
             {
-               // e.SuppressKeyPress = true;
+                e.SuppressKeyPress = true;
             }
         }
 
@@ -698,13 +685,13 @@ namespace CodeLessTraveled.Osprey
         private void Menu_View_Refresh()
         {
             Menu_View_CascadeAll.Checked = false;
-            Menu_View_Horizontal.Checked = false;
+            //Menu_View_Horizontal.Checked = false;
             Menu_View_Vertical.Checked = false;
 
 
         }
-
         
+
         private void Menu_View_Cascade_Click(object sender, EventArgs e)
         {
             if (this.MdiChildren.Count() > 0)
@@ -718,9 +705,11 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_View_ClearAll_Click(object sender, EventArgs e)
         {
+            
             if (this.MdiChildren.Count() > 0)
             {
                 ClearAllChildWindows();
+                m_UI_STATE_HasChildren = false;
                 util_SetCurrentFolderGroupName(null);
                 util_SetControlsPerSelectedXml();
             }
@@ -733,8 +722,9 @@ namespace CodeLessTraveled.Osprey
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
                 Menu_View_Refresh();
-                Menu_View_Horizontal.Checked = true;
+                //Menu_View_Horizontal.Checked = true;
             }
+                
         }
 
 
@@ -966,12 +956,16 @@ namespace CodeLessTraveled.Osprey
 
         private void util_AddChildWindow(string folderpath)
         {
+            m_UI_STATE_HasChildren = true;
+
+            Menu_View_ClearAll.Enabled = true;
 
             ChildExplorerConfig newconfig = new ChildExplorerConfig();
             newconfig.ColorArgbInt = 0;
             newconfig.label = folderpath;
             newconfig.uri = folderpath;
-
+            newconfig.b_USE_DEFAULT_COLOR = true;
+            
             ChildExplorer NewFileExplorer = new ChildExplorer(newconfig);
 
             NewFileExplorer.Width = this.Width / 2;
@@ -984,13 +978,20 @@ namespace CodeLessTraveled.Osprey
 
             NewFileExplorer.Show();
 
-           // m_ChildExplorerCount++;
+            //
+            //m_ChildExplorerCount++;
 
         }
 
 
         private FileInfo util_CreateDataXmlFile(string FileName, bool CreateSampleNode)
         {
+            /*   This function creates the initial xml data files and a sample folder group node. 
+             *   Upon the initial launch of the application, there will be no xml data files. The Form_Load will determine if there are any xml data files saved to disk. 
+             *   If not, it creates the OspreyData.xml file with a sample folder group. This allows the user to start using the app immediately without the need for creating 
+             *   an initial xml file and folder group.
+             */
+            
             if (!FileName.ToLower().EndsWith(".xml"))
             {
                 FileName += ".xml";
@@ -1004,10 +1005,10 @@ namespace CodeLessTraveled.Osprey
             
             sbXml.AppendLine("<Osprey>");
             
-            sbXml.AppendLine("<LastViewedFolderTeam></LastViewedFolderTeam>");
            
             if (CreateSampleNode)
             {
+                sbXml.AppendLine("<LastViewedFolderTeam>Sample</LastViewedFolderTeam>");
                 sbXml.AppendLine("<FolderTeam Name=\"sample\" DisplayName=\"Sample\"></FolderTeam>");
             }
             
@@ -1024,7 +1025,6 @@ namespace CodeLessTraveled.Osprey
             return new FileInfo(FileFullPath);
 
         }
-
 
   
         private XmlDocument util_GetOspreyDataXml(string OspreyDataXmlPath)
@@ -1254,8 +1254,6 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-
-
         private void util_LogError(string statusmessage, string logmessage)
         {
 
@@ -1350,12 +1348,12 @@ namespace CodeLessTraveled.Osprey
 
 
 
-        private void util_resetospreydataxml()
-        {
-            ClearAllChildWindows();
+        //private void util_resetospreydataxml()
+        //{
+        //    ClearAllChildWindows();
 
-            util_CreateDataXmlFile(m_CurrentXmlfullpath, true);
-        }
+        //    util_CreateDataXmlFile(m_CurrentXmlfullpath, true);
+        //}
 
 
 
@@ -1388,7 +1386,7 @@ namespace CodeLessTraveled.Osprey
             {
                 this.Menu_File_NewDataFile_TextBox.Text     = "";
 
-                this.Menu_Save.Enabled          = true;
+                this.Menu_Save.Enabled                      = true;
                 
                 this.Text = String.Format("Osprey  \u2502  {0}", m_CurrentXmlFilename);
             }
@@ -1398,10 +1396,10 @@ namespace CodeLessTraveled.Osprey
             {
                 this.Menu_AddChildExplorer.Enabled = true;
 
-                this.Menu_FolderGroup_ComboBox_0.Text         = m_CurrentFolderGroup[m_idxFTeamDisplayName];
+                this.Menu_FolderGroup_ComboBox_0.Text       = m_CurrentFolderGroup[m_idxFTeamDisplayName];
 
                 
-                this.Menu_FolderGroup_ComboBox_0.Enabled      = false;
+                this.Menu_FolderGroup_ComboBox_0.Enabled    = false;
             
                 
                 if (m_UI_STATE_HasFolderGroups)
@@ -1430,7 +1428,7 @@ namespace CodeLessTraveled.Osprey
                 this.Menu_File_Save.Enabled                = true;
                 this.Menu_File_SaveAs.Enabled              = true;
                 this.Menu_Edit_RenameFolderGroup.Enabled   = true;
-                this.Menu_View_ClearAll.Enabled            = false;
+                this.Menu_View_ClearAll.Enabled            = true;
             }
         }
 
@@ -1441,9 +1439,7 @@ namespace CodeLessTraveled.Osprey
             this.m_CurrentFolderGroup[m_idxFTeamNodeName]    = String.IsNullOrEmpty(displayname) ? null : displayname.ToLower().Trim();
         }
 
-
         
-
         private void util_ShowStatusMessage(string statusmessage, System.Drawing.Color TextColor, System.Drawing.Color bgcolor, string statusmessage2, System.Drawing.Color TextColor2, System.Drawing.Color bgcolor2)
         {
             status_message = statusmessage;
@@ -1543,7 +1539,6 @@ namespace CodeLessTraveled.Osprey
             //System.threading.thread.sleep(1000);
         }
 
-      
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
@@ -1551,6 +1546,7 @@ namespace CodeLessTraveled.Osprey
 
            //// util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
         }
+
 
         private void Menu_Edit_Config_Click_1(object sender, EventArgs e)
         {
@@ -1577,7 +1573,21 @@ namespace CodeLessTraveled.Osprey
 
         }
 
+        private void Menu_View_AlwaysTop_Click(object sender, EventArgs e)
+        {
+            if (Menu_View_AlwaysTop.Checked)
+            {
+                Menu_View_AlwaysTop.Checked = false;
 
+                this.TopMost = false;
+            }
+            else
+            {
+                Menu_View_AlwaysTop.Checked = true;
+                
+                this.TopMost = true;
+            }
+        }
     }
 
 

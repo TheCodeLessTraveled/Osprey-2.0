@@ -34,6 +34,7 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.Opt_ColorDialog = new System.Windows.Forms.ColorDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.Opt_UseDefaultColor_Checkbox = new System.Windows.Forms.CheckBox();
@@ -56,7 +57,6 @@
             this.TS_ButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.TS_TextboxUri = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -97,6 +97,11 @@
             // 
             this.StatusMessage.Name = "StatusMessage";
             this.StatusMessage.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // splitContainer1
             // 
@@ -376,11 +381,6 @@
             this.toolStripContainer1.TopToolStripPanel.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStripContainer1.TopToolStripPanel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
             // ChildExplorer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -396,6 +396,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChildExplorer_FormClosing);
             this.Load += new System.EventHandler(this.ChildExplorer_Load);
             this.ResizeEnd += new System.EventHandler(this.ChildExplorer_ResizeEnd);
+            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ChildExplorer_Layout);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
