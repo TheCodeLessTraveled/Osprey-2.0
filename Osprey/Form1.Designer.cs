@@ -36,9 +36,6 @@
             this.btn_AcceptButton = new System.Windows.Forms.Button();
             this.openNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.ToolStrip_Button_AddFolder = new System.Windows.Forms.ToolStripButton();
-            this.ToolStrip_Button_Save = new System.Windows.Forms.ToolStripButton();
             this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.Timer_Message2 = new System.Windows.Forms.Timer(this.components);
             this.Menu_File = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,8 +62,9 @@
             this.Menu_Edit_OspreyDataXml_OpenLocation = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_Config = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_View_AlwaysTop = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_View_CascadeAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.Menu_View_Horizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View_Vertical = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_View_ClearAll = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,9 +74,10 @@
             this.Menu_Help_LicenseInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.Menu_FolderGroup_ComboBox_0 = new System.Windows.Forms.ToolStripComboBox();
+            this.Menu_AddChildExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.Menu_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -120,48 +119,6 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip1.GripMargin = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.toolStrip1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ToolStrip_Button_AddFolder,
-            this.ToolStrip_Button_Save});
-            this.toolStrip1.Location = new System.Drawing.Point(450, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(86, 36);
-            this.toolStrip1.Stretch = true;
-            this.toolStrip1.TabIndex = 12;
-            // 
-            // ToolStrip_Button_AddFolder
-            // 
-            this.ToolStrip_Button_AddFolder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ToolStrip_Button_AddFolder.Image = global::CodeLessTraveled.Osprey.Properties.Resources._042b_AddCategory_24x24_72;
-            this.ToolStrip_Button_AddFolder.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ToolStrip_Button_AddFolder.Name = "ToolStrip_Button_AddFolder";
-            this.ToolStrip_Button_AddFolder.Padding = new System.Windows.Forms.Padding(0, 0, 6, 0);
-            this.ToolStrip_Button_AddFolder.Size = new System.Drawing.Size(30, 33);
-            this.ToolStrip_Button_AddFolder.Text = "&Open";
-            this.ToolStrip_Button_AddFolder.ToolTipText = "Add folder to group";
-            this.ToolStrip_Button_AddFolder.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
-            // 
-            // ToolStrip_Button_Save
-            // 
-            this.ToolStrip_Button_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ToolStrip_Button_Save.Image = global::CodeLessTraveled.Osprey.Properties.Resources.saveHS;
-            this.ToolStrip_Button_Save.ImageTransparentColor = System.Drawing.Color.Transparent;
-            this.ToolStrip_Button_Save.Name = "ToolStrip_Button_Save";
-            this.ToolStrip_Button_Save.Padding = new System.Windows.Forms.Padding(0, 0, 6, 0);
-            this.ToolStrip_Button_Save.Size = new System.Drawing.Size(30, 33);
-            this.ToolStrip_Button_Save.Text = "&Save";
-            this.ToolStrip_Button_Save.ToolTipText = "Save group";
-            this.ToolStrip_Button_Save.Click += new System.EventHandler(this.Menu_File_Save_Click_1);
             // 
             // Timer_Message2
             // 
@@ -249,7 +206,7 @@
             this.Menu_File_OpenDataFile_CboBox.Name = "Menu_File_OpenDataFile_CboBox";
             this.Menu_File_OpenDataFile_CboBox.Size = new System.Drawing.Size(150, 23);
             this.Menu_File_OpenDataFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_SelectedIndexChanged);
-            this.Menu_File_OpenDataFile_CboBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_File_OpenDataFile_CboBox_KeyUp);
+            this.Menu_File_OpenDataFile_CboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_OpenDataFile_CboBox_KeyDown);
             // 
             // toolStripSeparator7
             // 
@@ -401,8 +358,9 @@
             // Menu_View
             // 
             this.Menu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Menu_View_AlwaysTop,
+            this.toolStripSeparator1,
             this.Menu_View_CascadeAll,
-            this.Menu_View_Horizontal,
             this.Menu_View_Vertical,
             this.toolStripSeparator3,
             this.Menu_View_ClearAll});
@@ -410,6 +368,19 @@
             this.Menu_View.Size = new System.Drawing.Size(44, 32);
             this.Menu_View.Text = "View";
             this.Menu_View.ToolTipText = "Reorganize to folder views.";
+            // 
+            // Menu_View_AlwaysTop
+            // 
+            this.Menu_View_AlwaysTop.AutoSize = false;
+            this.Menu_View_AlwaysTop.Name = "Menu_View_AlwaysTop";
+            this.Menu_View_AlwaysTop.Size = new System.Drawing.Size(152, 30);
+            this.Menu_View_AlwaysTop.Text = "Always on Top";
+            this.Menu_View_AlwaysTop.Click += new System.EventHandler(this.Menu_View_AlwaysTop_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // Menu_View_CascadeAll
             // 
@@ -419,27 +390,19 @@
             this.Menu_View_CascadeAll.Text = "Cascade All";
             this.Menu_View_CascadeAll.Click += new System.EventHandler(this.Menu_View_Cascade_Click);
             // 
-            // Menu_View_Horizontal
-            // 
-            this.Menu_View_Horizontal.AutoSize = false;
-            this.Menu_View_Horizontal.Name = "Menu_View_Horizontal";
-            this.Menu_View_Horizontal.Size = new System.Drawing.Size(152, 30);
-            this.Menu_View_Horizontal.Text = "Tile Horizontal";
-            this.Menu_View_Horizontal.Click += new System.EventHandler(this.Menu_View_Horizontal_Click);
-            // 
             // Menu_View_Vertical
             // 
             this.Menu_View_Vertical.AutoSize = false;
             this.Menu_View_Vertical.Name = "Menu_View_Vertical";
             this.Menu_View_Vertical.Size = new System.Drawing.Size(152, 30);
-            this.Menu_View_Vertical.Text = "Tile Vertical";
+            this.Menu_View_Vertical.Text = "Tile";
             this.Menu_View_Vertical.Click += new System.EventHandler(this.Menu_View_Vertical_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.AutoSize = false;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 20);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 20);
             // 
             // Menu_View_ClearAll
             // 
@@ -490,12 +453,15 @@
             // menuStrip1
             // 
             this.menuStrip1.AutoSize = false;
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_File,
             this.Menu_Edit,
             this.Menu_View,
             this.Menu_FolderGroup_ComboBox_0,
+            this.Menu_AddChildExplorer,
+            this.Menu_Save,
             this.Menu_Help});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -509,11 +475,32 @@
             // Menu_FolderGroup_ComboBox_0
             // 
             this.Menu_FolderGroup_ComboBox_0.AutoSize = false;
+            this.Menu_FolderGroup_ComboBox_0.BackColor = System.Drawing.Color.White;
             this.Menu_FolderGroup_ComboBox_0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_FolderGroup_ComboBox_0.Name = "Menu_FolderGroup_ComboBox_0";
-            this.Menu_FolderGroup_ComboBox_0.Size = new System.Drawing.Size(200, 23);
+            this.Menu_FolderGroup_ComboBox_0.Size = new System.Drawing.Size(250, 23);
             this.Menu_FolderGroup_ComboBox_0.ToolTipText = "Select a group of folders";
             this.Menu_FolderGroup_ComboBox_0.SelectedIndexChanged += new System.EventHandler(this.Menu_FolderGroup_ComboBox_SelectedIndexChanged);
+            // 
+            // Menu_AddChildExplorer
+            // 
+            this.Menu_AddChildExplorer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Menu_AddChildExplorer.Image = global::CodeLessTraveled.Osprey.Properties.Resources._042b_AddCategory_24x24_72;
+            this.Menu_AddChildExplorer.Name = "Menu_AddChildExplorer";
+            this.Menu_AddChildExplorer.Size = new System.Drawing.Size(32, 32);
+            this.Menu_AddChildExplorer.Text = "toolStripMenuItem3";
+            this.Menu_AddChildExplorer.ToolTipText = "Navigate to add a child folder or drag a folder onto the main grey area.";
+            this.Menu_AddChildExplorer.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
+            // 
+            // Menu_Save
+            // 
+            this.Menu_Save.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Menu_Save.Image = global::CodeLessTraveled.Osprey.Properties.Resources.saveHS;
+            this.Menu_Save.Name = "Menu_Save";
+            this.Menu_Save.Size = new System.Drawing.Size(32, 32);
+            this.Menu_Save.Text = "Menu_Save";
+            this.Menu_Save.ToolTipText = "Save all settings from the child settings to the folder group settings.";
+            this.Menu_Save.Click += new System.EventHandler(this.Menu_File_Save_Click_1);
             // 
             // statusStrip1
             // 
@@ -539,7 +526,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(770, 414);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.btn_AcceptButton);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -556,9 +542,6 @@
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
-            this.Move += new System.EventHandler(this.Form1_Move);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -576,10 +559,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem openNewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.HelpProvider helpProvider1;
-        private System.Windows.Forms.ToolStripButton ToolStrip_Button_AddFolder;
-        private System.Windows.Forms.ToolStripButton ToolStrip_Button_Save;
         private System.Windows.Forms.Timer Timer_Message2;
         private System.Windows.Forms.ToolStripMenuItem Menu_File;
         private System.Windows.Forms.ToolStripMenuItem Menu_File_New;
@@ -598,7 +578,6 @@
         private System.Windows.Forms.ToolStripMenuItem Menu_Edit_DeleteFolderGroup_DoDelete;
         private System.Windows.Forms.ToolStripMenuItem Menu_View;
         private System.Windows.Forms.ToolStripMenuItem Menu_View_CascadeAll;
-        private System.Windows.Forms.ToolStripMenuItem Menu_View_Horizontal;
         private System.Windows.Forms.ToolStripMenuItem Menu_View_Vertical;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem Menu_View_ClearAll;
@@ -619,6 +598,10 @@
         private System.Windows.Forms.ToolStripMenuItem AdHocTest;
         private System.Windows.Forms.ToolStripComboBox Menu_FolderGroup_ComboBox;
         private System.Windows.Forms.ToolStripMenuItem Menu_Edit_Config;
+        private System.Windows.Forms.ToolStripMenuItem Menu_AddChildExplorer;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Save;
+        private System.Windows.Forms.ToolStripMenuItem Menu_View_AlwaysTop;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
     }
 }
 
