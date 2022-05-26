@@ -698,7 +698,6 @@ namespace CodeLessTraveled.Osprey
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
                 Menu_View_Refresh();
-                Menu_View_CascadeAll.Checked = true;
             }
         }
 
@@ -734,7 +733,6 @@ namespace CodeLessTraveled.Osprey
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
                 Menu_View_Refresh();
-                Menu_View_Vertical.Checked = true;
             }
         }
 
@@ -1550,20 +1548,7 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_Edit_Config_Click_1(object sender, EventArgs e)
         {
-            string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
-
-            util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
-
-         //   bool b_Use_Default_Repo = false;
-
-            if (String.IsNullOrEmpty(Properties.Settings.Default.AltXmlRepository.Trim()))
-            {
-          //      b_Use_Default_Repo = true;
-            }
-
-            //FormConfig frmConfig = new FormConfig(b_Use_Default_Repo);
             FormConfig frmConfig = new FormConfig();
-
 
             frmConfig.MdiParent = this;
 
