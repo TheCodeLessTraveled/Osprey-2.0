@@ -37,10 +37,6 @@ namespace CodeLessTraveled.Osprey
 
         private void FormConfig_Load(object sender, EventArgs e)
         {
-
-            this.Text = String.Format("parent x={0} y={1}", MdiParent.Location.X, MdiParent.Location.Y);
-
-
             // Initial settings for the Config UI controls based on the saved value of the alternative xml repo path.
 
             string XmlSavedRepoPath = Properties.Settings.Default.AltXmlRepository.Trim();
@@ -226,8 +222,10 @@ namespace CodeLessTraveled.Osprey
                 if (!System.IO.Directory.Exists(AltXmlRepoPath))
                 {
                     Cfg_Message_TextBox.ForeColor = Color.DarkRed;
-                
-                    Cfg_Message_TextBox.Text = String.Format("If you select a different folder for your XML files, you must also move your current XML files to your new location for them to be available." );
+                    string repoMsg   = "Selecting a different folder for your XML files? Move your current XML files to your new location to make them available." + Environment.NewLine;
+                            repoMsg += "Restart close and reopen Osprey to load the new setting.";
+
+                    Cfg_Message_TextBox.Text = repoMsg ;
                 }
 
                 Cfg_XmlRepo_TextBox.Text = AltXmlRepoPath;

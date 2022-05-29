@@ -380,7 +380,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(147, 6);
             // 
             // Menu_View_CascadeAll
             // 
@@ -402,7 +402,7 @@
             // 
             this.toolStripSeparator3.AutoSize = false;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 20);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 20);
             // 
             // Menu_View_ClearAll
             // 
@@ -523,7 +523,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.BackgroundImage = global::CodeLessTraveled.Osprey.Properties.Resources.DragDropBackground;
             this.ClientSize = new System.Drawing.Size(770, 414);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btn_AcceptButton);

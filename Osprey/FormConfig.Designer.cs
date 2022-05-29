@@ -29,6 +29,7 @@ namespace CodeLessTraveled.Osprey
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormConfig));
             this.FolderBrowserDialog_XmlFiles = new System.Windows.Forms.FolderBrowserDialog();
             this.Cfg_XmlRepo_TextBox = new System.Windows.Forms.TextBox();
             this.label_xmlRepository = new System.Windows.Forms.Label();
@@ -124,6 +125,7 @@ namespace CodeLessTraveled.Osprey
             this.Controls.Add(this.Cfg_XmlRepoBrowse_Button);
             this.Controls.Add(this.label_xmlRepository);
             this.Controls.Add(this.Cfg_XmlRepo_TextBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormConfig";
             this.Text = "Configuration";
             this.Load += new System.EventHandler(this.FormConfig_Load);
