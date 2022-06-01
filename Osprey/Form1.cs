@@ -680,24 +680,14 @@ namespace CodeLessTraveled.Osprey
             frmlicinfo.MdiParent = this;
             frmlicinfo.Show();
         }
-        
-
-        private void Menu_View_Refresh()
-        {
-            Menu_View_CascadeAll.Checked = false;
-            //Menu_View_Horizontal.Checked = false;
-            Menu_View_Vertical.Checked = false;
 
 
-        }
-        
 
         private void Menu_View_Cascade_Click(object sender, EventArgs e)
         {
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
-                Menu_View_Refresh();
             }
         }
 
@@ -720,10 +710,20 @@ namespace CodeLessTraveled.Osprey
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
-                Menu_View_Refresh();
-                //Menu_View_Horizontal.Checked = true;
+                this.Refresh();
+                //foreach(Form child in this.MdiChildren)
+                //{
+                //    child.Refresh();
+                //}
+                //foreach (Form child in this.MdiChildren)
+                //{
+                //    child.WindowState = FormWindowState.Maximized; 
+                //}
+                foreach (Form child in this.MdiChildren)
+                {
+                    child.WindowState = FormWindowState.Normal;
+                }
             }
-                
         }
 
 
@@ -732,7 +732,6 @@ namespace CodeLessTraveled.Osprey
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
-                Menu_View_Refresh();
             }
         }
 
@@ -1573,6 +1572,8 @@ namespace CodeLessTraveled.Osprey
                 this.TopMost = true;
             }
         }
+
+     
     }
 
 

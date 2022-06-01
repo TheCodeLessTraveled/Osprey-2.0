@@ -115,34 +115,6 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-        //private void btnOpen_Click(object sender, EventArgs e)
-        //{
-
-        //    using (FolderBrowserDialog fbd = new FolderBrowserDialog())
-        //    {
-        //        if (!String.IsNullOrEmpty(TS_TextboxUri.Text))
-        //        {   // test to see if the entry is a folder.
-
-        //            if (System.IO.Directory.Exists(TS_TextboxUri.Text))
-        //            {
-        //                fbd.SelectedPath = TS_TextboxUri.Text;
-        //            }
-        //        }
-
-        //        fbd.Description = "Browse for Folder";
-
-        //        if (fbd.ShowDialog() == DialogResult.OK)
-        //        {
-        //            this.m_ChildConfig.uri = fbd.SelectedPath;
-
-        //            webBrowser1.Url = new Uri(this.m_ChildConfig.uri);
-
-        //            TS_TextboxUri.Text = this.m_ChildConfig.uri;
-
-        //        }
-        //    }
-        //}
-
 
         private void ChildExplorer_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -169,9 +141,26 @@ namespace CodeLessTraveled.Osprey
 
         private void ChildExplorer_ResizeEnd(object sender, EventArgs e)
         {
-            int frmWidth = this.Width;
+            if (sender == this)
+            {
+                //string InstruMsg;
+                //InstruMsg = String.Format("form width: {0}", this.Width) + Environment.NewLine;
+                //InstruMsg += String.Format("spcon width: {0}", splitContainer1.Width ) + Environment.NewLine;
+                //InstruMsg += String.Format("panel 1 width: {0}",splitContainer1.Panel1.Width ) + Environment.NewLine;
+                //InstruMsg += String.Format("panel 2 width: {0}", splitContainer1.Panel2.Width) + Environment.NewLine;
+               
+                //MessageBox.Show(InstruMsg);
 
-            TS_TextboxUri.Width = frmWidth-200;  // 200 is an approximation of of the width of the toolbar icons. 
+                TS_TextboxUri.Width = this.Width - 200;  // 200 is an approximation of of the width of the toolbar icons. 
+
+                //splitContainer1.Panel2.Width = this.Width;
+               // splitContainer1.Width = this.Width
+                //splitContainer1.SplitterDistance(Width) = this.Width;
+
+
+            }
+
+
         }
 
 
@@ -357,67 +346,6 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-        //private void TS_ButtonEditColor_Click(object sender, EventArgs e)
-        //{
-        //    using (Opt_ColorDialog)
-        //    {
-        //        if (Opt_ColorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-        //        {
-
-        //            System.Drawing.Color newColor = Opt_ColorDialog.Color;
-
-        //            m_ChildConfig.ColorArgbInt = newColor.ToArgb();
-
-        //            TS_ButtonEditColor.BackColor = newColor;
-
-
-        //            string x = "";
-        //        }
-
-        //    }
-
-        //}
-
-
-        //private void TS_OrderTextbox_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    int WindowOrderInt = -1;
-
-        //    bool KeyStroke_Is_Numeric = false;
-
-        //    string TheKeyStroke = e.KeyCode.ToString();
-
-        //    {
-        //        KeyStroke_Is_Numeric = int.TryParse(TS_OrderTextbox.Text, out WindowOrderInt);
-
-        //        if (KeyStroke_Is_Numeric)
-        //        {
-        //            m_ChildConfig.WindowOrder = WindowOrderInt;
-   
-        //            this.webBrowser1.Focus();
-        //        }
-
-        //        else
-        //        {
-        //            string errMsg = String.Format("The value entered, '{0}', is not numeric. Please enter numbers only with a max of 2 digits. ", TS_OrderTextbox);
-             
-        //            StatusMessage.Text = errMsg;
-        //        }
-
-        //        string x = "";
-
-        //    }
-        //}
-
-
-        //private void TS_Options_Button_Click(object sender, EventArgs e)
-        //{
-        //    splitContainer1.SplitterDistance = 200;
-
-        //    splitContainer1.Panel1Collapsed = false;
-        //}
-
-
 
         private void TS_ButtonOpen_Click(object sender, EventArgs e)
         {
@@ -474,17 +402,7 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-      
-        //private void textBox_Title_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    if (e.KeyCode == Keys.Enter)
-        //    {
-        //        m_ChildConfig.label = Opt_Title_Textbox.Text;
-  
-        //        this.Text = m_ChildConfig.label;
-        //    }
-        //}
-
+    
 
         public void WebBrowerSetUrl(string BrowserUrl)
         {
@@ -540,7 +458,6 @@ namespace CodeLessTraveled.Osprey
 
         private void ChildExplorer_Layout(object sender, LayoutEventArgs e)
         {
-         //    MessageBox.Show(sender.ToString());
         }
     }
 

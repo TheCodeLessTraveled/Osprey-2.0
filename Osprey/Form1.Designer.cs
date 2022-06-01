@@ -52,7 +52,6 @@
             this.Menu_File_SaveAs_Texbox1 = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_File_Exit = new System.Windows.Forms.ToolStripMenuItem();
-            this.AdHocTest = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_RenameFolderGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_Rename_FG_Textbox = new System.Windows.Forms.ToolStripTextBox();
@@ -78,6 +77,7 @@
             this.Menu_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Menu_View_Horizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -134,8 +134,7 @@
             this.Menu_File_Save,
             this.Menu_File_SaveAs,
             this.toolStripSeparator2,
-            this.Menu_File_Exit,
-            this.AdHocTest});
+            this.Menu_File_Exit});
             this.Menu_File.Name = "Menu_File";
             this.Menu_File.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Menu_File.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
@@ -270,13 +269,6 @@
             this.Menu_File_Exit.Text = "Exit";
             this.Menu_File_Exit.Click += new System.EventHandler(this.Menu_File_Exit_Click);
             // 
-            // AdHocTest
-            // 
-            this.AdHocTest.Name = "AdHocTest";
-            this.AdHocTest.Size = new System.Drawing.Size(179, 26);
-            this.AdHocTest.Text = "Ad Hoc Test";
-            this.AdHocTest.Click += new System.EventHandler(this.AdHocTest_Click);
-            // 
             // Menu_Edit
             // 
             this.Menu_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -298,7 +290,7 @@
             this.Menu_Edit_Rename_FG_Textbox});
             this.Menu_Edit_RenameFolderGroup.Name = "Menu_Edit_RenameFolderGroup";
             this.Menu_Edit_RenameFolderGroup.Size = new System.Drawing.Size(230, 30);
-            this.Menu_Edit_RenameFolderGroup.Text = "Rename This FolderGroup";
+            this.Menu_Edit_RenameFolderGroup.Text = "Rename This Folder Group";
             // 
             // Menu_Edit_Rename_FG_Textbox
             // 
@@ -360,6 +352,7 @@
             this.Menu_View.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_View_AlwaysTop,
             this.toolStripSeparator1,
+            this.Menu_View_Horizontal,
             this.Menu_View_CascadeAll,
             this.Menu_View_Vertical,
             this.toolStripSeparator3,
@@ -380,7 +373,7 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(147, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // Menu_View_CascadeAll
             // 
@@ -402,7 +395,7 @@
             // 
             this.toolStripSeparator3.AutoSize = false;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 20);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 20);
             // 
             // Menu_View_ClearAll
             // 
@@ -517,6 +510,14 @@
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
+            // Menu_View_Horizontal
+            // 
+            this.Menu_View_Horizontal.AutoSize = false;
+            this.Menu_View_Horizontal.Name = "Menu_View_Horizontal";
+            this.Menu_View_Horizontal.Size = new System.Drawing.Size(152, 30);
+            this.Menu_View_Horizontal.Text = "Horizontal";
+            this.Menu_View_Horizontal.Click += new System.EventHandler(this.Menu_View_Horizontal_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btn_AcceptButton;
@@ -595,13 +596,13 @@
         private System.Windows.Forms.ToolStripTextBox Menu_File_NewFolderGroup_Textbox;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
-        private System.Windows.Forms.ToolStripMenuItem AdHocTest;
         private System.Windows.Forms.ToolStripComboBox Menu_FolderGroup_ComboBox;
         private System.Windows.Forms.ToolStripMenuItem Menu_Edit_Config;
         private System.Windows.Forms.ToolStripMenuItem Menu_AddChildExplorer;
         private System.Windows.Forms.ToolStripMenuItem Menu_Save;
         private System.Windows.Forms.ToolStripMenuItem Menu_View_AlwaysTop;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem Menu_View_Horizontal;
     }
 }
 
