@@ -144,22 +144,17 @@ namespace CodeLessTraveled.Osprey
             if (sender == this)
             {
                 //string InstruMsg;
-                //InstruMsg = String.Format("form width: {0}", this.Width) + Environment.NewLine;
-                //InstruMsg += String.Format("spcon width: {0}", splitContainer1.Width ) + Environment.NewLine;
-                //InstruMsg += String.Format("panel 1 width: {0}",splitContainer1.Panel1.Width ) + Environment.NewLine;
-                //InstruMsg += String.Format("panel 2 width: {0}", splitContainer1.Panel2.Width) + Environment.NewLine;
-               
+                //InstruMsg = String.Format("form width: {0} x form height: {1}|", this.Width, this.Height) + Environment.NewLine;
+                //InstruMsg += String.Format("spcon width: {0} x spcon height: {1}", splitContainer1.Width, splitContainer1.Height) + Environment.NewLine;
+                //InstruMsg += String.Format("panel 1 width: {0} x panel 1 height: {1}", splitContainer1.Panel1.Width, splitContainer1.Panel1.Width) + Environment.NewLine;
+                //InstruMsg += String.Format("panel 2 width: {0} x panel 2 height: {1}", splitContainer1.Panel2.Width, splitContainer1.Panel2.Width) + Environment.NewLine;
+
                 //MessageBox.Show(InstruMsg);
 
-                TS_TextboxUri.Width = this.Width - 200;  // 200 is an approximation of of the width of the toolbar icons. 
-
-                //splitContainer1.Panel2.Width = this.Width;
-               // splitContainer1.Width = this.Width
-                //splitContainer1.SplitterDistance(Width) = this.Width;
-
-
+//                TS_TextboxUri.Width = this.Width - 200;  // 200 is an approximation of of the width of the toolbar icons. 
             }
 
+            TS_TextboxUri.Width = this.Width - 200;  // 200 is an approximation of of the width of the toolbar icons. 
 
         }
 
@@ -458,8 +453,10 @@ namespace CodeLessTraveled.Osprey
 
         private void ChildExplorer_Layout(object sender, LayoutEventArgs e)
         {
+           
         }
     }
 
 
 }
+

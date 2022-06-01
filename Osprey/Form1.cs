@@ -710,19 +710,12 @@ namespace CodeLessTraveled.Osprey
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
-                this.Refresh();
-                //foreach(Form child in this.MdiChildren)
-                //{
-                //    child.Refresh();
-                //}
-                //foreach (Form child in this.MdiChildren)
-                //{
-                //    child.WindowState = FormWindowState.Maximized; 
-                //}
+
                 foreach (Form child in this.MdiChildren)
                 {
-                    child.WindowState = FormWindowState.Normal;
-                }
+                    child.Height = 290;
+               }
+                this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
             }
         }
 
