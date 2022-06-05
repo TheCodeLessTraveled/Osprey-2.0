@@ -223,7 +223,7 @@ namespace CodeLessTraveled.Osprey
                 {
                     Cfg_Message_TextBox.ForeColor = Color.DarkRed;
                     string repoMsg   = "Selecting a different folder for your XML files? Move your current XML files to your new location to make them available." + Environment.NewLine;
-                            repoMsg += "Restart close and reopen Osprey to load the new setting.";
+                            repoMsg += "Close and reopen Osprey to load the new setting.";
 
                     Cfg_Message_TextBox.Text = repoMsg ;
                 }
