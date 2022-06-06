@@ -123,6 +123,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\DragDropBackground.png" />
     <None Include="Resources\LightBlue_Save_20C.png" />
     <None Include="Resources\gear_32xMD.png" />
     <None Include="Osprey Notes.docx" />

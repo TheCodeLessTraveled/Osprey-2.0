@@ -123,7 +123,7 @@ namespace CodeLessTraveled.Osprey
             /* 
              ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
              ║                                                                                                                       ║
-             ║ determine what to load:                                                                                               ║
+             ║ Determine what to load:                                                                                               ║
              ║   1. is there a setting for a saved data file?                                                                        ║          
              ║        a. yes. look for the file.                                                                                     ║
              ║              i)   if file found on disk, load the saved file.                                                         ║
@@ -169,7 +169,10 @@ namespace CodeLessTraveled.Osprey
             string AltXmlCol = Properties.Settings.Default.AltXmlRepository;
 
             m_XmlFileCollectionPath = String.IsNullOrEmpty(AltXmlCol) ? m_XmlFileCollectionPath : AltXmlCol;
-           
+
+            System.Drawing.Color SavedMenuColor = Properties.Settings.Default.MainMenuColor;
+
+            this.menuStrip1.BackColor = SavedMenuColor;
 
             #region determine which xml file (by file name) to load.
                /*  collect a list of existing xml files located in osprey's xml file repository. determine which one to load
@@ -680,25 +683,14 @@ namespace CodeLessTraveled.Osprey
             frmlicinfo.MdiParent = this;
             frmlicinfo.Show();
         }
-        
-
-        private void Menu_View_Refresh()
-        {
-            Menu_View_CascadeAll.Checked = false;
-            //Menu_View_Horizontal.Checked = false;
-            Menu_View_Vertical.Checked = false;
 
 
-        }
-        
 
         private void Menu_View_Cascade_Click(object sender, EventArgs e)
         {
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
-                Menu_View_Refresh();
-                Menu_View_CascadeAll.Checked = true;
             }
         }
 
@@ -721,10 +713,13 @@ namespace CodeLessTraveled.Osprey
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
-                Menu_View_Refresh();
-                //Menu_View_Horizontal.Checked = true;
+
+                foreach (Form child in this.MdiChildren)
+                {
+                    child.Height = 290;
+               }
+                this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
             }
-                
         }
 
 
@@ -733,8 +728,6 @@ namespace CodeLessTraveled.Osprey
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
-                Menu_View_Refresh();
-                Menu_View_Vertical.Checked = true;
             }
         }
 
@@ -1550,20 +1543,7 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_Edit_Config_Click_1(object sender, EventArgs e)
         {
-            string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
-
-            util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
-
-         //   bool b_Use_Default_Repo = false;
-
-            if (String.IsNullOrEmpty(Properties.Settings.Default.AltXmlRepository.Trim()))
-            {
-          //      b_Use_Default_Repo = true;
-            }
-
-            //FormConfig frmConfig = new FormConfig(b_Use_Default_Repo);
             FormConfig frmConfig = new FormConfig();
-
 
             frmConfig.MdiParent = this;
 
@@ -1588,6 +1568,8 @@ namespace CodeLessTraveled.Osprey
                 this.TopMost = true;
             }
         }
+
+     
     }
 
 

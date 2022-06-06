@@ -16,7 +16,13 @@ namespace CodeLessTraveled.Osprey
         private bool    m_trans_Cfg_XmlRepBrowse_Button_Enabled;
         private bool    m_trans_Cfg_XmlRep_TextBox_Enabled;
         private string  m_trans_Cfg_Message_Textbox_Value;
-        private bool    m_restore_val_Cfg_UseDefault_Chkbox;
+        private bool    m_restore_val_Cfg_UseDefPath_Chkbox;
+  
+        private System.Drawing.Color    m_trans_Cfg_Color;
+        private bool   m_trans_cfg_ColorButton_Enabled;
+        private bool   m_trans_cfg_ColorDialog_Enabled;
+        private bool   m_restore_val_Cfg_UseDefColor_Chkbox;
+
 
         public FormConfig(bool UseDefaultDataFilePath)
         {
@@ -37,31 +43,41 @@ namespace CodeLessTraveled.Osprey
 
         private void FormConfig_Load(object sender, EventArgs e)
         {
-
-            this.Text = String.Format("parent x={0} y={1}", MdiParent.Location.X, MdiParent.Location.Y);
-
-
             // Initial settings for the Config UI controls based on the saved value of the alternative xml repo path.
 
             string XmlSavedRepoPath = Properties.Settings.Default.AltXmlRepository.Trim();
+          
+                if (String.IsNullOrEmpty(XmlSavedRepoPath))
+                {
+                    // Use the default setting which is set on for form_load of the parent form, "Form1.cs".
+                    Cfg_UseDefPath_ChkBox.Checked       = true;
+                    Cfg_XmlRepo_TextBox.Text            = "";
+                    Cfg_XmlRepo_TextBox.Enabled         = false;
+                    Cfg_XmlRepoBrowse_Button.Enabled    = false;
+                }
+                else
+                {
+                    Cfg_UseDefPath_ChkBox.Checked       = false;
+                    Cfg_XmlRepo_TextBox.Text            = XmlSavedRepoPath;
+                    Cfg_XmlRepo_TextBox.Enabled         = true;
+                    Cfg_XmlRepoBrowse_Button.Enabled    = true;
+                }
 
-            if (String.IsNullOrEmpty(XmlSavedRepoPath))
-            {
-                // Use the default setting which is set on for form_load of the parent form, "Form1.cs".
-                Cfg_UseDefault_ChkBox.Checked       = true;
-                Cfg_XmlRepo_TextBox.Text            = "";
-                Cfg_XmlRepo_TextBox.Enabled         = false;
-                Cfg_XmlRepoBrowse_Button.Enabled    = false;
-            }
-            else
-            {
-                Cfg_UseDefault_ChkBox.Checked       = false;
-                Cfg_XmlRepo_TextBox.Text            = XmlSavedRepoPath;
-                Cfg_XmlRepo_TextBox.Enabled         = true;
-                Cfg_XmlRepoBrowse_Button.Enabled    = true;
-            }
+            System.Drawing.Color SavedMenuColor = Properties.Settings.Default.MainMenuColor;
+            
+                if (SavedMenuColor == SystemColors.Control)
+                {
+                    // user default color
+                    Cfg_UseDefaultColor_ChkBox.Checked  = true;
+                    Cfg_MainMenuColor_Btn.Enabled       = false;
+                }
+                else 
+                {
+                    Cfg_ColorDialog_MainMenu.Color  = SavedMenuColor;
+                    Cfg_MainMenuColor_Btn.Enabled   = true;
+                }
 
-            Cfg_UseDefault_ChkBox.Focus();
+            Cfg_UseDefPath_ChkBox.Focus();
 
         }
 
@@ -158,33 +174,77 @@ namespace CodeLessTraveled.Osprey
 
         private void cfg_Save_Button_Click(object sender, EventArgs e)
         {
-            if (Cfg_UseDefault_ChkBox.Checked == false)
+
+            ////////// Default Color /////////////////////////////////////////////////////////////////////////
+
+            if (Cfg_UseDefaultColor_ChkBox.Checked == false)
             {
+                m_trans_Cfg_Color = Cfg_ColorDialog_MainMenu.Color;
+
+                Properties.Settings.Default.MainMenuColor = Cfg_ColorDialog_MainMenu.Color; 
+            }
+            else  // Use the default location
+            {
+                //Cfg_UseDefault_ChkBox.Checked == true;
+
+                Properties.Settings.Default.MainMenuColor = System.Drawing.SystemColors.Control;
+            }
+
+            ////////// DEFAULT path /////////////////////////////////////////////////////////////////////////
+
+            if (Cfg_UseDefPath_ChkBox.Checked == false)
+            {   
                 if (!System.IO.Directory.Exists(Cfg_XmlRepo_TextBox.Text))
                 {
                     Cfg_Message_TextBox.ForeColor = Color.DarkRed;
 
                     Cfg_Message_TextBox.Text = String.Format("The saved path, \"{0}\", does not exist. Correct the path before saving.", Cfg_XmlRepo_TextBox.Text);
+
+                    Properties.Settings.Default.UseDefaultXmlRepository = true;
+
+                    Properties.Settings.Default.AltXmlRepository = null;
                 }
                 else
                 {
-                    Properties.Settings.Default.AltXmlRepository = FolderBrowserDialog_XmlFiles.SelectedPath;
-                    
-                    Properties.Settings.Default.UseDefaultXmlRepository = true;
+                    Properties.Settings.Default.AltXmlRepository = Cfg_XmlRepo_TextBox.Text;
+
+                    Properties.Settings.Default.UseDefaultXmlRepository = false;
+
+                    Cfg_UseDefPath_ChkBox.Checked = false;
 
                     Cfg_Message_TextBox.Text = String.Format("Folder path saved as default location. {0}", FolderBrowserDialog_XmlFiles.SelectedPath);
-                    
+
                     Cfg_Message_TextBox.Text += Environment.NewLine + "Close and restart the Osprey application.";
                 }
             }
-            else  // Use the default location
+            else  // Use the default XmlRepository path
             {
                 Cfg_Message_TextBox.Text = "Use Ospry's default Xml repository path.";
 
-                Properties.Settings.Default.AltXmlRepository ="";
+                Properties.Settings.Default.AltXmlRepository = "";
             }
 
             this.Close();
+
+        }
+
+        private void Cfg_UseDefaultColor_ChkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            string x = "";
+
+            m_trans_Cfg_Color                     = Cfg_ColorDialog_MainMenu.Color;
+            m_trans_cfg_ColorButton_Enabled       = Cfg_MainMenuColor_Btn.Enabled;
+            m_restore_val_Cfg_UseDefColor_Chkbox  = !Cfg_UseDefaultColor_ChkBox.Checked;  // at this point we have a transition from one checked state to another.
+                                                                                         // to capture the previous state i must apply a "not" logic.
+           if (Cfg_UseDefaultColor_ChkBox.Checked == true)                              // if the state now is CHECKED, the restore value is NOT CHECKED which is the value before the click.
+            {
+                Cfg_MainMenuColor_Btn.Enabled = false;
+                m_trans_Cfg_Color = SystemColors.Control;
+            }
+            else
+            {
+                Cfg_MainMenuColor_Btn.Enabled = true;
+            }
 
         }
 
@@ -196,11 +256,11 @@ namespace CodeLessTraveled.Osprey
             m_trans_Cfg_XmlRepBrowse_Button_Enabled = Cfg_XmlRepoBrowse_Button.Enabled;
             m_trans_Cfg_XmlRep_TextBox_Enabled      = Cfg_XmlRepo_TextBox.Enabled;
             m_trans_Cfg_Message_Textbox_Value       = Cfg_Message_TextBox.Text;
-            m_restore_val_Cfg_UseDefault_Chkbox     = !Cfg_UseDefault_ChkBox.Checked;   // at this point the checkbox was selected and the previous state (potentially to be restored to) was opposite of new value.
+            m_restore_val_Cfg_UseDefPath_Chkbox     = !Cfg_UseDefPath_ChkBox.Checked;   // at this point the checkbox was selected and the previous state (potentially to be restored to) was opposite of new value.
                                                                                         // if it was "CHECKED" before the user clicked it, then we want to capture the "CHECKED" state.
             Cfg_Message_TextBox.Text = "";
 
-            if (Cfg_UseDefault_ChkBox.Checked == true)
+            if (Cfg_UseDefPath_ChkBox.Checked == true)
             {
                 // this initially is set based on the Properties.Settings value.
                 Properties.Settings.Default.UseDefaultXmlRepository = true;
@@ -215,7 +275,7 @@ namespace CodeLessTraveled.Osprey
             {
                 Properties.Settings.Default.UseDefaultXmlRepository = false;
 
-                Cfg_UseDefault_ChkBox.Checked   = false;
+                Cfg_UseDefPath_ChkBox.Checked   = false;
 
                 Cfg_XmlRepo_TextBox.Enabled     = true;
 
@@ -226,8 +286,10 @@ namespace CodeLessTraveled.Osprey
                 if (!System.IO.Directory.Exists(AltXmlRepoPath))
                 {
                     Cfg_Message_TextBox.ForeColor = Color.DarkRed;
-                
-                    Cfg_Message_TextBox.Text = String.Format("If you select a different folder for your XML files, you must also move your current XML files to your new location for them to be available." );
+                    string repoMsg   = "Selecting a different folder for your XML files? Move your current XML files to your new location to make them available." + Environment.NewLine;
+                            repoMsg += "Close and reopen Osprey to load the new setting.";
+
+                    Cfg_Message_TextBox.Text = repoMsg ;
                 }
 
                 Cfg_XmlRepo_TextBox.Text = AltXmlRepoPath;
@@ -243,9 +305,23 @@ namespace CodeLessTraveled.Osprey
             Cfg_XmlRepo_TextBox.Text            = m_trans_Cfg_XmlRepositoryPath;
             Cfg_XmlRepoBrowse_Button.Enabled    = m_trans_Cfg_XmlRepBrowse_Button_Enabled;
             Cfg_XmlRepo_TextBox.Enabled         = m_trans_Cfg_XmlRep_TextBox_Enabled;
-            Cfg_UseDefault_ChkBox.Checked       = m_restore_val_Cfg_UseDefault_Chkbox;
+            Cfg_UseDefPath_ChkBox.Checked       = m_restore_val_Cfg_UseDefPath_Chkbox;
 
             this.Close();
         }
+
+        private void Cfg_MainMenuColor_Btn_Click(object sender, EventArgs e)
+        {
+            using (Cfg_ColorDialog_MainMenu)
+            {
+                if (Cfg_ColorDialog_MainMenu.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    m_trans_Cfg_Color = Cfg_ColorDialog_MainMenu.Color;
+                }
+
+            }
+        }
+
+      
     }
 }
