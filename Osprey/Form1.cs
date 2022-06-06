@@ -123,7 +123,7 @@ namespace CodeLessTraveled.Osprey
             /* 
              ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
              ║                                                                                                                       ║
-             ║ determine what to load:                                                                                               ║
+             ║ Determine what to load:                                                                                               ║
              ║   1. is there a setting for a saved data file?                                                                        ║          
              ║        a. yes. look for the file.                                                                                     ║
              ║              i)   if file found on disk, load the saved file.                                                         ║
@@ -169,7 +169,10 @@ namespace CodeLessTraveled.Osprey
             string AltXmlCol = Properties.Settings.Default.AltXmlRepository;
 
             m_XmlFileCollectionPath = String.IsNullOrEmpty(AltXmlCol) ? m_XmlFileCollectionPath : AltXmlCol;
-           
+
+            System.Drawing.Color SavedMenuColor = Properties.Settings.Default.MainMenuColor;
+
+            this.menuStrip1.BackColor = SavedMenuColor;
 
             #region determine which xml file (by file name) to load.
                /*  collect a list of existing xml files located in osprey's xml file repository. determine which one to load

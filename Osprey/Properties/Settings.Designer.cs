@@ -94,5 +94,17 @@ namespace CodeLessTraveled.Osprey.Properties {
                 this["RunOnce"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Control")]
+        public global::System.Drawing.Color MainMenuColor {
+            get {
+                return ((global::System.Drawing.Color)(this["MainMenuColor"]));
+            }
+            set {
+                this["MainMenuColor"] = value;
+            }
+        }
     }
 }

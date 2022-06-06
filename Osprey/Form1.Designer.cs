@@ -63,6 +63,7 @@
             this.Menu_View = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View_AlwaysTop = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.Menu_View_Horizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View_CascadeAll = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View_Vertical = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -77,7 +78,6 @@
             this.Menu_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Menu_View_Horizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -373,7 +373,15 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(147, 6);
+            // 
+            // Menu_View_Horizontal
+            // 
+            this.Menu_View_Horizontal.AutoSize = false;
+            this.Menu_View_Horizontal.Name = "Menu_View_Horizontal";
+            this.Menu_View_Horizontal.Size = new System.Drawing.Size(152, 30);
+            this.Menu_View_Horizontal.Text = "Horizontal";
+            this.Menu_View_Horizontal.Click += new System.EventHandler(this.Menu_View_Horizontal_Click);
             // 
             // Menu_View_CascadeAll
             // 
@@ -395,7 +403,7 @@
             // 
             this.toolStripSeparator3.AutoSize = false;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 20);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(147, 20);
             // 
             // Menu_View_ClearAll
             // 
@@ -509,14 +517,6 @@
             // 
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(0, 17);
-            // 
-            // Menu_View_Horizontal
-            // 
-            this.Menu_View_Horizontal.AutoSize = false;
-            this.Menu_View_Horizontal.Name = "Menu_View_Horizontal";
-            this.Menu_View_Horizontal.Size = new System.Drawing.Size(152, 30);
-            this.Menu_View_Horizontal.Text = "Horizontal";
-            this.Menu_View_Horizontal.Click += new System.EventHandler(this.Menu_View_Horizontal_Click);
             // 
             // Form1
             // 
