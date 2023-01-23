@@ -7,8 +7,10 @@ namespace CodeLessTraveled.Osprey
 {
     public partial class ChildExplorer : Form
     {
-        private ChildExplorerConfig m_ChildConfig;
+        public int child_window_count;
 
+        private ChildExplorerConfig m_ChildConfig;
+        
         private int     m_TS_TexboxUriIntWidth      = 330;
         private int     m_FormIntWidth              = 600;
 
@@ -55,7 +57,10 @@ namespace CodeLessTraveled.Osprey
            
                 m_ChildConfig.ColorArgbInt  = this.TS_ButtonEditColor.BackColor.ToArgb();
 
-                if (!String.IsNullOrEmpty(this.webBrowser1.Url.LocalPath))
+                System.Uri webUrl = this.webBrowser1.Url;
+
+                //if (!String.IsNullOrEmpty(this.webBrowser1.Url.LocalPath))
+                if (webUrl != null)
                 {
                     m_ChildConfig.uri = this.webBrowser1.Url.LocalPath;
                 }
@@ -135,7 +140,10 @@ namespace CodeLessTraveled.Osprey
             TS_ButtonUp.Text        = "\u2191";
            
             splitContainer1.Panel1Collapsed = true;
+           
+            this.child_window_count = this.child_window_count + 1;
 
+           //MessageBox.Show("window_count= " + child_window_count.ToString() );
         }
 
 
@@ -454,6 +462,11 @@ namespace CodeLessTraveled.Osprey
         private void ChildExplorer_Layout(object sender, LayoutEventArgs e)
         {
            
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 

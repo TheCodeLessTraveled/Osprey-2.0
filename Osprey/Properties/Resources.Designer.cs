@@ -169,5 +169,15 @@ namespace CodeLessTraveled.Osprey.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap YellowPencil_48x48 {
+            get {
+                object obj = ResourceManager.GetObject("YellowPencil_48x48", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

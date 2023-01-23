@@ -197,7 +197,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\YellowPencil_48x48.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Osprey-6b.ico" />
     <None Include="Resources\Refresh_16x.png" />

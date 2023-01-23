@@ -123,6 +123,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.Opt_OK_Button);
             this.splitContainer1.Panel1.Controls.Add(this.Opt_Color_Button);
             this.splitContainer1.Panel1.Controls.Add(this.Opt_Title_Textbox);
+            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
             this.splitContainer1.Panel1MinSize = 170;
             // 
             // splitContainer1.Panel2

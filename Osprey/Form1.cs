@@ -14,19 +14,39 @@ namespace CodeLessTraveled.Osprey
     {
         public string CollectionPath;
     }
+    public struct FileScopeData
+    {
+        private string               m_LastViewedFolderGroup;
+        private int                  m_FileColorArgb;
+
+        public int FileColorArgb
+        {
+            get { return m_FileColorArgb; }
+            set { m_FileColorArgb = value; }
+        }
+
+        public string LastViewedFolderGroup
+        {
+            get { return m_LastViewedFolderGroup; }
+            set { m_LastViewedFolderGroup = value; }
+        }
+    }
+
 
     public partial class Form1 : Form
     {
-        
+
         #region _class members initial settings
 
         /*   
         ╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗
         ║                                 Set member variables                                              ║
         ╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
-        */ 
+        */
+        private int m_explorer_window_count = 0;
         string HelpPath = System.IO.Path.Combine(Application.StartupPath,"osprey help.chm");
-        private List<ChildExplorer> arrayChildExplorer = new List<ChildExplorer>();
+        private List<ChildExplorer> arrayChildExplorer              = new List<ChildExplorer>();
+        
         // variables used for data files and their xml contents.
         private XmlDocument             m_CurrentXml;
         private string                  m_CurrentXmlFilename        = null;
@@ -68,11 +88,14 @@ namespace CodeLessTraveled.Osprey
 
         private int                     status_TimerCount1  = 0;
         private bool                    b_ShowMessages      = true; // add this to settings upon exit.
-
+        private int                     status_childload_count     = 0;    // as child windows are loaded, track the count to display in the status bar.
+        private int                     status_child_count         = 0;    // as child windows are loaded, track the count to display in the status bar.
       
-        enum NodeChangeType {Rename, Save, SaveAs, Default, NewGroup, LastViewedFTeam}
+        enum NodeChangeType {Rename, Save, SaveAs, Default, NewGroup, LastViewedFTeam, FileScopeChange}
         enum SaveResults {Cancelled, Error, Initialize, Saved, Skip}
         #endregion
+
+        FileScopeData m_FileScopeData = new FileScopeData();
 
         public Form1()
         {
@@ -83,6 +106,8 @@ namespace CodeLessTraveled.Osprey
             string exeDirectory = System.IO.Path.GetDirectoryName(exeLocation);
 
             string testRepoPath = System.IO.Path.Combine(exeDirectory, "XmlRepository");
+
+            
 
             DirectoryInfo di_XmlFileCol;
 
@@ -105,6 +130,8 @@ namespace CodeLessTraveled.Osprey
 
             //  Save the folderteam last viewed to the current xml file before exiting the program.
             SaveMain(NodeChangeType.LastViewedFTeam, m_CurrentFolderGroup[m_idxFTeamDisplayName]);
+            FileScopeData fsd =   SaveFileScopeSettings();
+
             
             if (!m_CurrentXmlFilename.EndsWith(".xml"))
             {
@@ -119,6 +146,7 @@ namespace CodeLessTraveled.Osprey
       
         private void Form1_Load(object sender, EventArgs e)
         {
+            
 
             /* 
              ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
@@ -170,10 +198,6 @@ namespace CodeLessTraveled.Osprey
 
             m_XmlFileCollectionPath = String.IsNullOrEmpty(AltXmlCol) ? m_XmlFileCollectionPath : AltXmlCol;
 
-            System.Drawing.Color SavedMenuColor = Properties.Settings.Default.MainMenuColor;
-
-            this.menuStrip1.BackColor = SavedMenuColor;
-
             #region determine which xml file (by file name) to load.
                /*  collect a list of existing xml files located in osprey's xml file repository. determine which one to load
                        a) look to opsrey's cache for a saved filename setting, load it.
@@ -182,37 +206,39 @@ namespace CodeLessTraveled.Osprey
                            - xor -
                        c) if ospreydata.xml does not exist, create it and load it.
                */
-                DirectoryInfo    di_DataFolder       = new System.IO.DirectoryInfo(m_XmlFileCollectionPath);
-                FileInfo[]      arrFilesOnDisk      = di_DataFolder.GetFiles("*.xml");
-                bool            b_XmlFileToLoad     = false;
+                DirectoryInfo    di_DataFolder          = new System.IO.DirectoryInfo(m_XmlFileCollectionPath);
+                FileInfo[]      arrFilesOnDisk          = di_DataFolder.GetFiles("*.xml");
+                bool            b_FoundXmlFileToLoad    = false;
                
 
                 string saved_xmlfilename = Properties.Settings.Default.LastXmlFileName.Trim();
 
                 if(saved_xmlfilename != null)
                 {
-                    b_XmlFileToLoad = arrFilesOnDisk.Any(f => f.Name == saved_xmlfilename);
+                    b_FoundXmlFileToLoad = arrFilesOnDisk.Any(f => f.Name == saved_xmlfilename);
 
-                    if (b_XmlFileToLoad)
+                    if (b_FoundXmlFileToLoad)
                     {
                         m_CurrentXmlFilename = saved_xmlfilename;
                     }
                 }
 
                 
-                if (b_XmlFileToLoad == false) 
+                if (b_FoundXmlFileToLoad == false) 
                 {
                     // the saved xml file is not found on disk so try the default ospreydata.xml
                     // if the default file is not found, create it.
                     
-                    b_XmlFileToLoad = arrFilesOnDisk.Any(f => f.Name == m_DefaultOspreyDataXml);
+                    b_FoundXmlFileToLoad = arrFilesOnDisk.Any(f => f.Name == m_DefaultOspreyDataXml);
 
-                    if (b_XmlFileToLoad == false)
+                    if (b_FoundXmlFileToLoad == false)
                     {
                         util_CreateDataXmlFile(m_DefaultOspreyDataXml, true); 
                     }
 
                     m_CurrentXmlFilename = m_DefaultOspreyDataXml;
+
+                    FileScopeData fsd =  util_GetFileScopeSettings(m_CurrentXml);
 
 
                     m_UI_STATE_HasFiles = true;
@@ -221,9 +247,9 @@ namespace CodeLessTraveled.Osprey
 
                 //  at this point the xml file to be loaded has been determined. populate the combobox and pre-select to cascade events for folder group combobox.
                 util_PopulateFileListCboBox(m_XmlFileCollectionPath);
-              
-               
-                if (!String.IsNullOrEmpty(m_CurrentXmlFilename))
+
+             
+            if (!String.IsNullOrEmpty(m_CurrentXmlFilename))
                 {
                     Menu_File_OpenDataFile_CboBox.Text = m_CurrentXmlFilename;  // triggers the event, Menu_File_OpenDataFile_CboBox_selectedindexchange.
                 }
@@ -232,7 +258,15 @@ namespace CodeLessTraveled.Osprey
                     util_SetControlsPerSelectedXml();                           // this function is called in the event, Menu_File_Newdatafile_textbox_keyup. 
                 }                                                               // only call it from here - form_load() - if Menu_File_Newdatafile_textbox_keyup is not triggered from form_load().
 
+            
+            Menu_FolderGroup_ComboBox_0.Text = util_GetLastViewedFolderTeam();  // !set m_CurrentFolderGroup[m_idxFTeamDisplayName] by reading the current xml.
 
+        }
+
+        public void ChangeMenuStrip1BackColor(System.Drawing.Color MenuStripBackColor)
+        {
+            // this function is called from the child, FormConfig, when the user clicked the <Set> button.
+            this.menuStrip1.BackColor = MenuStripBackColor;
         }
 
 
@@ -280,15 +314,19 @@ namespace CodeLessTraveled.Osprey
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            foreach (Form ChildForm in this.MdiChildren)
-            {
-                ChildForm.Show();
-            }
 
-            if (this.MdiChildren.Length > 0)
-            {
-                Menu_View_Vertical_Click(new object(), new EventArgs());
-            }
+           // util_LoadChildWindows(m_CurrentFolderGroup[m_idxFTeamNodeName]);
+
+
+            //foreach (Form ChildForm in this.MdiChildren)
+            //{
+            //    ChildForm.Show();
+            //}
+
+            //if (this.MdiChildren.Length > 0)
+            //{
+            //    Menu_View_Vertical_Click(new object(), new EventArgs());
+            //}
         }
 
 
@@ -539,7 +577,6 @@ namespace CodeLessTraveled.Osprey
             // m_ChildExplorerCount++;
         }
 
-
         private void Menu_FolderGroup_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!String.IsNullOrEmpty(Menu_FolderGroup_ComboBox_0.Text))
@@ -558,6 +595,7 @@ namespace CodeLessTraveled.Osprey
         }
 
 
+
         private void Menu_File_OpenDataFile_CboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             /*  this is the only place to set the m_CurrentXml.
@@ -568,7 +606,7 @@ namespace CodeLessTraveled.Osprey
              */
             
             ClearAllChildWindows();
-      
+
             Menu_File.HideDropDown();
             
             
@@ -587,17 +625,33 @@ namespace CodeLessTraveled.Osprey
 
                     string savedFolderGroupName = util_GetLastViewedFolderTeam();              // 2.   before a node can be retrieved the XmlDocument must be defined in step #1.
 
+
+                    m_FileScopeData = util_GetFileScopeSettings(m_CurrentXml); // for  future implementation
+                    
                     if (!String.IsNullOrEmpty(savedFolderGroupName))
                     {
                         util_SetCurrentFolderGroupName(savedFolderGroupName);
                     }
 
-                    util_PopulateFolderGroupList();            // this will use the m_CurrentXml that was set above to populate the folder group combobox?
-                                                               // maybe the best place to do this is when the folder group is selected or automatically invoked.
-                                                               // !set m_CurrentFolderGroup[m_idxFTeamDisplayName] by reading the current xml.
-                    m_UI_STATE_FileIsOpen   = true;            // set to true after folder group is selected - either by the use or when the folder team combobox is populated.
-                                                               // this activates the block in util_SetControlsPerSelectedXml();
+                    util_PopulateFolderGroupList();                                             // this will use the m_CurrentXml that was set above to populate the folder group combobox?
+                                                                                                // maybe the best place to do this is when the folder group is selected or automatically invoked.
+                 //   Menu_FolderGroup_ComboBox_0.Text = util_GetLastViewedFolderTeam();        // !set m_CurrentFolderGroup[m_idxFTeamDisplayName] by reading the current xml.
+                    m_UI_STATE_FileIsOpen = true;                                               // set to true after folder group is selected - either by the use or when the folder team combobox is populated.
+                                                                                                // this activates the block in util_SetControlsPerSelectedXml();
                     util_SetControlsPerSelectedXml();
+
+                    // set the file's config color.
+                    string xPathFileColor = "//Osprey/FileColor";
+                    XmlNode NodeFileColor = m_CurrentXml.SelectSingleNode(xPathFileColor);
+                    string xml_color_value = NodeFileColor.InnerText;
+                    
+                    int color_int = 0;
+                    bool is_color_int = Int32.TryParse(xml_color_value, out color_int);
+
+                    if (is_color_int)
+                    {
+                        menuStrip1.BackColor = System.Drawing.Color.FromArgb(color_int);
+                    }
                 }
                 else
                 {
@@ -725,6 +779,8 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_View_Vertical_Click(object sender, EventArgs e)
         {
+            //System.Threading.Thread.Sleep(2000);
+
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileVertical);
@@ -738,40 +794,108 @@ namespace CodeLessTraveled.Osprey
         }
 
 
+        public FileScopeData SaveFileScopeSettings()
+        {
+
+
+            // for backwards compatibility, if the node does not exist, create it.
+
+            string xPathLastViewedTeamName = "//Osprey/LastViewedFolderTeam";
+            XmlNode NodeLastViewedFTeam = m_CurrentXml.SelectSingleNode(xPathLastViewedTeamName);
+                if (null == NodeLastViewedFTeam)
+                {
+                    // create the node.
+                    XmlNode NodeInsertPoint = m_CurrentXml.SelectSingleNode("//Osprey/FolderTeam[1]");
+
+                    NodeLastViewedFTeam = m_CurrentXml.CreateElement("LastViewedFolderTeam");
+                    m_CurrentXml.DocumentElement.InsertBefore(NodeLastViewedFTeam, NodeInsertPoint);
+            }
+
+            string xPathFileColor = "//Osprey/FileColor";
+            XmlNode NodeFileColor = m_CurrentXml.SelectSingleNode(xPathFileColor);
+
+            if (null == NodeFileColor)
+            {
+                // create the node.
+                XmlNode NodeInsertPoint = m_CurrentXml.SelectSingleNode("//Osprey/FolderTeam[1]");
+
+                NodeFileColor = m_CurrentXml.CreateElement("FileColor");
+                m_CurrentXml.DocumentElement.InsertBefore(NodeFileColor, NodeInsertPoint);
+            }
+
+            NodeLastViewedFTeam.InnerText = m_CurrentFolderGroup[m_idxFTeamDisplayName];
+            NodeFileColor.InnerText = this.menuStrip1.BackColor.ToArgb().ToString();
+
+            m_CurrentXml.Save(this.m_CurrentXmlfullpath);
+
+            m_FileScopeData.FileColorArgb = this.menuStrip1.BackColor.ToArgb();
+            m_FileScopeData.LastViewedFolderGroup = NodeLastViewedFTeam.InnerText;
+
+
+            return m_FileScopeData;
+        }
+
         private SaveResults SaveMain(NodeChangeType ChangeType, string GroupName)
         {
-            // there are 2 main types of saves. 
+            // There are 2 main types of saves. 
             // 1)   saving the last viewed folder group. this occurs every time a new xml data file is selected.  
             // 2)   most of the logic in this function is for changes to folderteam nodes (new folderteam, changes to existing folderteam and the child collection).
-           // this is backwards compatible with earlier versions that don't have this node. if the node does not exist, created it, set it, save it. now,it's the file is upgraded.
-           
+            // This is backwards compatible with earlier versions that don't have this node. if the node does not exist, created it, set it, save it. now,it's the file is upgraded.
 
 
             if (null != m_CurrentXml && ChangeType == NodeChangeType.LastViewedFTeam)
             {
-                string xPathLastViewedTeamName = "//Osprey/LastViewedFolderTeam";   
-                
+                string xPathLastViewedTeamName = "//Osprey/LastViewedFolderTeam";
+
                 XmlNode NodeLastViewedFTeam = m_CurrentXml.SelectSingleNode(xPathLastViewedTeamName);
 
                 // for backwards compatibility, if the node does not exist, create it.
                 if (null == NodeLastViewedFTeam)
                 {
                     // create the node.
-                    XmlNode FirstNodeFolderTeam= m_CurrentXml.SelectSingleNode("//Osprey/FolderTeam[1]");
+                    XmlNode FirstNodeFolderTeam = m_CurrentXml.SelectSingleNode("//Osprey/FolderTeam[1]");
 
                     NodeLastViewedFTeam = m_CurrentXml.CreateElement("LastViewedFolderTeam");
                     m_CurrentXml.DocumentElement.InsertBefore(NodeLastViewedFTeam, FirstNodeFolderTeam);
                 }
 
-                NodeLastViewedFTeam.InnerText = GroupName; 
-                
+                NodeLastViewedFTeam.InnerText = GroupName;
+
+
+            
+                m_CurrentXml.Save(this.m_CurrentXmlfullpath);
+
+                ////// for future implementation ////////
+                m_FileScopeData.LastViewedFolderGroup = NodeLastViewedFTeam.InnerText;
+
                 m_CurrentXml.Save(this.m_CurrentXmlfullpath);
 
                 return SaveResults.Saved;
             }
 
+            // Save file color association 
+            string xPathFileColor = "//Osprey/FileColor";
+            XmlNode NodeFileColor = m_CurrentXml.SelectSingleNode(xPathFileColor);
 
-#region _ scenario #2: the node change is related an edit of the current folderteam
+            if (null == NodeFileColor)
+            {
+                // create the node.
+                XmlNode NodeInsertPoint = m_CurrentXml.SelectSingleNode("//Osprey/FolderTeam[1]");
+
+                NodeFileColor = m_CurrentXml.CreateElement("FileColor");
+                m_CurrentXml.DocumentElement.InsertBefore(NodeFileColor, NodeInsertPoint);
+            }
+
+            NodeFileColor.InnerText = this.menuStrip1.BackColor.ToArgb().ToString();
+
+            ////// for future implementation ////////
+            m_FileScopeData.FileColorArgb = this.menuStrip1.BackColor.ToArgb();
+
+            m_CurrentXml.Save(this.m_CurrentXmlfullpath);
+
+            
+
+            #region _ scenario #2: the node change is related an edit of the current folderteam
 
             GroupName = GroupName.Trim();
            
@@ -961,6 +1085,8 @@ namespace CodeLessTraveled.Osprey
             
             ChildExplorer NewFileExplorer = new ChildExplorer(newconfig);
 
+            NewFileExplorer.child_window_count = m_explorer_window_count++;
+            
             NewFileExplorer.Width = this.Width / 2;
 
             NewFileExplorer.Height = this.Height / 2;
@@ -970,9 +1096,6 @@ namespace CodeLessTraveled.Osprey
             arrayChildExplorer.Add(NewFileExplorer);
 
             NewFileExplorer.Show();
-
-            //
-            //m_ChildExplorerCount++;
 
         }
 
@@ -1054,7 +1177,71 @@ namespace CodeLessTraveled.Osprey
             return NodeSavedFolderTeam.InnerText;
         }
 
+        private FileScopeData util_GetFileScopeSettings(XmlDocument xmlDataFile)
+        {
 
+            
+            XmlNode FolderTeamGroup = xmlDataFile.SelectSingleNode("//Osprey/FolderTeam[1]");
+
+            bool Do_Save = false;
+
+            // for backwards compatibility, if the node deos not exist, create it.
+            string xpath_LastViewedFolderGroup = "//Osprey/LastViewedFolderTeam";
+            XmlNode NodeLastViewedGroup = xmlDataFile.SelectSingleNode(xpath_LastViewedFolderGroup);
+               
+            // Determine if the last saved viewed group saved to the file is valid. 
+                if (null == NodeLastViewedGroup)
+                    {   // create the node.
+
+                        Do_Save = true;
+                        
+                        NodeLastViewedGroup = xmlDataFile.CreateElement("LastViewedFolderTeam");
+
+                        xmlDataFile.DocumentElement.InsertBefore(NodeLastViewedGroup, FolderTeamGroup);
+
+                        NodeLastViewedGroup.InnerText = "";
+                    }
+
+            // Determine if the color value saved to the file is valid. 
+                string xpath_FileColor = "//Osprey/FileColor";
+                XmlNode NodeFileColor = xmlDataFile.SelectSingleNode(xpath_FileColor);
+            
+                if (null == NodeFileColor)
+                {   // create the node.
+
+                    Do_Save = true;
+                    
+                    NodeFileColor = xmlDataFile.CreateElement("FileColor");
+
+                    xmlDataFile.DocumentElement.InsertBefore(NodeFileColor, FolderTeamGroup);
+
+                    NodeFileColor.InnerText = "";
+
+                }
+                // convert xml color value from string to int.
+                int int_ColorArgb = 0;
+
+                bool Is_Argb = Int32.TryParse(NodeFileColor.InnerText, out int_ColorArgb);
+
+
+            // Put the read values into this struct and retun the data.
+            FileScopeData fileScopeData         = new FileScopeData();
+            fileScopeData.LastViewedFolderGroup = NodeLastViewedGroup.InnerText;
+            fileScopeData.FileColorArgb         = int_ColorArgb;
+           
+            if (Do_Save)
+            {
+                xmlDataFile.Save(this.m_CurrentXmlfullpath);
+            }
+
+            return fileScopeData;
+        }
+
+        private void util_ReadScopeSettings(XmlDocument SelectedDataFile)
+        {
+            m_FileScopeData.FileColorArgb = 0;
+            m_FileScopeData.LastViewedFolderGroup = "";
+        }
         private void util_LoadChildWindows(string folderteamname)
         {
             // load a group of folders per parameter, "folderteamname".
@@ -1064,15 +1251,18 @@ namespace CodeLessTraveled.Osprey
             // every time a node is loaded, ui controls must show what the user selected.
             // change the form's text property to show this.
             // default windows to show tiled vertically.
+            status_childload_count = 0;
 
-            
             string xpath = String.Format("//Osprey/FolderTeam[@Name='{0}']", folderteamname);
 
             XmlNode xml_selected_foldergroup  = m_CurrentXml.SelectSingleNode(xpath);
 
             // Only continue if the node has child nodes. otherwise, there are no child windows to load.
+            this.status_child_count = xml_selected_foldergroup.SelectNodes("ChildExplorer").Count;
+            
             if (xml_selected_foldergroup.SelectNodes("ChildExplorer").Count > 0)
             {
+                  
                 if (xml_selected_foldergroup != null)
                 {
                     // Ensure each child node has a WindowOrder assigned to it. Force "0" if not exists.
@@ -1203,10 +1393,20 @@ namespace CodeLessTraveled.Osprey
 
                                 NewFileExplorer.Show();
 
-                               // this.m_ChildExplorerCount++;
+                                status_childload_count++;
+
+                                status_message = String.Format("Load window {0} of {1}n", status_childload_count, status_child_count);
+                                if (Timer_Message1.Enabled ==  false)
+                                {
+                                    // util_ShowStatusMessage will automatically start the timer. the timer will automatically stop.
+                                    util_ShowStatusMessage(status_message, System.Drawing.Color.Black, System.Drawing.Color.Orange, "", System.Drawing.Color.Orange, System.Drawing.Color.Orange);
+                                }
+
                             }
                         }
                     }
+
+                    
 
                     Menu_View_Vertical_Click(new object(), new EventArgs());  //this will force the windows to tile
                 }
@@ -1333,10 +1533,9 @@ namespace CodeLessTraveled.Osprey
 
                 this.Menu_FolderGroup_ComboBox_0.Items.AddRange(FolderGroupNames.ToArray());
 
-                Menu_FolderGroup_ComboBox_0.Text = util_GetLastViewedFolderTeam();
             }
 
-            util_SetControlsPerSelectedXml();
+            //util_SetControlsPerSelectedXml();
         }
 
 
@@ -1483,6 +1682,8 @@ namespace CodeLessTraveled.Osprey
                     StatusLabel.ForeColor      = this.status_forecolor2;
                     StatusLabel.BackColor      = this.status_backcolor2;
                 }
+                StatusLabel.GetCurrentParent().Refresh();
+
             }
             else
             {   // when the timer reaches 10 iterations, reset these values to the default settings.  
@@ -1546,7 +1747,7 @@ namespace CodeLessTraveled.Osprey
             FormConfig frmConfig = new FormConfig();
 
             frmConfig.MdiParent = this;
-
+            frmConfig.FileColorArgb = menuStrip1.BackColor.ToArgb();
             frmConfig.Show();
 
 
@@ -1568,8 +1769,43 @@ namespace CodeLessTraveled.Osprey
                 this.TopMost = true;
             }
         }
+        bool b_loadingChildMsgFlag = false;
+        private void Timer_LoadChildWindows_Tick(object sender, EventArgs e)
+        {
+            //if (b_loadingChildMsgFlag == true)
+            //{
+            //    // display a message
+            //    b_loadingChildMsgFlag = false;
 
-     
+            //    Timer_LoadChildWindows.Interval = 1000;
+            //    string OnMsg = String.Format("Loading window {0} of {1}", this.status_childload_count, this.status_childload_count);
+            //    util_ShowStatusMessage(OnMsg,System.Drawing.Color.Black, System.Drawing.Color.Orange,)
+            //}
+            //else
+            //{ 
+            //    //display a blank
+            //    b_loadingChildMsgFlag = true;
+
+            //    Timer_LoadChildWindows.Interval = 500;
+            //    string offMsg = "";
+            //   // util_ShowStatusMessage("")
+            //}
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void Menu_File_OpenDataFile_CboBox_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 
