@@ -9,37 +9,46 @@ using System.Windows.Forms;
 
 namespace CodeLessTraveled.Osprey
 {
-    
+
     public partial class FormConfig : Form
     {
-        private string  m_trans_Cfg_XmlRepositoryPath;
-        private bool    m_trans_Cfg_XmlRepBrowse_Button_Enabled;
-        private bool    m_trans_Cfg_XmlRep_TextBox_Enabled;
-        private string  m_trans_Cfg_Message_Textbox_Value;
-        private bool    m_restore_val_Cfg_UseDefPath_Chkbox;
-  
-        private System.Drawing.Color    m_trans_Cfg_Color;
-        private bool   m_trans_cfg_ColorButton_Enabled;
-        private bool   m_trans_cfg_ColorDialog_Enabled;
-        private bool   m_restore_val_Cfg_UseDefColor_Chkbox;
+        private string m_trans_Cfg_XmlRepositoryPath;
+        private bool m_trans_Cfg_XmlRepBrowse_Button_Enabled;
+        private bool m_trans_Cfg_XmlRep_TextBox_Enabled;
+        private string m_trans_Cfg_Message_Textbox_Value;
+        private bool m_restore_val_Cfg_UseDefPath_Chkbox;
+
+        private System.Drawing.Color m_trans_Cfg_Color;
+        private bool m_trans_cfg_ColorButton_Enabled;
+        private bool m_trans_cfg_ColorDialog_Enabled;
+        private bool m_restore_val_Cfg_UseDefColor_Chkbox;
+        private Form m_ParentMDI;
+        private int m_fileColorArgb = 0;
+
+        public int FileColorArgb
+            {   get{ return m_fileColorArgb; }
+                set{ m_fileColorArgb = value; }
+            }
+        //public FormConfig(MDI ParentMDI)
+        //{
+        //    m_ParentMDI = ParentMDI;
+
+        //  // m_Is_Use_Cfg_Default = UseDefaultDataFilePath;
+
+        //    //////////// temp test //////////////////////
+        //    //m_Is_Use_Cfg_Default = true;
+        //    /////////////////////////////////////////////
+        //    InitializeComponent();
+        //}
 
 
-        public FormConfig(bool UseDefaultDataFilePath)
-        {
-            
-
-          // m_Is_Use_Cfg_Default = UseDefaultDataFilePath;
-
-            //////////// temp test //////////////////////
-            //m_Is_Use_Cfg_Default = true;
-            /////////////////////////////////////////////
-            InitializeComponent();
-        }
 
         public FormConfig()
         {
             InitializeComponent();
         }
+
+       
 
         private void FormConfig_Load(object sender, EventArgs e)
         {
@@ -63,9 +72,7 @@ namespace CodeLessTraveled.Osprey
                     Cfg_XmlRepoBrowse_Button.Enabled    = true;
                 }
 
-            System.Drawing.Color SavedMenuColor = Properties.Settings.Default.MainMenuColor;
-            
-                if (SavedMenuColor == SystemColors.Control)
+                if (m_fileColorArgb == SystemColors.Control.ToArgb())
                 {
                     // user default color
                     Cfg_UseDefaultColor_ChkBox.Checked  = true;
@@ -73,8 +80,9 @@ namespace CodeLessTraveled.Osprey
                 }
                 else 
                 {
-                    Cfg_ColorDialog_MainMenu.Color  = SavedMenuColor;
-                    Cfg_MainMenuColor_Btn.Enabled   = true;
+                    Cfg_UseDefaultColor_ChkBox.Checked  = false;
+                    Cfg_ColorDialog_MainMenu.Color      = System.Drawing.Color.FromArgb(m_fileColorArgb);
+                    Cfg_MainMenuColor_Btn.Enabled       = true;
                 }
 
             Cfg_UseDefPath_ChkBox.Focus();
@@ -174,24 +182,44 @@ namespace CodeLessTraveled.Osprey
 
         private void cfg_Save_Button_Click(object sender, EventArgs e)
         {
+            ////////// Default Color ////////////////////////////////////////////////////////////////////////
 
-            ////////// Default Color /////////////////////////////////////////////////////////////////////////
+            /***********************************************************************************************************************************
+                        if (Cfg_UseDefaultColor_ChkBox.Checked == false)
+                        {
+                            m_trans_Cfg_Color = Cfg_ColorDialog_MainMenu.Color;
+
+                            Properties.Settings.Default.MainMenuColor = Cfg_ColorDialog_MainMenu.Color;
+                        }
+                        else
+                        {
+                            Properties.Settings.Default.MainMenuColor = System.Drawing.SystemColors.Control;
+                        }
+            *************************************************************************************************************************************/
+
+            Form1 MDIParent = (Form1)this.MdiParent;
 
             if (Cfg_UseDefaultColor_ChkBox.Checked == false)
             {
-                m_trans_Cfg_Color = Cfg_ColorDialog_MainMenu.Color;
+                MDIParent.ChangeMenuStrip1BackColor(m_trans_Cfg_Color);
 
-                Properties.Settings.Default.MainMenuColor = Cfg_ColorDialog_MainMenu.Color; 
+                Cfg_UseDefaultColor_ChkBox.Checked = true;
             }
-            else  // Use the default location
+            else
             {
-                //Cfg_UseDefault_ChkBox.Checked == true;
-
-                Properties.Settings.Default.MainMenuColor = System.Drawing.SystemColors.Control;
+                MDIParent.ChangeMenuStrip1BackColor(System.Drawing.SystemColors.Control);
+                //Cfg_UseDefaultColor_ChkBox.Checked = false;
             }
+
+
+
+
+
+
+
+
 
             ////////// DEFAULT path /////////////////////////////////////////////////////////////////////////
-
             if (Cfg_UseDefPath_ChkBox.Checked == false)
             {   
                 if (!System.IO.Directory.Exists(Cfg_XmlRepo_TextBox.Text))
@@ -224,6 +252,16 @@ namespace CodeLessTraveled.Osprey
                 Properties.Settings.Default.AltXmlRepository = "";
             }
 
+            ////////// Log events to file /////////////////////////////////////////////////////////////////// 
+            if (Cfg_LogEvents_ChkBox.Checked == true)
+            {
+                Properties.Settings.Default.LogEventsToFile = true;
+            }
+            else
+            {
+                Properties.Settings.Default.LogEventsToFile = true;
+            }
+          
             this.Close();
 
         }
@@ -318,10 +356,25 @@ namespace CodeLessTraveled.Osprey
                 {
                     m_trans_Cfg_Color = Cfg_ColorDialog_MainMenu.Color;
                 }
-
             }
         }
 
-      
+        private void Cfg_LogEvents_ChkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Form parentFrm = this.MdiParent;
+            MenuStrip menuStrip = (MenuStrip)ParentForm.Controls["menuStrip1"];
+            ToolStripMenuItem mi_LogEvents = (ToolStripMenuItem)menuStrip.Items["Menu_LogEvents"];
+
+            if (Cfg_LogEvents_ChkBox.Checked == true)
+            {
+                mi_LogEvents.Visible = true;
+                Properties.Settings.Default.LogEventsToFile = true;
+            }
+            else
+            {
+                mi_LogEvents.Visible = false;
+                Properties.Settings.Default.LogEventsToFile = false;
+            }
+        }
     }
 }

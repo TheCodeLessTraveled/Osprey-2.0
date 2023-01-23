@@ -41,6 +41,7 @@ namespace CodeLessTraveled.Osprey
             this.Cfg_UseDefaultColor_ChkBox = new System.Windows.Forms.CheckBox();
             this.Cfg_ColorDialog_MainMenu = new System.Windows.Forms.ColorDialog();
             this.Cfg_MainMenuColor_Btn = new System.Windows.Forms.Button();
+            this.Cfg_LogEvents_ChkBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // Cfg_XmlRepo_TextBox
@@ -90,7 +91,7 @@ namespace CodeLessTraveled.Osprey
             this.cfg_Save_Button.Name = "cfg_Save_Button";
             this.cfg_Save_Button.Size = new System.Drawing.Size(75, 23);
             this.cfg_Save_Button.TabIndex = 4;
-            this.cfg_Save_Button.Text = "Save";
+            this.cfg_Save_Button.Text = "Set";
             this.cfg_Save_Button.UseVisualStyleBackColor = true;
             this.cfg_Save_Button.Click += new System.EventHandler(this.cfg_Save_Button_Click);
             // 
@@ -130,7 +131,7 @@ namespace CodeLessTraveled.Osprey
             // 
             // Cfg_MainMenuColor_Btn
             // 
-            this.Cfg_MainMenuColor_Btn.Location = new System.Drawing.Point(220, 100);
+            this.Cfg_MainMenuColor_Btn.Location = new System.Drawing.Point(220, 96);
             this.Cfg_MainMenuColor_Btn.Name = "Cfg_MainMenuColor_Btn";
             this.Cfg_MainMenuColor_Btn.Size = new System.Drawing.Size(75, 23);
             this.Cfg_MainMenuColor_Btn.TabIndex = 8;
@@ -138,11 +139,23 @@ namespace CodeLessTraveled.Osprey
             this.Cfg_MainMenuColor_Btn.UseVisualStyleBackColor = true;
             this.Cfg_MainMenuColor_Btn.Click += new System.EventHandler(this.Cfg_MainMenuColor_Btn_Click);
             // 
+            // Cfg_LogEvents_ChkBox
+            // 
+            this.Cfg_LogEvents_ChkBox.AutoSize = true;
+            this.Cfg_LogEvents_ChkBox.Location = new System.Drawing.Point(348, 100);
+            this.Cfg_LogEvents_ChkBox.Name = "Cfg_LogEvents_ChkBox";
+            this.Cfg_LogEvents_ChkBox.Size = new System.Drawing.Size(111, 17);
+            this.Cfg_LogEvents_ChkBox.TabIndex = 9;
+            this.Cfg_LogEvents_ChkBox.Text = "Log Events to File";
+            this.Cfg_LogEvents_ChkBox.UseVisualStyleBackColor = true;
+            this.Cfg_LogEvents_ChkBox.CheckedChanged += new System.EventHandler(this.Cfg_LogEvents_ChkBox_CheckedChanged);
+            // 
             // FormConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(663, 281);
+            this.Controls.Add(this.Cfg_LogEvents_ChkBox);
             this.Controls.Add(this.Cfg_MainMenuColor_Btn);
             this.Controls.Add(this.Cfg_UseDefaultColor_ChkBox);
             this.Controls.Add(this.Cfg_Cancel_Button);
@@ -174,5 +187,6 @@ namespace CodeLessTraveled.Osprey
         private System.Windows.Forms.CheckBox Cfg_UseDefaultColor_ChkBox;
         private System.Windows.Forms.ColorDialog Cfg_ColorDialog_MainMenu;
         private System.Windows.Forms.Button Cfg_MainMenuColor_Btn;
+        private System.Windows.Forms.CheckBox Cfg_LogEvents_ChkBox;
     }
 }

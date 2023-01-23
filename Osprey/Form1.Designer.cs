@@ -60,6 +60,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.Menu_Edit_OspreyDataXml_OpenLocation = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_Config = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_View_AlwaysTop = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -78,6 +79,7 @@
             this.Menu_Save = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Timer_LoadChildWindows = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -206,12 +208,13 @@
             this.Menu_File_OpenDataFile_CboBox.Size = new System.Drawing.Size(150, 23);
             this.Menu_File_OpenDataFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_SelectedIndexChanged);
             this.Menu_File_OpenDataFile_CboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_OpenDataFile_CboBox_KeyDown);
+            this.Menu_File_OpenDataFile_CboBox.Click += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.AutoSize = false;
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(176, 10);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(181, 10);
             // 
             // Menu_File_Save
             // 
@@ -258,7 +261,7 @@
             // 
             this.toolStripSeparator2.AutoSize = false;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(176, 10);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 10);
             // 
             // Menu_File_Exit
             // 
@@ -276,7 +279,8 @@
             this.Menu_Edit_DeleteFolderGroup,
             this.toolStripSeparator5,
             this.Menu_Edit_OspreyDataXml_OpenLocation,
-            this.Menu_Edit_Config});
+            this.Menu_Edit_Config,
+            this.testToolStripMenuItem});
             this.Menu_Edit.Name = "Menu_Edit";
             this.Menu_Edit.Padding = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.Menu_Edit.Size = new System.Drawing.Size(43, 32);
@@ -346,6 +350,13 @@
             this.Menu_Edit_Config.Size = new System.Drawing.Size(233, 26);
             this.Menu_Edit_Config.Text = "Configuration";
             this.Menu_Edit_Config.Click += new System.EventHandler(this.Menu_Edit_Config_Click_1);
+            // 
+            // testToolStripMenuItem
+            // 
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
+            this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
             // 
             // Menu_View
             // 
@@ -472,6 +483,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(770, 36);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "File";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // Menu_FolderGroup_ComboBox_0
             // 
@@ -517,6 +529,11 @@
             // 
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
+            // Timer_LoadChildWindows
+            // 
+            this.Timer_LoadChildWindows.Interval = 2000;
+            this.Timer_LoadChildWindows.Tick += new System.EventHandler(this.Timer_LoadChildWindows_Tick);
             // 
             // Form1
             // 
@@ -603,6 +620,8 @@
         private System.Windows.Forms.ToolStripMenuItem Menu_View_AlwaysTop;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem Menu_View_Horizontal;
+        private System.Windows.Forms.Timer Timer_LoadChildWindows;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
     }
 }
 

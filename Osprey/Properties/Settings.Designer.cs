@@ -97,13 +97,13 @@ namespace CodeLessTraveled.Osprey.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Control")]
-        public global::System.Drawing.Color MainMenuColor {
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LogEventsToFile {
             get {
-                return ((global::System.Drawing.Color)(this["MainMenuColor"]));
+                return ((bool)(this["LogEventsToFile"]));
             }
             set {
-                this["MainMenuColor"] = value;
+                this["LogEventsToFile"] = value;
             }
         }
     }
