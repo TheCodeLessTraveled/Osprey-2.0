@@ -396,6 +396,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChildExplorer_FormClosing);
             this.Load += new System.EventHandler(this.ChildExplorer_Load);
             this.ResizeEnd += new System.EventHandler(this.ChildExplorer_ResizeEnd);
+            this.SizeChanged += new System.EventHandler(this.ChildExplorer_SizeChanged);
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ChildExplorer_Layout);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

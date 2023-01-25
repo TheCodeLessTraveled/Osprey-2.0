@@ -147,7 +147,7 @@ namespace CodeLessTraveled.Osprey
         private void Form1_Load(object sender, EventArgs e)
         {
             
-
+            
             /* 
              ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
              ║                                                                                                                       ║
@@ -309,29 +309,6 @@ namespace CodeLessTraveled.Osprey
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Link;
-        }
-
-
-        private void Form1_Shown(object sender, EventArgs e)
-        {
-
-           // util_LoadChildWindows(m_CurrentFolderGroup[m_idxFTeamNodeName]);
-
-
-            //foreach (Form ChildForm in this.MdiChildren)
-            //{
-            //    ChildForm.Show();
-            //}
-
-            //if (this.MdiChildren.Length > 0)
-            //{
-            //    Menu_View_Vertical_Click(new object(), new EventArgs());
-            //}
-        }
-
-
-        private void btn_AcceptButton_Click(object sender, EventArgs e)
-        {
         }
 
 
@@ -574,7 +551,6 @@ namespace CodeLessTraveled.Osprey
             *******************************************************************************************************
              */
 
-            // m_ChildExplorerCount++;
         }
 
         private void Menu_FolderGroup_ComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -742,6 +718,10 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_View_Cascade_Click(object sender, EventArgs e)
         {
+            this.Menu_View_Vertical.Checked = false;
+            this.Menu_View_Horizontal.Checked = false;
+            this.Menu_View_CascadeAll.Checked = true;
+
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.Cascade);
@@ -764,14 +744,18 @@ namespace CodeLessTraveled.Osprey
 
         private void Menu_View_Horizontal_Click(object sender, EventArgs e)
         {
+            this.Menu_View_Vertical.Checked = false;
+            this.Menu_View_Horizontal.Checked = true;
+            this.Menu_View_CascadeAll.Checked = false;
+
             if (this.MdiChildren.Count() > 0)
             {
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
 
                 foreach (Form child in this.MdiChildren)
                 {
-                    child.Height = 290;
-               }
+                   child.Height = 290;  // This height solves a UI issue where the right side of the ChildExplorer window does not render correctly.
+               }                        // and somehow setting the height to this resolves the issue.
                 this.LayoutMdi(System.Windows.Forms.MdiLayout.TileHorizontal);
             }
         }
@@ -780,6 +764,9 @@ namespace CodeLessTraveled.Osprey
         private void Menu_View_Vertical_Click(object sender, EventArgs e)
         {
             //System.Threading.Thread.Sleep(2000);
+            this.Menu_View_Vertical.Checked = true;
+            this.Menu_View_Horizontal.Checked = false;
+            this.Menu_View_CascadeAll.Checked = false;
 
             if (this.MdiChildren.Count() > 0)
             {
@@ -1092,7 +1079,9 @@ namespace CodeLessTraveled.Osprey
             NewFileExplorer.Height = this.Height / 2;
     
             NewFileExplorer.MdiParent = this;
-       
+
+            
+
             arrayChildExplorer.Add(NewFileExplorer);
 
             NewFileExplorer.Show();
@@ -1389,12 +1378,12 @@ namespace CodeLessTraveled.Osprey
 
                                 status_childload_count++;
 
-                                status_message = String.Format("Load window {0} of {1}n", status_childload_count, status_child_count);
-                                if (Timer_Message1.Enabled ==  false)
-                                {
-                                    // util_ShowStatusMessage will automatically start the timer. the timer will automatically stop.
-                                    util_ShowStatusMessage(status_message, System.Drawing.Color.Black, System.Drawing.Color.Orange, "", System.Drawing.Color.Orange, System.Drawing.Color.Orange);
-                                }
+                                //status_message = String.Format("Load window {0} of {1}", status_childload_count, status_child_count);
+                                //if (Timer_Message1.Enabled ==  false)
+                                //{
+                                //    // util_ShowStatusMessage will automatically start the timer. the timer will automatically stop.
+                                //    util_ShowStatusMessage(status_message, System.Drawing.Color.Black, System.Drawing.Color.Orange, "", System.Drawing.Color.Orange, System.Drawing.Color.Orange);
+                                //}
 
                             }
                         }
@@ -1786,19 +1775,51 @@ namespace CodeLessTraveled.Osprey
             //}
         }
 
-        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+      
+
+        private void Form1_ResizeEnd(object sender, EventArgs e)
         {
 
+            if (Menu_View_Horizontal.Checked)
+            {
+                this.Menu_View_Horizontal_Click(new object(), new EventArgs());
+            }
+
+            if (Menu_View_Vertical.Checked)
+            {
+                this.Menu_View_Vertical_Click(new object(), new EventArgs());
+            }
+
+            //if (Menu_View_CascadeAll.Checked)
+            //{
+            //    this.Menu_View_Cascade_Click(new object(), new EventArgs());
+            //}
+
+            this.Resize_Child_TS_Textbox();
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void btn_AcceptButton_Click(object sender, EventArgs e)
         {
-
+            // don't remove this.
         }
 
-        private void Menu_File_OpenDataFile_CboBox_Click(object sender, EventArgs e)
+        private void Menu_Refresh_Click(object sender, EventArgs e)
         {
+            foreach (ChildExplorer child in this.MdiChildren)
+            {
+                ChildExplorer childExplorer= (ChildExplorer) child;
 
+                childExplorer.RefreshChildWindows();
+            }
+        }
+        private void Resize_Child_TS_Textbox()
+        {
+            foreach (ChildExplorer child in this.MdiChildren)
+            {
+                ChildExplorer childExplorer = (ChildExplorer)child;
+                
+                childExplorer.ResizeTS_Textbox();
+            }
         }
     }
 
