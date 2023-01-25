@@ -238,9 +238,8 @@ namespace CodeLessTraveled.Osprey
 
                     m_CurrentXmlFilename = m_DefaultOspreyDataXml;
 
-                    FileScopeData fsd =  util_GetFileScopeSettings(m_CurrentXml);
-
-
+           
+                    
                     m_UI_STATE_HasFiles = true;
                 }
                 #endregion
@@ -260,6 +259,10 @@ namespace CodeLessTraveled.Osprey
 
             
             Menu_FolderGroup_ComboBox_0.Text = util_GetLastViewedFolderTeam();  // !set m_CurrentFolderGroup[m_idxFTeamDisplayName] by reading the current xml.
+
+            
+            FileScopeData fsd =  util_GetFileScopeSettings(m_CurrentXml);
+
 
         }
 
