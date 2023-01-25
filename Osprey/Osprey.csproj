@@ -204,6 +204,12 @@
     <None Include="Resources\Osprey-6b.ico" />
     <None Include="Resources\Refresh_16x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\112_RefreshArrow_Green_24x24_72.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

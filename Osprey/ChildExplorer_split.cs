@@ -70,6 +70,16 @@ namespace CodeLessTraveled.Osprey
             }    
         }
 
+        public void RefreshChildWindows()
+        {
+            this.webBrowser1.Refresh();
+        }
+
+        public void ResizeTS_Textbox() 
+        {
+
+            this.TS_TextboxUri.Width = this.Width-200;
+        }
 
         private void SetConfigOptions(ChildExplorerConfig configs)
         {
@@ -461,12 +471,25 @@ namespace CodeLessTraveled.Osprey
 
         private void ChildExplorer_Layout(object sender, LayoutEventArgs e)
         {
-           
+            string x = "";
+
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        public void ChildExplorer_Resize(object sender, EventArgs e)
+        {
+            string x = "";
+        }
+
+        private void ChildExplorer_SizeChanged(object sender, EventArgs e)
+        {
+            //string x = "";
+
+            //TS_TextboxUri.Width = this.Width - 200;
         }
     }
 

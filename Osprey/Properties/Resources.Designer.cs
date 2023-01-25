@@ -123,6 +123,16 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Image1 {
+            get {
+                object obj = ResourceManager.GetObject("Image1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewDocument_32x32 {
             get {
                 object obj = ResourceManager.GetObject("NewDocument_32x32", resourceCulture);
@@ -147,6 +157,16 @@ namespace CodeLessTraveled.Osprey.Properties {
             get {
                 object obj = ResourceManager.GetObject("Osprey_6b", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Refresh_24x24 {
+            get {
+                object obj = ResourceManager.GetObject("Refresh 24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

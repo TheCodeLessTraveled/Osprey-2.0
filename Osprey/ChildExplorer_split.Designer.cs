@@ -293,7 +293,6 @@
             this.TS_OrderTextbox.AutoSize = false;
             this.TS_OrderTextbox.AutoToolTip = true;
             this.TS_OrderTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TS_OrderTextbox.Enabled = false;
             this.TS_OrderTextbox.Font = new System.Drawing.Font("Consolas", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TS_OrderTextbox.Margin = new System.Windows.Forms.Padding(0);
             this.TS_OrderTextbox.MaxLength = 2;
@@ -397,6 +396,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChildExplorer_FormClosing);
             this.Load += new System.EventHandler(this.ChildExplorer_Load);
             this.ResizeEnd += new System.EventHandler(this.ChildExplorer_ResizeEnd);
+            this.SizeChanged += new System.EventHandler(this.ChildExplorer_SizeChanged);
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ChildExplorer_Layout);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
