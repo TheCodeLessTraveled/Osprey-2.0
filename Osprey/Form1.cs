@@ -238,9 +238,13 @@ namespace CodeLessTraveled.Osprey
 
                     m_CurrentXmlFilename = m_DefaultOspreyDataXml;
 
-                    FileScopeData fsd =  util_GetFileScopeSettings(m_CurrentXml);
+                //  FileScopeData fsd =  util_GetFileScopeSettings(m_CurrentXml);
 
-
+                if (null == m_CurrentXml)
+                {
+                    string x = "";
+                }
+                    
                     m_UI_STATE_HasFiles = true;
                 }
                 #endregion
