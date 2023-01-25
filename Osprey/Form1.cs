@@ -1518,17 +1518,9 @@ namespace CodeLessTraveled.Osprey
 
             }
 
-            //util_SetControlsPerSelectedXml();
         }
 
 
-
-        //private void util_resetospreydataxml()
-        //{
-        //    ClearAllChildWindows();
-
-        //    util_CreateDataXmlFile(m_CurrentXmlfullpath, true);
-        //}
 
 
 
@@ -1820,6 +1812,27 @@ namespace CodeLessTraveled.Osprey
                 
                 childExplorer.ResizeTS_Textbox();
             }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            int curW = this.Width;
+            int curH = this.Height;
+            int curT = this.Top;
+            int curL = this.Left;
+
+
+            if (curW < 200 && curH < 200)
+            {
+                this.Width = 500;
+                this.Height = 500;
+
+                this.Top = 200;
+                this.Left = 200;
+            }
+
+            
+
         }
     }
 
