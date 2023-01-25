@@ -293,7 +293,6 @@
             this.TS_OrderTextbox.AutoSize = false;
             this.TS_OrderTextbox.AutoToolTip = true;
             this.TS_OrderTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TS_OrderTextbox.Enabled = false;
             this.TS_OrderTextbox.Font = new System.Drawing.Font("Consolas", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TS_OrderTextbox.Margin = new System.Windows.Forms.Padding(0);
             this.TS_OrderTextbox.MaxLength = 2;

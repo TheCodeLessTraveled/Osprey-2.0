@@ -1281,18 +1281,12 @@ namespace CodeLessTraveled.Osprey
 
                             xml_ChildExplorer.Attributes.Append(attWindowOrder);
                         }
-                        //else
-                        //{
-                        //    int WindowOrder = 0;
-
-                        //    bool WindowOrder_IS_INT = int.TryParse(attWindowOrder.Value, out WindowOrder);
-                        //}
-                    }
+                   }
 
 
                     var ExplorerChildren = xml_selected_foldergroup.ChildNodes.Cast<XmlNode>().ToList();
 
-                    var orderedExplorerChildren = xml_selected_foldergroup.ChildNodes.Cast<XmlNode>().OrderBy(node => Convert.ToInt32(node.Attributes["WindowOrder"].Value)).ToList();
+                    var orderedExplorerChildren = xml_selected_foldergroup.ChildNodes.Cast<XmlNode>().OrderByDescending(node => Convert.ToInt32(node.Attributes["WindowOrder"].Value)).ToList();
 
                     if (orderedExplorerChildren.Count == 0)
                     {
