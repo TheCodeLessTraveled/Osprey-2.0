@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CodeLessTraveled.Osprey</RootNamespace>
-    <AssemblyName>Ospery</AssemblyName>
+    <AssemblyName>Osprey</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -209,12 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\112_RefreshArrow_Green_24x24_72.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CheckBoxUnchecked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\CheckBoxChecked.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AutoFilOff.png" />
