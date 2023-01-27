@@ -106,5 +106,17 @@ namespace CodeLessTraveled.Osprey.Properties {
                 this["LogEventsToFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PreferAutoResize {
+            get {
+                return ((bool)(this["PreferAutoResize"]));
+            }
+            set {
+                this["PreferAutoResize"] = value;
+            }
+        }
     }
 }

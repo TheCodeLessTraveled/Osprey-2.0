@@ -131,7 +131,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.webBrowser1);
             this.splitContainer1.Size = new System.Drawing.Size(682, 350);
             this.splitContainer1.SplitterDistance = 170;
-            this.splitContainer1.TabIndex = 8;
+            this.splitContainer1.TabIndex = 100;
             // 
             // Opt_UseDefaultColor_Checkbox
             // 
@@ -233,7 +233,7 @@
             this.Opt_Title_Textbox.MaxLength = 200;
             this.Opt_Title_Textbox.Name = "Opt_Title_Textbox";
             this.Opt_Title_Textbox.Size = new System.Drawing.Size(282, 20);
-            this.Opt_Title_Textbox.TabIndex = 1;
+            this.Opt_Title_Textbox.TabIndex = 0;
             this.Opt_Title_Textbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Opt_Title_Textbox_KeyUp);
             // 
             // toolStrip2
@@ -352,7 +352,6 @@
             // 
             this.TS_TextboxUri.AutoSize = false;
             this.TS_TextboxUri.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TS_TextboxUri.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.TS_TextboxUri.Margin = new System.Windows.Forms.Padding(0);
             this.TS_TextboxUri.Name = "TS_TextboxUri";
             this.TS_TextboxUri.Size = new System.Drawing.Size(200, 23);
@@ -371,7 +370,7 @@
             this.toolStripContainer1.Name = "toolStripContainer1";
             this.toolStripContainer1.RightToolStripPanelVisible = false;
             this.toolStripContainer1.Size = new System.Drawing.Size(682, 373);
-            this.toolStripContainer1.TabIndex = 10;
+            this.toolStripContainer1.TabIndex = 100;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
             // toolStripContainer1.TopToolStripPanel
@@ -395,6 +394,7 @@
             this.Text = "ChildExplorer_Split";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChildExplorer_FormClosing);
             this.Load += new System.EventHandler(this.ChildExplorer_Load);
+            this.Shown += new System.EventHandler(this.ChildExplorer_Shown);
             this.ResizeEnd += new System.EventHandler(this.ChildExplorer_ResizeEnd);
             this.SizeChanged += new System.EventHandler(this.ChildExplorer_SizeChanged);
             this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ChildExplorer_Layout);

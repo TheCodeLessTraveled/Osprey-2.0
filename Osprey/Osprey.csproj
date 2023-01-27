@@ -210,6 +210,18 @@
   <ItemGroup>
     <None Include="Resources\112_RefreshArrow_Green_24x24_72.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CheckBoxUnchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CheckBoxChecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AutoFilOff.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AutoFillOn.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

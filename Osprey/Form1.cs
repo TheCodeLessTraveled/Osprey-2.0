@@ -56,9 +56,7 @@ namespace CodeLessTraveled.Osprey
 
         private string m_XmlFileCollectionPath = null; // set after Initialize();
 
-       //     private string m_XmlFileCollectionPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "The Code Less Traveled", "Osprey");
         private string[]                m_CurrentFolderGroup        = new string[2] { "", "" };   // this array holds to two elements [0]= folder team name, [1]=folder team display name.
-      //  private int                     m_ChildExplorerCount        = 0;
         private const int               m_idxFTeamNodeName          = 0;                
         private const int               m_idxFTeamDisplayName       = 1;
 
@@ -90,7 +88,7 @@ namespace CodeLessTraveled.Osprey
         private bool                    b_ShowMessages      = true; // add this to settings upon exit.
         private int                     status_childload_count     = 0;    // as child windows are loaded, track the count to display in the status bar.
         private int                     status_child_count         = 0;    // as child windows are loaded, track the count to display in the status bar.
-      
+        private string                  m_AutoResizeToolTip = "Dynamically auto size child windows";
         enum NodeChangeType {Rename, Save, SaveAs, Default, NewGroup, LastViewedFTeam, FileScopeChange}
         enum SaveResults {Cancelled, Error, Initialize, Saved, Skip}
         #endregion
@@ -127,6 +125,7 @@ namespace CodeLessTraveled.Osprey
         {
             Properties.Settings.Default.Form1Location   = this.Location;
             Properties.Settings.Default.Form1Size       = this.Size;
+            Properties.Settings.Default.PreferAutoResize = this.Menu_AutoResize.Checked;
 
             //  Save the folderteam last viewed to the current xml file before exiting the program.
             SaveMain(NodeChangeType.LastViewedFTeam, m_CurrentFolderGroup[m_idxFTeamDisplayName]);
@@ -174,7 +173,7 @@ namespace CodeLessTraveled.Osprey
             helpProvider1.HelpNamespace    = this.HelpPath;
 
 
-            #region _region: form size and location settings
+            #region _region: Set controls per Properties.Settings 
             // set form size and location per coordinates saved from the last session .
             if (Properties.Settings.Default.Form1Size.Width == 0 || Properties.Settings.Default.Form1Size.Height == 0)
                 {
@@ -192,9 +191,28 @@ namespace CodeLessTraveled.Osprey
                 int savedtop      = Properties.Settings.Default.Form1Location.Y;
                 m_SavedLocation   = new System.Drawing.Point(savedleft, savedtop);
                 this.Location     = m_SavedLocation;
-            #endregion
 
+            
+            
             string AltXmlCol = Properties.Settings.Default.AltXmlRepository;
+
+            Menu_AutoResize.Checked = Properties.Settings.Default.PreferAutoResize;
+
+            Menu_AutoResize_Click(new object(), new EventArgs());
+
+            //if (Properties.Settings.Default.PreferAutoResize == true)
+            //{
+            //    Menu_AutoResize.Checked = true;
+            //    Menu_AutoResize.Image = Properties.Resources.AutoFillOn;
+            //}
+            //else
+            //{
+            //    Menu_AutoResize.Checked = false;
+            //    Menu_AutoResize.Image = Properties.Resources.AutoFillOff;
+            //}
+
+
+            #endregion
 
             m_XmlFileCollectionPath = String.IsNullOrEmpty(AltXmlCol) ? m_XmlFileCollectionPath : AltXmlCol;
 
@@ -306,6 +324,7 @@ namespace CodeLessTraveled.Osprey
 
             util_AddChildWindow(DragDirPath);
            
+
         }
 
 
@@ -1018,9 +1037,6 @@ namespace CodeLessTraveled.Osprey
                             atOrder.Value = ChildForm.ChildConfig.WindowOrder.ToString();
                             nChildFileeEplorerUri.Attributes.Append(atOrder);
 
-
-
-
                             FolderTeamNode.AppendChild(nChildFileeEplorerUri);
                         }
                     }
@@ -1712,14 +1728,7 @@ namespace CodeLessTraveled.Osprey
         }
 
 
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-           // string msg = String.Format("X={0} , Y={1}", this.Location.X, this.Location.Y);
-
-           //// util_ShowStatusMessage(msg, System.Drawing.Color.DarkRed, status_DefaultBackColor);
-        }
-
-
+   
         private void Menu_Edit_Config_Click_1(object sender, EventArgs e)
         {
             FormConfig frmConfig = new FormConfig();
@@ -1774,22 +1783,20 @@ namespace CodeLessTraveled.Osprey
 
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
+            if (this.Menu_AutoResize.Checked == true)
+            { 
+                if (Menu_View_Horizontal.Checked)
+                {
+                    this.Menu_View_Horizontal_Click(new object(), new EventArgs());
+                }
 
-            if (Menu_View_Horizontal.Checked)
-            {
-                this.Menu_View_Horizontal_Click(new object(), new EventArgs());
+                if (Menu_View_Vertical.Checked)
+                {
+                    this.Menu_View_Vertical_Click(new object(), new EventArgs());
+                }
             }
 
-            if (Menu_View_Vertical.Checked)
-            {
-                this.Menu_View_Vertical_Click(new object(), new EventArgs());
-            }
-
-            //if (Menu_View_CascadeAll.Checked)
-            //{
-            //    this.Menu_View_Cascade_Click(new object(), new EventArgs());
-            //}
-
+            
             this.Resize_Child_TS_Textbox();
         }
 
@@ -1836,6 +1843,25 @@ namespace CodeLessTraveled.Osprey
 
             
 
+        }
+
+       
+
+        private void Menu_AutoResize_Click(object sender, EventArgs e)
+        {
+            if (this.Menu_AutoResize.Checked)
+            {
+                this.Menu_AutoResize.Image = Properties.Resources.AutoFillOn;
+                this.Menu_AutoResize.ToolTipText = m_AutoResizeToolTip + " (on)";
+                this.Menu_AutoResize.Checked = true;
+                Form1_ResizeEnd(new object(), new EventArgs());
+            }
+            else
+            {
+                this.Menu_AutoResize.Image = Properties.Resources.AutoFillOff;
+                this.Menu_AutoResize.ToolTipText = m_AutoResizeToolTip + " (off)";
+                this.Menu_AutoResize.Checked = false;
+            }
         }
     }
 

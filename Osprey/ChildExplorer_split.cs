@@ -153,7 +153,8 @@ namespace CodeLessTraveled.Osprey
            
             this.child_window_count = this.child_window_count + 1;
 
-           //MessageBox.Show("window_count= " + child_window_count.ToString() );
+
+            //MessageBox.Show("window_count= " + child_window_count.ToString() );
         }
 
 
@@ -490,6 +491,12 @@ namespace CodeLessTraveled.Osprey
             //string x = "";
 
             //TS_TextboxUri.Width = this.Width - 200;
+        }
+
+        private void ChildExplorer_Shown(object sender, EventArgs e)
+        {
+            this.TS_TextboxUri.Focus();
+
         }
     }
 
