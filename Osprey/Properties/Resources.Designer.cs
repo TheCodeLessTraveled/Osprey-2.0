@@ -73,9 +73,49 @@ namespace CodeLessTraveled.Osprey.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AutoFillOff {
+            get {
+                object obj = ResourceManager.GetObject("AutoFillOff", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AutoFillOn {
+            get {
+                object obj = ResourceManager.GetObject("AutoFillOn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap base_exclamationmark_32 {
             get {
                 object obj = ResourceManager.GetObject("base_exclamationmark_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CheckBoxChecked {
+            get {
+                object obj = ResourceManager.GetObject("CheckBoxChecked", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CheckBoxUnchecked {
+            get {
+                object obj = ResourceManager.GetObject("CheckBoxUnchecked", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
