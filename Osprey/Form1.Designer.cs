@@ -161,6 +161,7 @@
             this.Menu_File_NewDataFile.AutoSize = false;
             this.Menu_File_NewDataFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_File_NewDataFile_TextBox});
+            this.Menu_File_NewDataFile.Image = global::CodeLessTraveled.Osprey.Properties.Resources.XMLFileHS;
             this.Menu_File_NewDataFile.Name = "Menu_File_NewDataFile";
             this.Menu_File_NewDataFile.Size = new System.Drawing.Size(140, 30);
             this.Menu_File_NewDataFile.Text = "Data File";
@@ -178,6 +179,7 @@
             this.Menu_File_NewFolderGroup.AutoSize = false;
             this.Menu_File_NewFolderGroup.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_File_NewFolderGroup_Textbox});
+            this.Menu_File_NewFolderGroup.Image = global::CodeLessTraveled.Osprey.Properties.Resources.NewFolderGroup;
             this.Menu_File_NewFolderGroup.Name = "Menu_File_NewFolderGroup";
             this.Menu_File_NewFolderGroup.Size = new System.Drawing.Size(140, 30);
             this.Menu_File_NewFolderGroup.Text = "Folder Group";
@@ -208,6 +210,7 @@
             this.Menu_File_OpenDataFile_CboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_File_OpenDataFile_CboBox.Name = "Menu_File_OpenDataFile_CboBox";
             this.Menu_File_OpenDataFile_CboBox.Size = new System.Drawing.Size(150, 23);
+            this.Menu_File_OpenDataFile_CboBox.ToolTipText = "Create a new XML data file";
             this.Menu_File_OpenDataFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_SelectedIndexChanged);
             this.Menu_File_OpenDataFile_CboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_OpenDataFile_CboBox_KeyDown);
             // 
@@ -331,7 +334,7 @@
             // 
             this.toolStripSeparator5.AutoSize = false;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(230, 2);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(228, 2);
             // 
             // Menu_Edit_OspreyDataXml_OpenLocation
             // 
@@ -340,23 +343,24 @@
             this.Menu_Edit_OspreyDataXml_OpenLocation.Name = "Menu_Edit_OspreyDataXml_OpenLocation";
             this.Menu_Edit_OspreyDataXml_OpenLocation.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.Menu_Edit_OspreyDataXml_OpenLocation.Size = new System.Drawing.Size(230, 30);
-            this.Menu_Edit_OspreyDataXml_OpenLocation.Text = "Osprey Data XML File";
-            this.Menu_Edit_OspreyDataXml_OpenLocation.ToolTipText = "Navigate to the data file folder.";
+            this.Menu_Edit_OspreyDataXml_OpenLocation.Text = "XML Data Repository";
+            this.Menu_Edit_OspreyDataXml_OpenLocation.ToolTipText = "Navigate to the Xml repository";
             this.Menu_Edit_OspreyDataXml_OpenLocation.Click += new System.EventHandler(this.Menu_Edit_OspreyDataXml_OpenLocation_Click_1);
             // 
             // Menu_Edit_Config
             // 
             this.Menu_Edit_Config.Image = global::CodeLessTraveled.Osprey.Properties.Resources.gear_32xMD;
             this.Menu_Edit_Config.Name = "Menu_Edit_Config";
-            this.Menu_Edit_Config.Size = new System.Drawing.Size(233, 26);
+            this.Menu_Edit_Config.Size = new System.Drawing.Size(231, 26);
             this.Menu_Edit_Config.Text = "Configuration";
             this.Menu_Edit_Config.Click += new System.EventHandler(this.Menu_Edit_Config_Click_1);
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(233, 26);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
             this.testToolStripMenuItem.Text = "Test";
+            this.testToolStripMenuItem.Visible = false;
             // 
             // Menu_View
             // 
@@ -489,6 +493,7 @@
             // Menu_FolderGroup_ComboBox_0
             // 
             this.Menu_FolderGroup_ComboBox_0.AutoSize = false;
+            this.Menu_FolderGroup_ComboBox_0.AutoToolTip = true;
             this.Menu_FolderGroup_ComboBox_0.BackColor = System.Drawing.Color.White;
             this.Menu_FolderGroup_ComboBox_0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_FolderGroup_ComboBox_0.Name = "Menu_FolderGroup_ComboBox_0";
@@ -502,8 +507,7 @@
             this.Menu_AddChildExplorer.Image = ((System.Drawing.Image)(resources.GetObject("Menu_AddChildExplorer.Image")));
             this.Menu_AddChildExplorer.Name = "Menu_AddChildExplorer";
             this.Menu_AddChildExplorer.Size = new System.Drawing.Size(32, 32);
-            this.Menu_AddChildExplorer.Text = "toolStripMenuItem3";
-            this.Menu_AddChildExplorer.ToolTipText = "Navigate to add a child folder or drag a folder onto the main grey area.";
+            this.Menu_AddChildExplorer.ToolTipText = "Add additional explorer window.";
             this.Menu_AddChildExplorer.Click += new System.EventHandler(this.Menu_File_NewFileExplorer_Click);
             // 
             // Menu_Save
@@ -513,7 +517,7 @@
             this.Menu_Save.Name = "Menu_Save";
             this.Menu_Save.Size = new System.Drawing.Size(32, 32);
             this.Menu_Save.Text = "Menu_Save";
-            this.Menu_Save.ToolTipText = "Save all settings from the child settings to the folder group settings.";
+            this.Menu_Save.ToolTipText = "Save group";
             this.Menu_Save.Click += new System.EventHandler(this.Menu_File_Save_Click_1);
             // 
             // Menu_Refresh
@@ -523,6 +527,7 @@
             this.Menu_Refresh.Name = "Menu_Refresh";
             this.Menu_Refresh.Size = new System.Drawing.Size(32, 32);
             this.Menu_Refresh.Text = "toolStripMenuItem3";
+            this.Menu_Refresh.ToolTipText = "Refresh explore windows";
             this.Menu_Refresh.Click += new System.EventHandler(this.Menu_Refresh_Click);
             // 
             // Menu_AutoResize
@@ -533,9 +538,10 @@
             this.Menu_AutoResize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.Menu_AutoResize.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.Menu_AutoResize.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.Menu_AutoResize.Image = global::CodeLessTraveled.Osprey.Properties.Resources.AutoFillOn;
             this.Menu_AutoResize.Name = "Menu_AutoResize";
             this.Menu_AutoResize.Size = new System.Drawing.Size(24, 24);
-            this.Menu_AutoResize.ToolTipText = "Dynamically auto size child windows";
+            this.Menu_AutoResize.ToolTipText = "Auto resize explorer windows";
             this.Menu_AutoResize.Click += new System.EventHandler(this.Menu_AutoResize_Click);
             // 
             // statusStrip1
@@ -644,9 +650,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem Menu_View_Horizontal;
         private System.Windows.Forms.Timer Timer_LoadChildWindows;
-        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Menu_Refresh;
         private System.Windows.Forms.ToolStripMenuItem Menu_AutoResize;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
     }
 }
 

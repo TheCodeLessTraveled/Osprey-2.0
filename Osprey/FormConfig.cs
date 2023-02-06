@@ -202,21 +202,11 @@ namespace CodeLessTraveled.Osprey
             if (Cfg_UseDefaultColor_ChkBox.Checked == false)
             {
                 MDIParent.ChangeMenuStrip1BackColor(m_trans_Cfg_Color);
-
-                Cfg_UseDefaultColor_ChkBox.Checked = true;
             }
             else
             {
                 MDIParent.ChangeMenuStrip1BackColor(System.Drawing.SystemColors.Control);
-                //Cfg_UseDefaultColor_ChkBox.Checked = false;
             }
-
-
-
-
-
-
-
 
 
             ////////// DEFAULT path /////////////////////////////////////////////////////////////////////////
@@ -324,8 +314,9 @@ namespace CodeLessTraveled.Osprey
                 if (!System.IO.Directory.Exists(AltXmlRepoPath))
                 {
                     Cfg_Message_TextBox.ForeColor = Color.DarkRed;
-                    string repoMsg   = "Selecting a different folder for your XML files? Move your current XML files to your new location to make them available." + Environment.NewLine;
-                            repoMsg += "Close and reopen Osprey to load the new setting.";
+                    string repoMsg   =  "Are you selecting a custom path for your Xml repository? Be sure to move your current";
+                           repoMsg  +=  " Xml files to your new location to make them available." + Environment.NewLine;
+                           repoMsg  +=  "Restart Osprey to load the new Xml files.";
 
                     Cfg_Message_TextBox.Text = repoMsg ;
                 }
@@ -375,6 +366,15 @@ namespace CodeLessTraveled.Osprey
                 mi_LogEvents.Visible = false;
                 Properties.Settings.Default.LogEventsToFile = false;
             }
+        }
+
+        private void FormConfig_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ((Form1)this.MdiParent).Menu_Edit_Config_Enable(true);
+
+            
+            //MdiParent.Menu_Edit_Config.Enabled = true;
+
         }
     }
 }
