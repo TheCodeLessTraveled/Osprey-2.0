@@ -209,7 +209,7 @@
             this.Menu_File_OpenDataFile_CboBox.AutoSize = false;
             this.Menu_File_OpenDataFile_CboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Menu_File_OpenDataFile_CboBox.Name = "Menu_File_OpenDataFile_CboBox";
-            this.Menu_File_OpenDataFile_CboBox.Size = new System.Drawing.Size(150, 23);
+            this.Menu_File_OpenDataFile_CboBox.Size = new System.Drawing.Size(200, 23);
             this.Menu_File_OpenDataFile_CboBox.ToolTipText = "Create a new XML data file";
             this.Menu_File_OpenDataFile_CboBox.SelectedIndexChanged += new System.EventHandler(this.Menu_File_OpenDataFile_CboBox_SelectedIndexChanged);
             this.Menu_File_OpenDataFile_CboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_File_OpenDataFile_CboBox_KeyDown);
@@ -218,7 +218,7 @@
             // 
             this.toolStripSeparator7.AutoSize = false;
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(176, 10);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(181, 10);
             // 
             // Menu_File_Save
             // 
@@ -265,7 +265,7 @@
             // 
             this.toolStripSeparator2.AutoSize = false;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(176, 10);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 10);
             // 
             // Menu_File_Exit
             // 
