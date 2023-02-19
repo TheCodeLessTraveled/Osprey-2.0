@@ -102,9 +102,9 @@ namespace CodeLessTraveled.Osprey
             this.Cfg_UseDefPath_ChkBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Cfg_UseDefPath_ChkBox.Location = new System.Drawing.Point(105, 25);
             this.Cfg_UseDefPath_ChkBox.Name = "Cfg_UseDefPath_ChkBox";
-            this.Cfg_UseDefPath_ChkBox.Size = new System.Drawing.Size(107, 17);
+            this.Cfg_UseDefPath_ChkBox.Size = new System.Drawing.Size(148, 17);
             this.Cfg_UseDefPath_ChkBox.TabIndex = 5;
-            this.Cfg_UseDefPath_ChkBox.Text = "Use Default Path";
+            this.Cfg_UseDefPath_ChkBox.Text = "Use default Xml repository";
             this.Cfg_UseDefPath_ChkBox.UseVisualStyleBackColor = true;
             this.Cfg_UseDefPath_ChkBox.CheckedChanged += new System.EventHandler(this.Cfg_UseDefault_ChkBox_CheckedChanged);
             // 
@@ -142,12 +142,14 @@ namespace CodeLessTraveled.Osprey
             // Cfg_LogEvents_ChkBox
             // 
             this.Cfg_LogEvents_ChkBox.AutoSize = true;
+            this.Cfg_LogEvents_ChkBox.Enabled = false;
             this.Cfg_LogEvents_ChkBox.Location = new System.Drawing.Point(348, 100);
             this.Cfg_LogEvents_ChkBox.Name = "Cfg_LogEvents_ChkBox";
             this.Cfg_LogEvents_ChkBox.Size = new System.Drawing.Size(111, 17);
             this.Cfg_LogEvents_ChkBox.TabIndex = 9;
             this.Cfg_LogEvents_ChkBox.Text = "Log Events to File";
             this.Cfg_LogEvents_ChkBox.UseVisualStyleBackColor = true;
+            this.Cfg_LogEvents_ChkBox.Visible = false;
             this.Cfg_LogEvents_ChkBox.CheckedChanged += new System.EventHandler(this.Cfg_LogEvents_ChkBox_CheckedChanged);
             // 
             // FormConfig
@@ -155,6 +157,7 @@ namespace CodeLessTraveled.Osprey
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(663, 281);
+            this.ControlBox = false;
             this.Controls.Add(this.Cfg_LogEvents_ChkBox);
             this.Controls.Add(this.Cfg_MainMenuColor_Btn);
             this.Controls.Add(this.Cfg_UseDefaultColor_ChkBox);
@@ -168,6 +171,7 @@ namespace CodeLessTraveled.Osprey
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormConfig";
             this.Text = "Configuration";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormConfig_FormClosed);
             this.Load += new System.EventHandler(this.FormConfig_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

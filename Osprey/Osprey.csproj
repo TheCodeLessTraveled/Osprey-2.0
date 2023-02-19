@@ -216,6 +216,12 @@
   <ItemGroup>
     <None Include="Resources\AutoFillOn.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grid_Data_16xLG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XML.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
