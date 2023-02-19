@@ -1,6 +1,6 @@
 # Osprey-2.0 ![GitHub all releases](https://img.shields.io/github/downloads/TheCodeLessTraveled/Osprey-2.0/total?color=green)
 
-Osprey gives you a bird's eye view of all your folders in a single parent window. Create a tiled layout of your folder collection. Resize, minimize, and maximize as needed. Drag the entire layout to another screen. Organize windows one time and save. Create and save as many folder groups as needed and recall each group as needed.
+Osprey gives you a bird's eye view of all your folders in a single parent window. Create a tiled layout of your folder collection. Resize, minimize, and maximize as needed. Drag the entire layout to another screen. Organize windows one time and save. Create and save as many folder groups as needed and recall each group as needed. Osprey pins your File Explorer windows into one application window so you don't need to search the myriad of icons that clutter your taskbar. 
 
 <html>
 <Body>
@@ -8,16 +8,6 @@ Osprey gives you a bird's eye view of all your folders in a single parent window
 
 Thank you for installing Osprey. I hope this tool will help you organize your folder views and make your job easier. 
 <br/><br/>
-<!--
-	This is a simple application with a handfull of features. To get a quick sense of the user interface, look at the topic, "Main Menu" which will have a few pictures.
--->
-<h2>What is Osprey?</h2>
-Osprey gives you a bird's eye view of all your folders in a single parent window. Cascaded your folders or tile them. Drag the entire layout like a single window. <br/>
-Resize, minimize, and maximize as needed. Organize windows one time and save. No need to search your cluttered taskbar.
-<br/><br/> 
-If your job is like mine, you arrange your File Explore windows in a tiled layout to monitor and work on several folders. Throughout the day you'll search for and reposition <br/>
-them as other application windows overtake your screens.  Osprey pins your File Explorer windows into one application window so you only need to click <br/>
-Osprey among the myriad of taskbar of icons. 
 <ul>
 
 <li>
