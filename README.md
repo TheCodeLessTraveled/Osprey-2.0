@@ -1,6 +1,6 @@
 # Osprey-2.0 ![GitHub all releases](https://img.shields.io/github/downloads/TheCodeLessTraveled/Osprey-2.0/total?color=green)
 
-Osprey gives you a bird's eye view of all your folders in a single parent window.  Cascaded your windows or select a side-by-side view then drag the entire layout of folders like a single window. Resize, minimize, and maximize as needed. Organize windows one time and save. No need to search your cluttered taskbar.
+Osprey gives you a bird's eye view of all your folders in a single parent window. Create a tiled layout of your folder collection. Resize, minimize, and maximize as needed. Drag the entire layout to another screen. Organize windows one time and save. Create as many folder groups are you need and recall each group as needed.
 
 <html>
 <Body>
