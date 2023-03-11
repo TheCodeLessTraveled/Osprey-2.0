@@ -55,6 +55,7 @@
             this.Menu_Edit = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_RenameFolderGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_Rename_FG_Textbox = new System.Windows.Forms.ToolStripTextBox();
+            this.Menu_Edit_ChangeGroupColor = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_DeleteFolderGroup = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu_Edit_DeleteFolderGroup_DoDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
@@ -82,6 +83,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.Timer_LoadChildWindows = new System.Windows.Forms.Timer(this.components);
+            this.MainColorDialog = new System.Windows.Forms.ColorDialog();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -218,7 +220,7 @@
             // 
             this.toolStripSeparator7.AutoSize = false;
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(181, 10);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(176, 10);
             // 
             // Menu_File_Save
             // 
@@ -265,7 +267,7 @@
             // 
             this.toolStripSeparator2.AutoSize = false;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 10);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(176, 10);
             // 
             // Menu_File_Exit
             // 
@@ -280,6 +282,7 @@
             // 
             this.Menu_Edit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Menu_Edit_RenameFolderGroup,
+            this.Menu_Edit_ChangeGroupColor,
             this.Menu_Edit_DeleteFolderGroup,
             this.toolStripSeparator5,
             this.Menu_Edit_OspreyDataXml_OpenLocation,
@@ -309,6 +312,14 @@
             this.Menu_Edit_Rename_FG_Textbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_Rename_FG_Textbox_KeyDown);
             this.Menu_Edit_Rename_FG_Textbox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Menu_Edit_Rename_FG_Textbox_KeyUp);
             // 
+            // Menu_Edit_ChangeGroupColor
+            // 
+            this.Menu_Edit_ChangeGroupColor.Image = global::CodeLessTraveled.Osprey.Properties.Resources.Color_linecolor;
+            this.Menu_Edit_ChangeGroupColor.Name = "Menu_Edit_ChangeGroupColor";
+            this.Menu_Edit_ChangeGroupColor.Size = new System.Drawing.Size(236, 26);
+            this.Menu_Edit_ChangeGroupColor.Text = "Change This Group Color";
+            this.Menu_Edit_ChangeGroupColor.Click += new System.EventHandler(this.Menu_Edit_ChangeGroupColor_Click);
+            // 
             // Menu_Edit_DeleteFolderGroup
             // 
             this.Menu_Edit_DeleteFolderGroup.AutoSize = false;
@@ -334,7 +345,7 @@
             // 
             this.toolStripSeparator5.AutoSize = false;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(228, 2);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(233, 2);
             // 
             // Menu_Edit_OspreyDataXml_OpenLocation
             // 
@@ -343,7 +354,7 @@
             this.Menu_Edit_OspreyDataXml_OpenLocation.Name = "Menu_Edit_OspreyDataXml_OpenLocation";
             this.Menu_Edit_OspreyDataXml_OpenLocation.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.Menu_Edit_OspreyDataXml_OpenLocation.Size = new System.Drawing.Size(230, 30);
-            this.Menu_Edit_OspreyDataXml_OpenLocation.Text = "XML Data Repository";
+            this.Menu_Edit_OspreyDataXml_OpenLocation.Text = "Open XML Repository";
             this.Menu_Edit_OspreyDataXml_OpenLocation.ToolTipText = "Navigate to the Xml repository";
             this.Menu_Edit_OspreyDataXml_OpenLocation.Click += new System.EventHandler(this.Menu_Edit_OspreyDataXml_OpenLocation_Click_1);
             // 
@@ -351,14 +362,14 @@
             // 
             this.Menu_Edit_Config.Image = global::CodeLessTraveled.Osprey.Properties.Resources.gear_32xMD;
             this.Menu_Edit_Config.Name = "Menu_Edit_Config";
-            this.Menu_Edit_Config.Size = new System.Drawing.Size(231, 26);
+            this.Menu_Edit_Config.Size = new System.Drawing.Size(236, 26);
             this.Menu_Edit_Config.Text = "Configuration";
             this.Menu_Edit_Config.Click += new System.EventHandler(this.Menu_Edit_Config_Click_1);
             // 
             // testToolStripMenuItem
             // 
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
-            this.testToolStripMenuItem.Size = new System.Drawing.Size(231, 26);
+            this.testToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
             this.testToolStripMenuItem.Text = "Test";
             this.testToolStripMenuItem.Visible = false;
             // 
@@ -653,6 +664,8 @@
         private System.Windows.Forms.ToolStripMenuItem Menu_Refresh;
         private System.Windows.Forms.ToolStripMenuItem Menu_AutoResize;
         private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Menu_Edit_ChangeGroupColor;
+        private System.Windows.Forms.ColorDialog MainColorDialog;
     }
 }
 

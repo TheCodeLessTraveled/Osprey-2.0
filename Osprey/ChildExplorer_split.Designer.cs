@@ -218,12 +218,13 @@
             // 
             // Opt_Color_Button
             // 
+            this.Opt_Color_Button.BackgroundImage = global::CodeLessTraveled.Osprey.Properties.Resources.Color_linecolor;
+            this.Opt_Color_Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.Opt_Color_Button.Enabled = false;
             this.Opt_Color_Button.Location = new System.Drawing.Point(314, 59);
             this.Opt_Color_Button.Name = "Opt_Color_Button";
-            this.Opt_Color_Button.Size = new System.Drawing.Size(74, 23);
+            this.Opt_Color_Button.Size = new System.Drawing.Size(28, 23);
             this.Opt_Color_Button.TabIndex = 3;
-            this.Opt_Color_Button.Text = "Pick a Color";
             this.Opt_Color_Button.UseVisualStyleBackColor = true;
             this.Opt_Color_Button.Click += new System.EventHandler(this.Opt_Color_Button_Click);
             // 
@@ -352,6 +353,7 @@
             // 
             this.TS_TextboxUri.AutoSize = false;
             this.TS_TextboxUri.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TS_TextboxUri.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.TS_TextboxUri.Margin = new System.Windows.Forms.Padding(0);
             this.TS_TextboxUri.Name = "TS_TextboxUri";
             this.TS_TextboxUri.Size = new System.Drawing.Size(200, 23);

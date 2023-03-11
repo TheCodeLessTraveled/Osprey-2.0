@@ -83,6 +83,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChildExplorer_split.cs">
@@ -221,6 +222,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\XML.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ColorWheel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Color_linecolor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

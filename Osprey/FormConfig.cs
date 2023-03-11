@@ -17,6 +17,7 @@ namespace CodeLessTraveled.Osprey
         private bool m_trans_Cfg_XmlRep_TextBox_Enabled;
         private string m_trans_Cfg_Message_Textbox_Value;
         private bool m_restore_val_Cfg_UseDefPath_Chkbox;
+        private SystemColors m_DefaultXmlFileColor;
 
         private System.Drawing.Color m_trans_Cfg_Color;
         private bool m_trans_cfg_ColorButton_Enabled;
@@ -25,27 +26,43 @@ namespace CodeLessTraveled.Osprey
         private Form m_ParentMDI;
         private int m_fileColorArgb = 0;
 
+        private int m_Top = -1;
+        private int m_Left = -1;
+
         public int FileColorArgb
             {   get{ return m_fileColorArgb; }
                 set{ m_fileColorArgb = value; }
             }
-        //public FormConfig(MDI ParentMDI)
+        public bool Use_Default_FileColor
+        {
+            get { return Cfg_UseDefaultColor_ChkBox.Checked; }
+            set { Cfg_UseDefaultColor_ChkBox.Checked = value; }
+        }
+
+        //public int Top
         //{
-        //    m_ParentMDI = ParentMDI;
-
-        //  // m_Is_Use_Cfg_Default = UseDefaultDataFilePath;
-
-        //    //////////// temp test //////////////////////
-        //    //m_Is_Use_Cfg_Default = true;
-        //    /////////////////////////////////////////////
-        //    InitializeComponent();
+        //    get { return m_Top; }
+        //    set { m_Top = value; }
+        //}
+        //public int Left
+        //{
+        //    get { return m_Left; }
+        //    set { m_Left = value; }
         //}
 
+
+        public int LogEvents
+        {
+            get { return m_fileColorArgb; }
+            set { m_fileColorArgb = value; }
+        }
 
 
         public FormConfig()
         {
             InitializeComponent();
+            var DefaultXmlFileColor =  SystemColors.Control;
+
         }
 
        
@@ -81,7 +98,7 @@ namespace CodeLessTraveled.Osprey
                 else 
                 {
                     Cfg_UseDefaultColor_ChkBox.Checked  = false;
-                    Cfg_ColorDialog_MainMenu.Color      = System.Drawing.Color.FromArgb(m_fileColorArgb);
+                    Cfg_ColorDialog_FileColor.Color      = System.Drawing.Color.FromArgb(m_fileColorArgb);
                     Cfg_MainMenuColor_Btn.Enabled       = true;
                 }
 
@@ -175,40 +192,19 @@ namespace CodeLessTraveled.Osprey
             }
         }
 
-        private void cfg_XmlRep_TextBox_TextChanged(object sender, EventArgs e)
-        {
 
-        }
 
         private void cfg_Save_Button_Click(object sender, EventArgs e)
         {
-            ////////// Default Color ////////////////////////////////////////////////////////////////////////
-
-            /***********************************************************************************************************************************
-                        if (Cfg_UseDefaultColor_ChkBox.Checked == false)
-                        {
-                            m_trans_Cfg_Color = Cfg_ColorDialog_MainMenu.Color;
-
-                            Properties.Settings.Default.MainMenuColor = Cfg_ColorDialog_MainMenu.Color;
-                        }
-                        else
-                        {
-                            Properties.Settings.Default.MainMenuColor = System.Drawing.SystemColors.Control;
-                        }
-            *************************************************************************************************************************************/
-
-            Form1 MDIParent = (Form1)this.MdiParent;
-
+            ////////// Evaluate for default File Color  //////////////////////////////////////////////////////
             if (Cfg_UseDefaultColor_ChkBox.Checked == false)
             {
-                MDIParent.ChangeMenuStrip1BackColor(m_trans_Cfg_Color);
+                this.FileColorArgb = m_trans_Cfg_Color.ToArgb();
             }
             else
             {
-                MDIParent.ChangeMenuStrip1BackColor(System.Drawing.SystemColors.Control);
+                this.FileColorArgb = System.Drawing.SystemColors.Control.ToArgb();
             }
-
-
             ////////// DEFAULT path /////////////////////////////////////////////////////////////////////////
             if (Cfg_UseDefPath_ChkBox.Checked == false)
             {   
@@ -241,11 +237,10 @@ namespace CodeLessTraveled.Osprey
 
                 Properties.Settings.Default.AltXmlRepository = "";
             }
-
             ////////// Log events to file /////////////////////////////////////////////////////////////////// 
-            if (Cfg_LogEvents_ChkBox.Checked == true)
+            if (Cfg_LogEvents_ChkBox.Checked == false)
             {
-                Properties.Settings.Default.LogEventsToFile = true;
+                Properties.Settings.Default.LogEventsToFile = false;
             }
             else
             {
@@ -253,14 +248,15 @@ namespace CodeLessTraveled.Osprey
             }
           
             this.Close();
-
         }
+
+
 
         private void Cfg_UseDefaultColor_ChkBox_CheckedChanged(object sender, EventArgs e)
         {
             string x = "";
 
-            m_trans_Cfg_Color                     = Cfg_ColorDialog_MainMenu.Color;
+            m_trans_Cfg_Color                     = Cfg_ColorDialog_FileColor.Color;
             m_trans_cfg_ColorButton_Enabled       = Cfg_MainMenuColor_Btn.Enabled;
             m_restore_val_Cfg_UseDefColor_Chkbox  = !Cfg_UseDefaultColor_ChkBox.Checked;  // at this point we have a transition from one checked state to another.
                                                                                          // to capture the previous state i must apply a "not" logic.
@@ -268,6 +264,7 @@ namespace CodeLessTraveled.Osprey
             {
                 Cfg_MainMenuColor_Btn.Enabled = false;
                 m_trans_Cfg_Color = SystemColors.Control;
+
             }
             else
             {
@@ -276,6 +273,8 @@ namespace CodeLessTraveled.Osprey
 
         }
 
+        
+        
         private void Cfg_UseDefault_ChkBox_CheckedChanged(object sender, EventArgs e)
         {
             string x = "";
@@ -341,40 +340,58 @@ namespace CodeLessTraveled.Osprey
 
         private void Cfg_MainMenuColor_Btn_Click(object sender, EventArgs e)
         {
-            using (Cfg_ColorDialog_MainMenu)
+            using (Cfg_ColorDialog_FileColor)
             {
-                if (Cfg_ColorDialog_MainMenu.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (Cfg_ColorDialog_FileColor.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    m_trans_Cfg_Color = Cfg_ColorDialog_MainMenu.Color;
+                    m_trans_Cfg_Color = Cfg_ColorDialog_FileColor.Color;
                 }
             }
         }
 
         private void Cfg_LogEvents_ChkBox_CheckedChanged(object sender, EventArgs e)
         {
-            Form parentFrm = this.MdiParent;
-            MenuStrip menuStrip = (MenuStrip)ParentForm.Controls["menuStrip1"];
-            ToolStripMenuItem mi_LogEvents = (ToolStripMenuItem)menuStrip.Items["Menu_LogEvents"];
+            //Form parentFrm = this.MdiParent;
 
-            if (Cfg_LogEvents_ChkBox.Checked == true)
-            {
-                mi_LogEvents.Visible = true;
-                Properties.Settings.Default.LogEventsToFile = true;
-            }
-            else
-            {
-                mi_LogEvents.Visible = false;
-                Properties.Settings.Default.LogEventsToFile = false;
-            }
+            //MenuStrip menuStrip = (MenuStrip)ParentForm.Controls["menuStrip1"];
+            //ToolStripMenuItem mi_LogEvents = (ToolStripMenuItem)menuStrip.Items["Menu_LogEvents"];
+
+            //if (Cfg_LogEvents_ChkBox.Checked == true)
+            //{
+            //    mi_LogEvents.Visible = true;
+            //    Properties.Settings.Default.LogEventsToFile = true;
+            //}
+            //else
+            //{
+            //    mi_LogEvents.Visible = false;
+            //    Properties.Settings.Default.LogEventsToFile = false;
+            //}
         }
 
         private void FormConfig_FormClosed(object sender, FormClosedEventArgs e)
         {
-            ((Form1)this.MdiParent).Menu_Edit_Config_Enable(true);
+           // ((Form1)this.MdiParent).Menu_Edit_Config_Enable(true);
 
             
             //MdiParent.Menu_Edit_Config.Enabled = true;
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormConfig_Activated(object sender, EventArgs e)
+        {
+            //if (m_Top > -1) 
+            //{
+            //    this.Top = m_Top;
+            //}
+            //if (m_Left> -1) 
+            //{
+            //    this.m_Left = m_Left;
+            //}
         }
     }
 }
